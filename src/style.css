@@ -1,0 +1,365 @@
+body{
+    font-family: 幼圆;
+}
+.login_form {
+    width: 40%;
+    border-radius: 12px;
+    padding: 30px 40px 40px 40px;
+    box-shadow: #1890ff 0 0 20px;
+    height: 400px;
+    background-color: white;
+    opacity: 0.9;
+    /*-webkit-filter: blur(1px);*/
+}
+
+.login_input {
+    width: 100%;
+    margin: auto;
+    border-radius: 12px;
+    height: 40px;
+}
+
+.login_button {
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+}
+
+.main_background {
+    background: url("img/2.jpg") center no-repeat;
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.chat_background {
+    width: 920px;
+    height: 500px;
+    /*background-color: black;*/
+    /*background: url("img/shy.jpg") center no-repeat;*/
+    /*background-size: 100%;*/
+    /*filter:blur(5px);*/
+    opacity: 0.9;
+    border-radius: 12px;
+    box-shadow: #1890ff 0 0 10px;
+}
+
+.chatArea {
+    height: 380px;
+}
+
+.room-status {
+    text-align: center;
+    font-size: 13px;
+}
+
+.room-name {
+    margin-left: -30px;
+    user-select: none;
+}
+
+.messages {
+    padding: 5px 15px 10px;
+    font-size: 15px;
+    height: 380px;
+    overflow-y: auto;
+    margin: auto auto;
+    /*background-color: #dedede;*/
+}
+
+.messages::-webkit-scrollbar {
+    width: 5px;
+    height: 1px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    -webkit-box-shadow: inset 0 0 10px #d1d1d1;
+    background: #aaa;
+}
+
+.messages::-webkit-scrollbar-thumb:active {
+    background: #1890ff;
+}
+
+.messages::-webkit-scrollbar-track {
+    /*-webkit-box-shadow: inset 0 0 1px #1890ff;*/
+    border-radius: 12px;
+    background: #f1f1f1;
+}
+
+.one-message.system-message {
+    font-size: 13px;
+    color: #c1c1c1;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    user-select: none;
+}
+
+.one-message {
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+p {
+    margin-bottom: 5px;
+}
+
+.time {
+    color: #bbbbbb;
+    user-select: none;
+}
+
+.message-content {
+    color: rgba(0, 0, 0, 0.870588);
+    padding: 5px 10px;
+    margin: 0;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+    word-break: break-all;
+    border-radius: 10px;
+    display: inline-block;
+    background-color: white;
+    max-width: 60%;
+}
+
+.me {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.me .message-content {
+    background: #a2e563;
+}
+
+.input_box {
+    width: 85%;
+}
+
+.input_box input {
+    /*height: 32px;*/
+    /*line-height: 32px;*/
+}
+
+.send_button {
+    /*width: 44px;*/
+    /*height: 44px;*/
+    width: 15%;
+    /*background: url("img/发送.png") no-repeat center;*/
+    font-size: 26px;
+    line-height: 26px;
+    margin-left: 15px;
+}
+
+.chat_footer {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    user-select: none;
+}
+
+.footer {
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: #dedede 1px solid;
+    border-bottom-right-radius: 12px;
+}
+
+.button {
+    margin-left: 20px;
+    display: block;
+}
+
+.sider_avater {
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 140px;
+}
+
+.headportrait {
+    display: block;
+    width: 60px;
+    height: 60px;
+    background: url("img/shy.jpg") no-repeat;
+    background-size: 100%;
+    border-radius: 50%;
+}
+
+.sider_icon {
+    width: 70px;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    height: 320px;
+    /*background-color: black;*/
+    margin-top: 50px;
+}
+
+.sider_icon_item {
+    width: 25px;
+    height: 25px;
+    margin:25px auto;
+    /*background-color: green;*/
+    /*font-size: 25px;*/
+    /*line-height: 25px;*/
+    color: #e1e1e1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sider_icon .first_item{
+    margin: 0 auto;
+}
+
+.sider_icon_item button{
+    background-color: transparent;
+    border: none;
+    color: #f1f1f1;
+    opacity: 0.6;
+    font-size: 25px;
+    line-height: 25px;
+    /*font-weight: bold;*/
+}
+.sider_icon_item button:hover{
+    background-color: transparent;
+    color: white;
+    opacity: 1;
+}
+
+.sider_tools {
+    height: 510px;
+    background-color: #1890ff;
+    opacity: 0.8;
+    width: 70px;
+    border-bottom-left-radius: 12px;
+    border-top-left-radius: 12px;
+    float: left;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+}
+
+.sider_content {
+    height: 510px;
+    background-color: #54c3ff;
+    opacity: 0.8;
+    width: 280px;
+    float: right;
+    user-select: none;
+}
+
+.sider_search {
+    width: 280px;
+    height: 60px;
+    /*background-color: #f1f1f1;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search_box {
+    width: 250px;
+}
+
+.search_input {
+    width: 80%;
+}
+
+.search_input input {
+    border-radius: 14px;
+    border: #f1f1f1 1px solid;
+}
+
+.search_button {
+    float: right;
+    border: #f1f1f1 1px solid;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.sider_items {
+    width: 280px;
+    height: 90px;
+    background-color: #1faaff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.sider_item {
+    width: 250px;
+    height: 60px;
+    /*padding: 15px;*/
+    /*background-color: #f1f1f1;*/
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+
+}
+
+.sider_item_avater {
+    width: 50px;
+    height: 50px;
+    background: url("img/fat.jpg");
+    background-size: 100%;
+    border-radius: 50%;
+}
+
+.sider_item_content {
+    width: 180px;
+    height: 50px;
+    /*background-color: #a2e563;*/
+    margin-left: 15px;
+}
+
+.sider_item_content_nametime {
+    height: 16px;
+}
+
+.sider_item_content_nametime .name {
+    font-size: 14px;
+    margin: 2px 0;
+    font-weight: bold;
+    color: #f1f1f1;
+    float: left;
+}
+
+.sider_item_content_nametime .time {
+    font-size: 12px;
+    margin: 3px 0;
+    color: #f1f1f1;
+    float: right;
+}
+
+.pre_content {
+    height: 20px;
+    margin-top: 12px;
+    width: 160px;
+}
+
+.pre_content .content {
+    height: 20px;
+    width: 160px;
+    font-size: 12px;
+    color: #f1f1f1;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
