@@ -40,9 +40,9 @@ export default class ChatInput extends Component {
                 uid: this.state.myId,
                 username: this.state.myName,
                 message: message
-            }
+            };
             socket.emit('message', obj);
-            this.setState({message: ''})
+            this.setState({message: ''});
         }
         return false
     }

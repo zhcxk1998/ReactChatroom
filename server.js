@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
     host: '192.168.1.103',
     user: 'root',
     password: 'czk8379530',
-    database: 'test'
+    database: 'chatroom'
 });
 //------------------------------------------------------------------------
 var server = require('http').createServer(app);
@@ -21,7 +21,7 @@ var onlineCount = 0;
 io.on('connection', function (socket) {
     // 监听客户端的登陆
     socket.on('login', function (obj) {
-
+        console.log(obj);
         // 用户id设为socketid
         socket.id = obj.uid;
 
@@ -53,10 +53,26 @@ io.on('connection', function (socket) {
         }
     });
 
+    function generateTime() {
+        let hour = new Date().getHours(),
+            minute = new Date().getMinutes();
+        hour = (hour === 0) ? '00' : hour;
+        minute = (minute < 10) ? '0' + minute : minute;
+        return hour + ':' + minute;
+    }
     // 监听客户端发送的信息
     socket.on('message', function (obj) {
         io.emit('message', obj);
-        console.log(obj.username + "说:" + obj.message)
+        console.log(obj.username + "说:" + obj.message);
+        var action = obj.message;
+        var time = generateTime();
+        var type = 'chat';
+        var username = obj.username;
+        var info = [action, time, type, username];
+        console.log(info);
+        connection.query('insert into chatlog(action,time,type,username) values(?,?,?,?)', info, function (err, res) {
+            console.log('insert ok')
+        });
     })
 
 });
@@ -73,31 +89,72 @@ app.all('*', function (req, res, next) {
     next();
 });
 var info;
-var user;
-var pwd;
-app.post('/form', function (req, result) {
-    user = req.body.userName;
-    pwd = req.body.password;
+var username;
+var password;
+app.post('/regist', function (req, result) {
+
+    username = req.body.username;
+    password = req.body.password;
     info = [
-        req.body.userName, req.body.password
+        req.body.username, req.body.password
     ];
     console.log(info);
-    connection.query('insert into usertest(user,pwd) values(?,?)', info, function (err, res) {
+    connection.query('select * from userinfo where binary username="' + username + '"', function (err, res) {
+        if (err) console.log(err);
         console.log(res);
+        if (res.length === 0) {
+            connection.query('insert into userinfo(username,password) values(?,?)', info, function (err, res) {
+                console.log("insert ok");
+            });
+            return result.send([{"data": "registsuccess"}])
+        }
+        else {
+            return result.send([{"data": "userexist"}])
+        }
+    });
+});
+
+app.post('/login', function (req, result) {
+    username = req.body.username;
+    password = req.body.password;
+    info = [
+        req.body.username, req.body.password
+    ];
+    console.log(info);
+    connection.query('select password from userinfo where binary username="' + username + '"', function (err, res) {
+        console.log(res);
+        if (err) throw err;
+        try {
+            if (res[0].password !== password) return result.send([{"data": "wrongpassword"}]);
+            else return result.send([{"data": "loginsuccess"}]);
+        }
+        catch (err) {
+            return result.send([{"data": "notexist"}]);
+        }
+    });
+})
+;
+
+// app.post('/chatlog', function (req, result) {
+//     var action = req.body.action;
+//     var time = req.body.time;
+//     var type = req.body.type;
+//     var username = req.body.username;
+//     console.log(action, time, type, username);
+//     var info = [action, time, type, username];
+//     connection.query('insert into chatlog(action,time,type,username) values(?,?,?,?)', info, function (err, res) {
+//         console.log(res)
+//     })
+// });
+
+app.get('/chathistory', function (req, result) {
+    connection.query('select * from chatlog', function (err, res) {
+        res=JSON.stringify(res);
+        res=JSON.parse(res);
+        result.status(200);
+        result.json(res);
     })
 });
-var data;
-connection.query('select * from usertest', function (err, res) {
-    res = JSON.stringify(res);
-    res = JSON.parse(res);
-    data = res;
-});
-
-app.get('/formitem', function (req, res) {
-    res.status(200);
-    res.json(data);
-});
-
 
 server.listen(4000, function () {
     var host = server.address().address;

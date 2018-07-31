@@ -9,7 +9,6 @@ const {Header, Footer, Sider, Content} = Layout;
 
 export default class ChatRoom extends Component {
 
-
     constructor(props) {
         super(props);
         const socket = this.props.socket;
@@ -27,6 +26,23 @@ export default class ChatRoom extends Component {
             latesttime: ''
         };
         this.ready();
+    }
+
+    componentDidMount() {
+        fetch('http://192.168.1.103:4000/chathistory')
+            .then(res => {
+                if (res.ok) {
+                    res.json()
+                        .then(data => {
+                            this.setState({
+                                messages: data,
+                                latestmessage: data[data.length - 1].username + "：" + data[data.length - 1].action,
+                                latesttime: data[data.length - 1].time
+                            })
+                        })
+                }
+            })
+        console.log(this.state.messages, 'first load')
     }
 
     // 处理在线人数及用户名
@@ -54,11 +70,17 @@ export default class ChatRoom extends Component {
         const newMsg = {
             type: 'system',
             username: o.user.username,
-            uid: o.user.uid,
             action: action,
-            msgId: this.generateMsgId(),
             time: this.generateTime()
         }
+        // fetch('http://192.168.1.103:4000/chatlog', {
+        //     method: 'POST',
+        //     mode: 'cors',
+        //     headers: {
+        //         "Content-Type": "application/x-www-form-urlencoded"
+        //     },
+        //     body: "action=" + newMsg.action + "&time=" + newMsg.time + "&type=" + newMsg.type + "&username=" + newMsg.username,
+        // })
         messages = messages.concat(newMsg)
         this.setState({
             onlineCount: o.onlineCount,
@@ -74,18 +96,24 @@ export default class ChatRoom extends Component {
         const newMsg = {
             type: 'chat',
             username: obj.username,
-            uid: obj.uid,
             action: obj.message,
-            msgId: this.generateMsgId(),
             time: this.generateTime()
         };
+        // fetch('http://192.168.1.103:4000/chatlog', {
+        //     method: 'POST',
+        //     mode: 'cors',
+        //     headers: {
+        //         "Content-Type": "application/x-www-form-urlencoded"
+        //     },
+        //     body: "action=" + newMsg.action + "&time=" + newMsg.time + "&type=" + newMsg.type + "&username=" + newMsg.username,
+        // })
         messages = messages.concat(newMsg);
         this.setState({
             messages: messages,
             latestmessage: obj.username + "：" + obj.message,
             latesttime: this.generateTime()
         })
-        console.log(this.state.messages)
+        // console.log(this.state.messages)
     }
 
     // 生成时间
@@ -111,7 +139,16 @@ export default class ChatRoom extends Component {
             this.updateSysMsg(o, 'logout');
         })
         socket.on('message', (obj) => {
-            this.updateMsg(obj)
+            this.updateMsg(obj);
+            var div=document.getElementById('messages');
+            var height=div.scrollTop;
+            if (obj.username === this.state.username) {
+                div.scrollTop = div.scrollHeight;
+                height=div.scrollHeight;
+            }
+            else {
+                div.scrollTop=height;
+            }
         })
     }
 
@@ -122,9 +159,6 @@ export default class ChatRoom extends Component {
                     <Layout style={{borderRadius: 12}}>
                         <Sider width={350} theme='light' style={{borderTopLeftRadius: 12, borderBottomLeftRadius: 12}}>
                             <div className='sider_tools'>
-                                {/*<div className="button">*/}
-                                {/*<button onClick={this.handleLogout}>登出</button>*/}
-                                {/*</div>*/}
                                 <div className='sider_avater'>
                                     <div className='headportrait'></div>
                                 </div>
@@ -145,7 +179,8 @@ export default class ChatRoom extends Component {
                                         <Button shape={'circle'} type={'primary'} icon={'setting'}/>
                                     </div>
                                     <div className='sider_icon_item'>
-                                        <Button shape={'circle'} type={'primary'} icon={'poweroff'} onClick={this.handleLogout}/>
+                                        <Button shape={'circle'} type={'primary'} icon={'poweroff'}
+                                                onClick={this.handleLogout}/>
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +197,7 @@ export default class ChatRoom extends Component {
                                         <div className='sider_item_avater'></div>
                                         <div className='sider_item_content'>
                                             <div className='sider_item_content_nametime'>
-                                                <p className='name'>BBの聊天室</p>
+                                                <p className='name'>肥宅の圣地</p>
                                                 <p className='time'>{this.state.latesttime}</p>
                                             </div>
                                             <div className='pre_content'>
@@ -176,13 +211,14 @@ export default class ChatRoom extends Component {
                         <Layout style={{borderBottomRightRadius: 12, borderTopRightRadius: 12}}>
                             <Header style={{backgroundColor: 'white', height: 60}}>
                                 <div className="room-name">
-                                    <h3>BBの聊天室</h3>
+                                    <h3>肥宅の圣地</h3>
                                     {/*<RoomStatus onlineCount={this.state.onlineCount} userhtml={this.state.userhtml}/>*/}
                                 </div>
                             </Header>
                             <Content>
                                 <div id='chatArea' className='chatArea' ref="chatArea">
-                                    <Messages messages={this.state.messages} myId={this.state.myId}/>
+                                    <Messages messages={this.state.messages} myId={this.state.myId}
+                                              username={this.state.username}/>
                                 </div>
                             </Content>
                             <Footer className='footer'>
