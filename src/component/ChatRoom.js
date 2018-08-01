@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import RoomStatus from './RoomStatus';
 import Messages from './Messages';
 import ChatInput from './ChatInput';
-import {Layout, Input, Icon, Button} from 'antd';
+import {Layout, Input, Icon, Button, Drawer} from 'antd';
 import 'antd/dist/antd.css';
+import $ from 'jquery';
 
 const {Header, Footer, Sider, Content} = Layout;
 
@@ -23,7 +24,8 @@ export default class ChatRoom extends Component {
             onlineCount: 0,
             userhtml: '',
             latestmessage: '',
-            latesttime: ''
+            latesttime: '',
+            visible: false
         };
         this.ready();
     }
@@ -39,10 +41,14 @@ export default class ChatRoom extends Component {
                                 latestmessage: data[data.length - 1].username + "：" + data[data.length - 1].action,
                                 latesttime: data[data.length - 1].time
                             })
+                            console.log(this.state.messages, 'first load')
+                            var div = document.getElementById('messages');
+                            div.scrollTop = div.scrollHeight;
                         })
+
                 }
             })
-        console.log(this.state.messages, 'first load')
+
     }
 
     // 处理在线人数及用户名
@@ -60,34 +66,29 @@ export default class ChatRoom extends Component {
     }
 
     // 生成消息id
-    generateMsgId() {
-        return new Date().getTime() + "" + Math.floor(Math.random() * 899 + 100);
-    }
+    // generateMsgId() {
+    //     return new Date().getTime() + "" + Math.floor(Math.random() * 899 + 100);
+    // }
 
     // 更新系统消息
     updateSysMsg(o, action) {
-        let messages = this.state.messages;
-        const newMsg = {
-            type: 'system',
-            username: o.user.username,
-            action: action,
-            time: this.generateTime()
+        if (o.user.uid) {
+            let messages = this.state.messages;
+            const newMsg = {
+                type: 'system',
+                username: o.user.username,
+                action: action,
+                time: this.generateTime()
+            }
+            messages = messages.concat(newMsg)
+            this.setState({
+                onlineCount: o.onlineCount,
+                onlineUsers: o.onlineUsers,
+                messages: messages,
+            });
+            this.handleUsers();
+            console.log(this.state.onlineCount, this.state.onlineUsers, "这是用户信息")
         }
-        // fetch('http://192.168.1.103:4000/chatlog', {
-        //     method: 'POST',
-        //     mode: 'cors',
-        //     headers: {
-        //         "Content-Type": "application/x-www-form-urlencoded"
-        //     },
-        //     body: "action=" + newMsg.action + "&time=" + newMsg.time + "&type=" + newMsg.type + "&username=" + newMsg.username,
-        // })
-        messages = messages.concat(newMsg)
-        this.setState({
-            onlineCount: o.onlineCount,
-            onlineUsers: o.onlineUsers,
-            messages: messages,
-        });
-        this.handleUsers();
     }
 
     // 发送新消息
@@ -99,21 +100,12 @@ export default class ChatRoom extends Component {
             action: obj.message,
             time: this.generateTime()
         };
-        // fetch('http://192.168.1.103:4000/chatlog', {
-        //     method: 'POST',
-        //     mode: 'cors',
-        //     headers: {
-        //         "Content-Type": "application/x-www-form-urlencoded"
-        //     },
-        //     body: "action=" + newMsg.action + "&time=" + newMsg.time + "&type=" + newMsg.type + "&username=" + newMsg.username,
-        // })
         messages = messages.concat(newMsg);
         this.setState({
             messages: messages,
             latestmessage: obj.username + "：" + obj.message,
             latesttime: this.generateTime()
         })
-        // console.log(this.state.messages)
     }
 
     // 生成时间
@@ -134,21 +126,33 @@ export default class ChatRoom extends Component {
         const socket = this.state.socket;
         socket.on('login', (o) => {
             this.updateSysMsg(o, 'login');
+            console.log(o, "这是o")
         })
         socket.on('logout', (o) => {
             this.updateSysMsg(o, 'logout');
         })
         socket.on('message', (obj) => {
             this.updateMsg(obj);
-            var div=document.getElementById('messages');
-            var height=div.scrollTop;
+            var div = document.getElementById('messages');
+            var height = div.scrollTop;
             if (obj.username === this.state.username) {
                 div.scrollTop = div.scrollHeight;
-                height=div.scrollHeight;
+                height = div.scrollHeight;
             }
             else {
-                div.scrollTop=height;
+                div.scrollTop = height;
             }
+        })
+    }
+
+    showDrawer = () => {
+        this.setState({
+            visible: true
+        })
+    }
+    onclose = () => {
+        this.setState({
+            visible: false
         })
     }
 
@@ -211,7 +215,15 @@ export default class ChatRoom extends Component {
                         <Layout style={{borderBottomRightRadius: 12, borderTopRightRadius: 12}}>
                             <Header style={{backgroundColor: 'white', height: 60}}>
                                 <div className="room-name">
-                                    <h3>肥宅の圣地</h3>
+                                    <p>肥宅の圣地</p>
+                                    <Button type={'default'} icon={'menu-fold'} onClick={this.showDrawer.bind(this)}/>
+                                    <div>
+                                        <Drawer style={{height: 510}} closable={false} title={'在线用户'}
+                                                visible={this.state.visible}
+                                                placement={'right'} onClose={this.onclose}>
+                                            <p>{this.state.userhtml}</p>
+                                        </Drawer>
+                                    </div>
                                     {/*<RoomStatus onlineCount={this.state.onlineCount} userhtml={this.state.userhtml}/>*/}
                                 </div>
                             </Header>

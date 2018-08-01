@@ -58,8 +58,26 @@ body{
 }
 
 .room-name {
-    margin-left: -30px;
+    margin-left: -50px;
+    width: 140%;
     user-select: none;
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    height: 60px;
+}
+.room-name p{
+    margin-left: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    float: left;
+    height: 60px;
+}
+.room-name button{
+    margin-left: 400px;
+    font-size: 18px;
+    color: #22aeff;
+    background-color: transparent;
 }
 
 .messages {
@@ -107,6 +125,7 @@ body{
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    margin: 0 5px;
 }
 
 p {
@@ -137,7 +156,8 @@ p {
 }
 
 .me .message-content {
-    background: #a2e563;
+    background: rgb(84, 195, 255);
+    color: white;
 }
 
 .input_box {

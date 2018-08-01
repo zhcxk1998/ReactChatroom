@@ -34,6 +34,7 @@ io.on('connection', function (socket) {
         // 向客户端发送登陆事件，同时发送在线用户、在线人数以及登陆用户
         io.emit('login', {onlineUsers: onlineUsers, onlineCount: onlineCount, user: obj});
         console.log(obj.username + '加入了群聊');
+        console.log(onlineCount,onlineUsers)
     });
 
     // 监听客户端的断开连接
