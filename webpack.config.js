@@ -25,7 +25,7 @@ module.exports = {
                 test: [/\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/, /\.ico$/],
                 loader: 'url-loader',
                 options: {
-                    limit: 10000, //1w字节以下大小的图片会自动转成base64
+                    limit: 10000000, //xxx字节以下大小的图片会自动转成base64
                 },
             },
             {
