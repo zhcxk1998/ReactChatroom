@@ -31,7 +31,7 @@ export default class ChatRoom extends Component {
     }
 
     componentDidMount() {
-        fetch('http://192.168.1.103:4000/chathistory')
+        fetch('http://192.168.1.104:4000/chathistory')
             .then(res => {
                 if (res.ok) {
                     res.json()
@@ -48,7 +48,11 @@ export default class ChatRoom extends Component {
 
                 }
             })
-
+        var str = 'Hello World!';
+        var enc = window.btoa(str);
+        var dec = window.atob(enc);
+        var res="Encode:"+enc+",Decode:"+dec;
+        console.log(res);
     }
 
     // 处理在线人数及用户名

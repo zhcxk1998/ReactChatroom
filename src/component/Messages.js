@@ -30,12 +30,33 @@ class Message extends Component {
                     className="time">&nbsp;{this.props.time}</span>
                 </div>
             )
-        } else {
+        } else if (this.props.isMe) {
             return (
-                <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
-                    <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
-                    <div className="message-content">{this.props.action}</div>
+                <div style={{display: 'flex'}}>
+                    <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
+                        <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
+                        <div className="message-content">{this.props.action}</div>
+                    </div>
+                    <div id="chat_avater"
+                         className={(this.props.isMe) ? 'myavater chat_avater' : 'other chat_avater'}></div>
                 </div>
+
+            )
+        }
+        else {
+            return (
+                <div style={{display: 'flex'}}>
+                    <div id="chat_avater"
+                         className={(this.props.isMe) ? 'myavater chat_avater' : 'other chat_avater'}></div>
+                    <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
+
+                        <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
+                        <div className="message-content">{this.props.action}</div>
+
+                    </div>
+
+                </div>
+
             )
         }
     }
