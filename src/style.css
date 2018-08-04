@@ -215,7 +215,7 @@ p {
     display: block;
     width: 60px;
     height: 60px;
-    background: url("img/shy.jpg") no-repeat;
+    /*background: url("img/shy.jpg") no-repeat;*/
     background-size: 100%;
     border-radius: 50%;
 }
@@ -392,7 +392,7 @@ p {
     /*background-color: green;*/
     float: left;
     margin-top: 16px;
-    background: url("img/shy.jpg") no-repeat center;
+    /*background: url("img/shy.jpg") no-repeat center;*/
     background-size: 100%;
     border-radius: 50%;
 }

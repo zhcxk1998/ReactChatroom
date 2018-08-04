@@ -133,20 +133,20 @@ app.post('/login', function (req, result) {
             return result.send([{"data": "notexist"}]);
         }
     });
-})
-;
+});
 
-// app.post('/chatlog', function (req, result) {
-//     var action = req.body.action;
-//     var time = req.body.time;
-//     var type = req.body.type;
-//     var username = req.body.username;
-//     console.log(action, time, type, username);
-//     var info = [action, time, type, username];
-//     connection.query('insert into chatlog(action,time,type,username) values(?,?,?,?)', info, function (err, res) {
-//         console.log(res)
-//     })
-// });
+app.post('/headportrait',function (req,result) {
+   // console.log(req.body.img);
+   return result.send([{"img":req.body.img}]);
+});
+app.get('/avater',function (req,result) {
+    connection.query('select * from userinfo',function (err,res) {
+        res=JSON.stringify(res);
+        res=JSON.parse(res);
+        result.status(200);
+        result.json(res);
+    })
+});
 
 app.get('/chathistory', function (req, result) {
     connection.query('select * from chatlog', function (err, res) {

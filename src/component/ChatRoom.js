@@ -36,6 +36,7 @@ export default class ChatRoom extends Component {
                 if (res.ok) {
                     res.json()
                         .then(data => {
+                            // console.log(data)
                             this.setState({
                                 messages: data,
                                 latestmessage: data[data.length - 1].username + "：" + data[data.length - 1].action,
@@ -48,11 +49,33 @@ export default class ChatRoom extends Component {
 
                 }
             })
-        var str = 'Hello World!';
-        var enc = window.btoa(str);
+        var s = 'Hello World!';
+        var enc = window.btoa(s);
         var dec = window.atob(enc);
-        var res="Encode:"+enc+",Decode:"+dec;
+        var res = "Encode:" + enc + ",Decode:" + dec;
         console.log(res);
+        // console.log(window.getComputedStyle(document.getElementById('headportrait'),null)['background'])
+        // console.log(window.getComputedStyle(document.getElementById('sider_item_avater'),null)['background'])
+        // document.getElementById('chat_avater').style.backgroundImage='url("")'
+
+    }
+
+    componentDidUpdate() {
+        var str = window.getComputedStyle(document.getElementById('sider_item_avater'), null)['background'];
+        var base64 = str.split('("')[1].split('")')[0]
+        fetch('http://192.168.1.104:4000/headportrait', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "img=" + base64,
+        })
+            .then(result=>result.json())
+            .then(result=>{
+                // console.log(result[0].img)
+            })
+        // document.getElementById('headportrait').style.backgroundImage = 'url("' + base64 + '")';
     }
 
     // 处理在线人数及用户名
@@ -162,13 +185,13 @@ export default class ChatRoom extends Component {
 
     render() {
         return (
-            <div className="main_background">
+            <div id='main_background' className="main_background">
                 <div className="chat_background">
                     <Layout style={{borderRadius: 12}}>
                         <Sider width={350} theme='light' style={{borderTopLeftRadius: 12, borderBottomLeftRadius: 12}}>
                             <div className='sider_tools'>
                                 <div className='sider_avater'>
-                                    <div className='headportrait'></div>
+                                    <div id='headportrait' className='headportrait'></div>
                                 </div>
                                 <div className='sider_icon'>
                                     <div className='sider_icon_item first_item'>
@@ -202,7 +225,7 @@ export default class ChatRoom extends Component {
                                 </div>
                                 <div className='sider_items'>
                                     <div className='sider_item'>
-                                        <div className='sider_item_avater'></div>
+                                        <div id='sider_item_avater' className='sider_item_avater'></div>
                                         <div className='sider_item_content'>
                                             <div className='sider_item_content_nametime'>
                                                 <p className='name'>肥宅の圣地</p>
