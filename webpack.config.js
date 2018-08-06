@@ -13,7 +13,6 @@ module.exports = {
             template: './public/index.html', //指定模板路径
             filename: 'index.html', //指定文件名
         })
-
     ],
     module: {
         loaders: [ //配置加载器
@@ -25,7 +24,7 @@ module.exports = {
                 test: [/\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/, /\.ico$/],
                 loader: 'url-loader',
                 options: {
-                    limit: 10000000, //xxx字节以下大小的图片会自动转成base64
+                    limit: 1000000, //xxx字节以下大小的图片会自动转成base64
                 },
             },
             {

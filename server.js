@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-    host: '192.168.1.104',
+    host: '192.168.1.105',
     user: 'root',
     password: 'czk8379530',
     database: 'chatroom'
@@ -34,7 +34,7 @@ io.on('connection', function (socket) {
         // 向客户端发送登陆事件，同时发送在线用户、在线人数以及登陆用户
         io.emit('login', {onlineUsers: onlineUsers, onlineCount: onlineCount, user: obj});
         console.log(obj.username + '加入了群聊');
-        console.log(onlineCount,onlineUsers)
+        console.log(onlineCount, onlineUsers)
     });
 
     // 监听客户端的断开连接
@@ -61,6 +61,7 @@ io.on('connection', function (socket) {
         minute = (minute < 10) ? '0' + minute : minute;
         return hour + ':' + minute;
     }
+
     // 监听客户端发送的信息
     socket.on('message', function (obj) {
         io.emit('message', obj);
@@ -135,14 +136,23 @@ app.post('/login', function (req, result) {
     });
 });
 
-app.post('/headportrait',function (req,result) {
-   // console.log(req.body.img);
-   return result.send([{"img":req.body.img}]);
+app.post('/headportrait', function (req, result) {
+    console.log(req.body.img);
+
+    return result.send([{"img": req.body.img}]);
 });
-app.get('/avater',function (req,result) {
-    connection.query('select * from userinfo',function (err,res) {
-        res=JSON.stringify(res);
-        res=JSON.parse(res);
+
+app.post('/update_headportrait', function (req, result) {
+    console.log(req.body.img);
+    console.log(req.body.username);
+    connection.query('UPDATE userinfo SET img="'+req.body.img+'" WHERE username="'+req.body.username+'"')
+    return result.send([{"img": req.body.img}]);
+});
+
+app.get('/avater', function (req, result) {
+    connection.query('select * from userinfo', function (err, res) {
+        res = JSON.stringify(res);
+        res = JSON.parse(res);
         result.status(200);
         result.json(res);
     })
@@ -150,8 +160,8 @@ app.get('/avater',function (req,result) {
 
 app.get('/chathistory', function (req, result) {
     connection.query('select * from chatlog', function (err, res) {
-        res=JSON.stringify(res);
-        res=JSON.parse(res);
+        res = JSON.stringify(res);
+        res = JSON.parse(res);
         result.status(200);
         result.json(res);
     })

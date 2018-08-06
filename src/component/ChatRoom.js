@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import RoomStatus from './RoomStatus';
 import Messages from './Messages';
 import ChatInput from './ChatInput';
-import {Layout, Input, Icon, Button, Drawer} from 'antd';
+import {Layout, Input, Icon, Button, Drawer, Modal} from 'antd';
 import 'antd/dist/antd.css';
 import $ from 'jquery';
 
@@ -25,13 +25,15 @@ export default class ChatRoom extends Component {
             userhtml: '',
             latestmessage: '',
             latesttime: '',
-            visible: false
+            visible: false,
+            headportrait_visible: false,
+            headportrait_url: ''
         };
         this.ready();
     }
 
     componentDidMount() {
-        fetch('http://192.168.1.104:4000/chathistory')
+        fetch('http://192.168.1.105:4000/chathistory')
             .then(res => {
                 if (res.ok) {
                     res.json()
@@ -49,21 +51,35 @@ export default class ChatRoom extends Component {
 
                 }
             })
-        var s = 'Hello World!';
-        var enc = window.btoa(s);
-        var dec = window.atob(enc);
-        var res = "Encode:" + enc + ",Decode:" + dec;
-        console.log(res);
-        // console.log(window.getComputedStyle(document.getElementById('headportrait'),null)['background'])
-        // console.log(window.getComputedStyle(document.getElementById('sider_item_avater'),null)['background'])
-        // document.getElementById('chat_avater').style.backgroundImage='url("")'
+        // var s = 'Hello World!';
+        // var enc = window.btoa(s);
+        // var dec = window.atob(enc);
+        // var res = "Encode:" + enc + ",Decode:" + dec;
 
+    }
+
+    showModal = () => {
+        this.setState({
+            headportrait_visible: true,
+            headportrait_url: document.getElementById('headportrait').style.backgroundImage
+        });
+    }
+    handleOk = (e) => {
+        this.setState({
+            headportrait_visible: false,
+        });
+    }
+
+    handleCancel = (e) => {
+        this.setState({
+            headportrait_visible: false,
+        });
     }
 
     componentDidUpdate() {
         var str = window.getComputedStyle(document.getElementById('sider_item_avater'), null)['background'];
         var base64 = str.split('("')[1].split('")')[0]
-        fetch('http://192.168.1.104:4000/headportrait', {
+        fetch('http://192.168.1.105:4000/headportrait', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -71,8 +87,8 @@ export default class ChatRoom extends Component {
             },
             body: "img=" + base64,
         })
-            .then(result=>result.json())
-            .then(result=>{
+            .then(result => result.json())
+            .then(result => {
                 // console.log(result[0].img)
             })
         // document.getElementById('headportrait').style.backgroundImage = 'url("' + base64 + '")';
@@ -183,6 +199,39 @@ export default class ChatRoom extends Component {
         })
     }
 
+    select_headportrait = () => {
+        document.getElementById('change_headportrait').click();
+    }
+
+
+    get_base64 = () => {
+        const username = this.state.username;
+        // console.log('change~')
+        var file = document.getElementById('change_headportrait').files[0];
+        // console.log(file)
+        var r = new FileReader();
+        // console.log(r)
+        r.onload = function () {
+            document.getElementById('headportrait').style.backgroundImage = "url('" + r.result + "')";
+            document.getElementById('select_headportrait').style.backgroundImage = "url('" + r.result + "')";
+            var list = document.getElementsByClassName('myavater chat_avater');
+            for (var i = 0; i < list.length; i++) {
+                list[i].style.backgroundImage = "url('" + r.result + "')";
+                // list[i].style.backgroundImage = '';
+            }
+
+            fetch('http://192.168.1.105:4000/update_headportrait', {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "img=" + r.result+"&username="+username,
+            })
+        }
+        r.readAsDataURL(file);
+    }
+
     render() {
         return (
             <div id='main_background' className="main_background">
@@ -191,7 +240,22 @@ export default class ChatRoom extends Component {
                         <Sider width={350} theme='light' style={{borderTopLeftRadius: 12, borderBottomLeftRadius: 12}}>
                             <div className='sider_tools'>
                                 <div className='sider_avater'>
-                                    <div id='headportrait' className='headportrait'></div>
+                                    <button id='headportrait' className='headportrait'
+                                            onClick={this.showModal}></button>
+                                    <Modal
+                                        title="个人信息"
+                                        visible={this.state.headportrait_visible}
+                                        onOk={this.handleOk}
+                                        onCancel={this.handleCancel}
+                                    >
+                                        <h4>修改头像</h4>
+                                        <button id='select_headportrait'
+                                                style={{backgroundImage: this.state.headportrait_url}}
+                                                className='select_headportrait'
+                                                onClick={this.select_headportrait}></button>
+                                        <input id={'change_headportrait'} className='change_headportrait'
+                                               type={'file'} onChange={this.get_base64}/>
+                                    </Modal>
                                 </div>
                                 <div className='sider_icon'>
                                     <div className='sider_icon_item first_item'>

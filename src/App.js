@@ -72,7 +72,7 @@ class HorizontalLoginForm extends React.Component {
                 var username = t[0].username;
                 var password = t[0].password;
                 this.setState({username: username})
-                fetch('http://192.168.1.104:4000/login', {
+                fetch('http://192.168.1.105:4000/login', {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
@@ -116,7 +116,7 @@ class HorizontalLoginForm extends React.Component {
                 var password = t[0].password;
                 // var uid=this.generateUid();
                 console.log(username, password);
-                fetch('http://192.168.1.104:4000/regist', {
+                fetch('http://192.168.1.105:4000/regist', {
                     method: 'POST',
                     mode: 'cors',
                     headers: {

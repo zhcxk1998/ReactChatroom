@@ -26,7 +26,7 @@ body{
 }
 
 .main_background {
-    background: url("img/2.jpg") center no-repeat;
+    background: url("static/img/2.jpg") center no-repeat;
     background-size: cover;
     justify-content: center;
     align-items: center;
@@ -43,7 +43,7 @@ body{
     /*background: url("img/shy.jpg") center no-repeat;*/
     /*background-size: 100%;*/
     /*filter:blur(5px);*/
-    opacity: 0.9;
+    opacity: 0.95;
     border-radius: 12px;
     box-shadow: #1890ff 0 0 10px;
 }
@@ -215,9 +215,15 @@ p {
     display: block;
     width: 60px;
     height: 60px;
-    /*background: url("img/shy.jpg") no-repeat;*/
-    background-size: 100%;
+    /*background: url("static/img/shy.jpg") no-repeat;*/
+    background-size: 100% 100%;
     border-radius: 50%;
+    border: #54c3ff 1px solid;
+    outline: none;
+}
+
+.headportrait:hover{
+    filter:blur(1px);
 }
 
 .sider_icon {
@@ -337,7 +343,7 @@ p {
 .sider_item_avater {
     width: 50px;
     height: 50px;
-    background: url("img/fat.jpg");
+    background: url("static/img/fat.jpg");
     background-size: 100%;
     border-radius: 50%;
 }
@@ -391,12 +397,31 @@ p {
     height: 50px;
     /*background-color: green;*/
     float: left;
-    margin-top: 16px;
-    /*background: url("img/shy.jpg") no-repeat center;*/
-    background-size: 100%;
+    margin-top: 18px;
+    /*background: url("static/img/huaji.jpg") no-repeat center;*/
+    background-size: 100% 100%;
     border-radius: 50%;
 }
 
 .myavater{
     float: right;
+}
+
+.change_headportrait{
+    display: none;
+}
+.change_headportrait:hover{
+    text-decoration: none;
+}
+
+.select_headportrait{
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-size: 100% 100%;
+    border: none;
+    outline: none;
+}
+.select_headportrait:hover{
+    filter:blur(2px);
 }
