@@ -215,10 +215,10 @@ p {
     display: block;
     width: 60px;
     height: 60px;
-    /*background: url("static/img/shy.jpg") no-repeat;*/
+    background: url("static/img/huaji2.gif");
     background-size: 100% 100%;
     border-radius: 50%;
-    border: #54c3ff 1px solid;
+    border: none;
     outline: none;
 }
 

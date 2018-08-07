@@ -137,16 +137,21 @@ app.post('/login', function (req, result) {
 });
 
 app.post('/headportrait', function (req, result) {
-    console.log(req.body.img);
-
-    return result.send([{"img": req.body.img}]);
+    // console.log(req);
+    // console.log(req)
+    var str = req.body.img;
+    str = str.replace(/ /g, '+');
+    return result.send([{"img": str}]);
 });
 
 app.post('/update_headportrait', function (req, result) {
-    console.log(req.body.img);
-    console.log(req.body.username);
-    connection.query('UPDATE userinfo SET img="'+req.body.img+'" WHERE username="'+req.body.username+'"')
-    return result.send([{"img": req.body.img}]);
+    // console.log(req.body.img);
+    // console.log(req.body.username);
+    var str = req.body.img;
+    str = str.replace(/ /g, '+');
+    connection.query('UPDATE userinfo SET img="'+str+'" WHERE username="'+req.body.username+'"')
+
+    return result.send([{"img": str}, {"username": req.body.username}]);
 });
 
 app.get('/avater', function (req, result) {

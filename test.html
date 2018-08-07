@@ -9,6 +9,17 @@
 <textarea id="base64_output" name="Word" style=" width:820px"></textarea>
 <img id="img"/>
 <script type="text/javascript">
+
+    var json={"name":"hehe","age":10};
+    for (var key in json){
+        if (key==="age"){
+            json[key]=20;
+        }
+    }
+    console.log(JSON.stringify(json));
+
+
+
     document.getElementById("upload_file").onchange = function () {
         gen_base64();
     };

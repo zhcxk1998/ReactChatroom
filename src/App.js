@@ -82,7 +82,7 @@ class HorizontalLoginForm extends React.Component {
                 })
                     .then(result => result.json())
                     .then(result => {
-                        console.log(result)
+                        // console.log(result)
                         if (result[0].data === 'loginsuccess') {
                             this.loginsuccess()
                         }
@@ -97,7 +97,7 @@ class HorizontalLoginForm extends React.Component {
                         this.wrongpassword()
                         console.log(error)
                     })
-                console.log('Received values of form: ', values);
+                // console.log('Received values of form: ', values);
             }
         });
         this.props.form.resetFields();
@@ -115,7 +115,7 @@ class HorizontalLoginForm extends React.Component {
                 var username = t[0].username;
                 var password = t[0].password;
                 // var uid=this.generateUid();
-                console.log(username, password);
+                // console.log(username, password);
                 fetch('http://192.168.1.105:4000/regist', {
                     method: 'POST',
                     mode: 'cors',
@@ -139,7 +139,7 @@ class HorizontalLoginForm extends React.Component {
                     .catch(err=>{
                         console.log(err)
                     })
-                console.log('Received values of form: ', values);
+                // console.log('Received values of form: ', values);
             }
         });
         this.props.form.resetFields();
