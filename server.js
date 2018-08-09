@@ -71,9 +71,7 @@ io.on('connection', function (socket) {
         var type = 'chat';
         var username = obj.username;
         var info = [action, time, type, username];
-        // console.log(info);
         connection.query('insert into chatlog(action,time,type,username) values(?,?,?,?)', info, function (err, res) {
-            // console.log('insert ok')
         });
     })
 
@@ -100,13 +98,10 @@ app.post('/regist', function (req, result) {
     info = [
         req.body.username, req.body.password
     ];
-    // console.log(info);
     connection.query('select * from userinfo where binary username="' + username + '"', function (err, res) {
         if (err) console.log(err);
-        // console.log(res);
         if (res.length === 0) {
             connection.query('insert into userinfo(username,password) values(?,?)', info, function (err, res) {
-                // console.log("insert ok");
             });
             return result.send([{"data": "registsuccess"}])
         }
@@ -122,9 +117,7 @@ app.post('/login', function (req, result) {
     info = [
         req.body.username, req.body.password
     ];
-    // console.log(info);
     connection.query('select password from userinfo where binary username="' + username + '"', function (err, res) {
-        // console.log(res);
         if (err) throw err;
         try {
             if (res[0].password !== password) return result.send([{"data": "wrongpassword"}]);
@@ -136,20 +129,23 @@ app.post('/login', function (req, result) {
     });
 });
 
+app.post('/change', function (req, result) {
+    connection.query('UPDATE userinfo SET password="' + req.body.password + '" WHERE username="' + req.body.username + '"', function (err, res) {
+        if (err) return result.send([{"data": "no"}]);
+        return result.send([{"data": "ok"}])
+    })
+});
+
 app.post('/headportrait', function (req, result) {
-    // console.log(req);
-    // console.log(req)
     var str = req.body.img;
     str = str.replace(/ /g, '+');
     return result.send([{"img": str}]);
 });
 
 app.post('/update_headportrait', function (req, result) {
-    // console.log(req.body.img);
-    // console.log(req.body.username);
     var str = req.body.img;
     str = str.replace(/ /g, '+');
-    connection.query('UPDATE userinfo SET img="'+str+'" WHERE username="'+req.body.username+'"')
+    connection.query('UPDATE userinfo SET img="' + str + '" WHERE username="' + req.body.username + '"')
 
     return result.send([{"img": str}, {"username": req.body.username}]);
 });

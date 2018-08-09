@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import RoomStatus from './RoomStatus';
 import Messages from './Messages';
 import ChatInput from './ChatInput';
-import {Layout, Input, Icon, Button, Drawer, Modal} from 'antd';
+import {Layout, Input, Icon, Button, Drawer, Modal, message, Divider} from 'antd';
 import 'antd/dist/antd.css';
-import $ from 'jquery';
 
 var temp;
 
@@ -35,11 +34,9 @@ export default class ChatRoom extends Component {
             headportrait: []
         };
         this.ready();
-        // console.log('construter')
     }
 
     componentWillMount() {
-        // console.log('WillMount111')
         fetch('http://192.168.1.105:4000/avater')
             .then(res => {
                 if (res.ok) {
@@ -51,28 +48,22 @@ export default class ChatRoom extends Component {
                         })
                 }
             })
-        // console.log('WillMount333')
-        // console.log('WillUpdate')
-        // console.log(this.state.headportrait)
         fetch('http://192.168.1.105:4000/chathistory')
             .then(res => {
                 if (res.ok) {
                     res.json()
                         .then(data => {
-                            // console.log(data)
                             this.setState({
                                 messages: data,
                                 latestmessage: data[data.length - 1].username + "：" + data[data.length - 1].action,
                                 latesttime: data[data.length - 1].time
                             })
-                            // console.log(this.state.messages, 'first load')
                             if (document.getElementById('messages')) {
                                 var div = document.getElementById('messages');
                                 div.scrollTop = div.scrollHeight;
                             }
 
                         })
-
                 }
             })
         fetch('http://192.168.1.105:4000/avater')
@@ -83,16 +74,11 @@ export default class ChatRoom extends Component {
                             var user = this.state.username;
                             var headportrait = data;
                             this.setState({headportrait: data})
-                            // console.log(this.state.headportrait)
-                            // console.log('准备开始')
-                            if (this.state.headportrait.length!==0) {
+                            if (this.state.headportrait.length !== 0) {
                                 var user_avater = headportrait.filter(function (e) {
                                     return e.username === user;
                                 });
-                                // console.log(user_avater[0].img)
                                 var avater = user_avater[0].img;
-                                // this.setState({headportrait_url: avater})
-                                // console.log(avater)
                                 if (avater == null) {
                                     document.getElementById('headportrait').style.backgroundImage = "url('" + huaji + "')";
                                 }
@@ -107,22 +93,12 @@ export default class ChatRoom extends Component {
 
     componentDidMount() {
 
-        // var s = 'Hello World!';
-        // var enc = window.btoa(s);
-        // var dec = window.atob(enc);
-        // var res = "Encode:" + enc + ",Decode:" + dec;
-
     }
 
     showModal = () => {
         this.setState({
             headportrait_visible: true,
             headportrait_url: document.getElementById('headportrait').style.backgroundImage
-        });
-    }
-    handleOk = (e) => {
-        this.setState({
-            headportrait_visible: false,
         });
     }
 
@@ -133,7 +109,6 @@ export default class ChatRoom extends Component {
     }
 
     componentDidUpdate() {
-        // console.log('DidUpdate')
         var str = window.getComputedStyle(document.getElementById('sider_item_avater'), null)['background'];
         var base64 = str.split('("')[1].split('")')[0]
         fetch('http://192.168.1.105:4000/headportrait', {
@@ -147,22 +122,7 @@ export default class ChatRoom extends Component {
             .then(result => result.json())
             .then(result => {
                 var str = result[0].img;
-                // str=str.replace(/ /g,'+');
-
-                // console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n'+str)
             })
-
-        // $.ajax({
-        //     url: 'http://192.168.1.105:4000/headportrait',
-        //     type: 'post',
-        //     async: false,//async为false表示同步
-        //     datatype: 'application/json',//数据类型为json
-        //     data:JSON.stringify({"img":base64}),
-        //     success:function (res) {
-        //         console.log(res)
-        //     }
-        // })
-        // document.getElementById('headportrait').style.backgroundImage = 'url("' + base64 + '")';
     }
 
     // 处理在线人数及用户名
@@ -178,11 +138,6 @@ export default class ChatRoom extends Component {
         }
         this.setState({userhtml: userhtml})
     }
-
-    // 生成消息id
-    // generateMsgId() {
-    //     return new Date().getTime() + "" + Math.floor(Math.random() * 899 + 100);
-    // }
 
     // 更新系统消息
     updateSysMsg(o, action) {
@@ -201,7 +156,6 @@ export default class ChatRoom extends Component {
                 messages: messages,
             });
             this.handleUsers();
-            // console.log(this.state.onlineCount, this.state.onlineUsers, "这是用户信息")
         }
     }
 
@@ -278,44 +232,144 @@ export default class ChatRoom extends Component {
     get_base64 = () => {
         const username = this.state.username;
         const headportrait = this.state.headportrait;
-        // console.log('change~')
         var file = document.getElementById('change_headportrait').files[0];
-        // console.log(file)
         var r = new FileReader();
-        // console.log(r)
         var url;
+
+        function compress(img, width, height, ratio) {
+            var canvas, ctx, img64;
+
+            canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+
+            ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            img64 = canvas.toDataURL("image/png", ratio);
+
+            return img64;
+        }
+
         r.onload = function () {
-            temp=r.result;
-            document.getElementById('headportrait').style.backgroundImage = "url('" + r.result + "')";
-            document.getElementById('select_headportrait').style.backgroundImage = "url('" + r.result + "')";
-            var list = document.getElementsByClassName('my_avater');
-            // console.log(list)
-            for (var i = 0; i < list.length; i++) {
-                list[i].style.backgroundImage = "url('"+r.result+"')";
-                // list[i].style.backgroundImage = '';
+            temp = r.result;
+            if (temp.split('/')[1].split(';')[0] !== 'gif') {
+                var image = new Image();
+                image.src = r.result;
+                image.onload = function () {
+                    var img64 = compress(image, 200, 200, 0.8);
+                    document.getElementById('headportrait').style.backgroundImage = "url('" + img64 + "')";
+                    document.getElementById('select_headportrait').style.backgroundImage = "url('" + img64 + "')";
+                    var list = document.getElementsByClassName('my_avater');
+                    for (var i = 0; i < list.length; i++) {
+                        list[i].style.backgroundImage = "url('" + img64 + "')";
+                    }
+                    var json = headportrait;
+                    for (var index = 0; index < json.length; index++) {
+                        if (json[index].username === username) {
+                            json[index].img = img64
+                        }
+                    }
+                    message.success('Change successfully!')
+                    fetch('http://192.168.1.105:4000/update_headportrait', {
+                        method: 'POST',
+                        mode: 'cors',
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: "img=" + img64 + "&username=" + username,
+                    })
+                        .then(result => result.json())
+                        .then(result => {
+
+                        })
+                };
             }
-            // console.log(r.result+"\n\n\n\n\n\n\n\n\n\n\n\n")
-            var json = headportrait;
-            for (var index = 0; index < json.length; index++) {
-                if (json[index].username === username) {
-                    json[index].img = r.result
+            else {
+                document.getElementById('headportrait').style.backgroundImage = "url('" + r.result + "')";
+                document.getElementById('select_headportrait').style.backgroundImage = "url('" + r.result + "')";
+                var list = document.getElementsByClassName('my_avater');
+                for (var i = 0; i < list.length; i++) {
+                    list[i].style.backgroundImage = "url('" + r.result + "')";
                 }
+                var json = headportrait;
+                for (var index = 0; index < json.length; index++) {
+                    if (json[index].username === username) {
+                        json[index].img = r.result
+                    }
+                }
+                message.success('Change successfully!')
+                fetch('http://192.168.1.105:4000/update_headportrait', {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: "img=" + r.result + "&username=" + username,
+                })
+                    .then(result => result.json())
+                    .then(result => {
+
+                    })
             }
-            // console.log(json)
-            fetch('http://192.168.1.105:4000/update_headportrait', {
+        }
+        r.readAsDataURL(file);
+    }
+
+    change_password = () => {
+        var used = document.getElementById('used_password').value;
+        var newly = document.getElementById('new_password').value;
+        if (used !== '' && newly !== '') {
+            var password = document.getElementById('used_password').value
+            fetch('http://192.168.1.105:4000/login', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: "img=" + r.result + "&username=" + username,
+                body: "username=" + this.state.username + "&password=" + password,
             })
                 .then(result => result.json())
                 .then(result => {
-                    // console.log('\n\n\n\n\n\n\n\n\n\n\n\n' + result[0].img)
+                    // console.log(result)
+                    if (result[0].data === 'loginsuccess') {
+                        fetch('http://192.168.1.105:4000/change', {
+                            method: 'POST',
+                            mode: 'cors',
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            body: "username=" + this.state.username + "&password=" + newly,
+                        })
+                            .then(result => result.json())
+                            .then(result => {
+                                if (result[0].data === 'ok') {
+                                    message.success('Change successfully!')
+                                    this.setState({headportrait_visible:false})
+                                    localStorage.removeItem('username')
+                                    document.getElementById('used_password').value='';
+                                    document.getElementById('new_password').value='';
+                                }
+                                else if (result[0].data === 'no') {
+                                    message.error('Error occur!')
+                                }
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            })
+                    }
+                    else if (result[0].data === 'wrongpassword') {
+                        document.getElementById('used_password').value='';
+                        message.error('Wrong password!')
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
                 })
         }
-        r.readAsDataURL(file);
+        else {
+            message.warning('Please finsh the form!')
+        }
     }
 
     render() {
@@ -331,17 +385,21 @@ export default class ChatRoom extends Component {
                                     <Modal
                                         title="个人信息"
                                         visible={this.state.headportrait_visible}
-                                        onOk={this.handleOk}
                                         onCancel={this.handleCancel}
                                         footer={null}
                                     >
-                                        <h4>修改头像</h4>
+                                        <Divider orientation={'left'}>修改头像</Divider>
                                         <button id='select_headportrait'
                                                 style={{backgroundImage: this.state.headportrait_url}}
                                                 className='select_headportrait'
                                                 onClick={this.select_headportrait}></button>
                                         <input id={'change_headportrait'} className='change_headportrait'
                                                type={'file'} onChange={this.get_base64}/>
+                                        <Divider orientation={'right'}>修改密码</Divider>
+                                        <Input type={'password'} id={'used_password'} placeholder={'旧密码'}/>
+                                        <Input type={'password'} id={'new_password'} style={{marginTop: 20}} placeholder={'新密码'}/>
+                                        <Button style={{width: '100%', marginTop: 20}} type={'primary'}
+                                                onClick={this.change_password}>确认修改</Button>
                                     </Modal>
                                 </div>
                                 <div className='sider_icon'>
@@ -402,7 +460,6 @@ export default class ChatRoom extends Component {
                                             <p>{this.state.userhtml}</p>
                                         </Drawer>
                                     </div>
-                                    {/*<RoomStatus onlineCount={this.state.onlineCount} userhtml={this.state.userhtml}/>*/}
                                 </div>
                             </Header>
                             <Content>

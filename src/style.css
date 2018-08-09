@@ -161,8 +161,40 @@ p {
     color: white;
 }
 
+.function_icon{
+    width: 32px;
+    height: 32px;
+    background: url("static/img/function.png") no-repeat center;
+    background-size: 100% 100%;
+    opacity: 0.6;
+    /*margin-left: 15px;*/
+    outline: none;
+    border: none;
+    transition: all 0.25s ease-in-out;
+}
+.function_icon:hover{
+    opacity: 1;
+    transition: all 0.25s ease-in-out;
+}
+
+.emoji_icon{
+    width: 32px;
+    height: 32px;
+    background: url("static/img/emoji.png") no-repeat center;
+    background-size: 100% 100%;
+    opacity: 0.6;
+    /*margin-left: 15px;*/
+    outline: none;
+    border: none;
+    transition: all 0.25s ease-in-out;
+}
+.emoji_icon:hover{
+    opacity: 1;
+    transition: all 0.25s ease-in-out;
+}
+
 .input_box {
-    width: 85%;
+    width: 360px;
 }
 
 .input_box input {
@@ -171,19 +203,27 @@ p {
 }
 
 .send_button {
-    /*width: 44px;*/
-    /*height: 44px;*/
-    width: 15%;
-    /*background: url("img/发送.png") no-repeat center;*/
-    font-size: 26px;
-    line-height: 26px;
-    margin-left: 15px;
+    width: 32px;
+    height: 32px;
+    background: url("static/img/send.png") no-repeat center;
+    background-size: 100% 100%;
+    transform: rotate(45deg);
+    opacity: 0.6;
+    /*margin-left: 15px;*/
+    outline: none;
+    border: none;
+    transition: all 0.25s ease-in-out;
+}
+
+.send_button:hover{
+    opacity: 1;
+    transition: all 0.25s ease-in-out;
 }
 
 .chat_footer {
     height: 60px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
     user-select: none;
@@ -196,6 +236,7 @@ p {
     align-items: center;
     border-top: #dedede 1px solid;
     border-bottom-right-radius: 12px;
+    padding: 24px 32px;
 }
 
 .button {
