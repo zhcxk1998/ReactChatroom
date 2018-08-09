@@ -393,7 +393,7 @@ export default class ChatRoom extends Component {
                                                 style={{backgroundImage: this.state.headportrait_url}}
                                                 className='select_headportrait'
                                                 onClick={this.select_headportrait}></button>
-                                        <input id={'change_headportrait'} className='change_headportrait'
+                                        <input id={'change_headportrait'} accept={'image/*'} className='change_headportrait'
                                                type={'file'} onChange={this.get_base64}/>
                                         <Divider orientation={'right'}>修改密码</Divider>
                                         <Input type={'password'} id={'used_password'} placeholder={'旧密码'}/>
