@@ -18,7 +18,8 @@
     }
     console.log(JSON.stringify(json));
 
-
+    localStorage.setItem('username','BB');
+    console.log(localStorage.getItem('username'));
 
     document.getElementById("upload_file").onchange = function () {
         gen_base64();

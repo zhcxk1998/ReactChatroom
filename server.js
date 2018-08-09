@@ -21,7 +21,7 @@ var onlineCount = 0;
 io.on('connection', function (socket) {
     // 监听客户端的登陆
     socket.on('login', function (obj) {
-        console.log(obj);
+        // console.log(obj);
         // 用户id设为socketid
         socket.id = obj.uid;
 
@@ -34,7 +34,7 @@ io.on('connection', function (socket) {
         // 向客户端发送登陆事件，同时发送在线用户、在线人数以及登陆用户
         io.emit('login', {onlineUsers: onlineUsers, onlineCount: onlineCount, user: obj});
         console.log(obj.username + '加入了群聊');
-        console.log(onlineCount, onlineUsers)
+        // console.log(onlineCount, onlineUsers)
     });
 
     // 监听客户端的断开连接
@@ -71,9 +71,9 @@ io.on('connection', function (socket) {
         var type = 'chat';
         var username = obj.username;
         var info = [action, time, type, username];
-        console.log(info);
+        // console.log(info);
         connection.query('insert into chatlog(action,time,type,username) values(?,?,?,?)', info, function (err, res) {
-            console.log('insert ok')
+            // console.log('insert ok')
         });
     })
 
@@ -100,13 +100,13 @@ app.post('/regist', function (req, result) {
     info = [
         req.body.username, req.body.password
     ];
-    console.log(info);
+    // console.log(info);
     connection.query('select * from userinfo where binary username="' + username + '"', function (err, res) {
         if (err) console.log(err);
-        console.log(res);
+        // console.log(res);
         if (res.length === 0) {
             connection.query('insert into userinfo(username,password) values(?,?)', info, function (err, res) {
-                console.log("insert ok");
+                // console.log("insert ok");
             });
             return result.send([{"data": "registsuccess"}])
         }
@@ -122,9 +122,9 @@ app.post('/login', function (req, result) {
     info = [
         req.body.username, req.body.password
     ];
-    console.log(info);
+    // console.log(info);
     connection.query('select password from userinfo where binary username="' + username + '"', function (err, res) {
-        console.log(res);
+        // console.log(res);
         if (err) throw err;
         try {
             if (res[0].password !== password) return result.send([{"data": "wrongpassword"}]);

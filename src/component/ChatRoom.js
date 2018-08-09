@@ -232,6 +232,7 @@ export default class ChatRoom extends Component {
     }
 
     handleLogout() {
+        localStorage.removeItem('username')
         window.location.reload();
     }
 
@@ -287,10 +288,10 @@ export default class ChatRoom extends Component {
             temp=r.result;
             document.getElementById('headportrait').style.backgroundImage = "url('" + r.result + "')";
             document.getElementById('select_headportrait').style.backgroundImage = "url('" + r.result + "')";
-            var list = document.getElementsByClassName('myavater chat_avater');
+            var list = document.getElementsByClassName('my_avater');
             // console.log(list)
             for (var i = 0; i < list.length; i++) {
-                list[i].src = r.result;
+                list[i].style.backgroundImage = "url('"+r.result+"')";
                 // list[i].style.backgroundImage = '';
             }
             // console.log(r.result+"\n\n\n\n\n\n\n\n\n\n\n\n")
@@ -313,7 +314,6 @@ export default class ChatRoom extends Component {
                 .then(result => {
                     // console.log('\n\n\n\n\n\n\n\n\n\n\n\n' + result[0].img)
                 })
-            alert(temp)
         }
         r.readAsDataURL(file);
     }

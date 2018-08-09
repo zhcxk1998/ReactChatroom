@@ -33,6 +33,12 @@ class HorizontalLoginForm extends React.Component {
         this.wrongpassword = this.wrongpassword.bind(this);
     }
 
+    componentWillMount() {
+        if (localStorage.getItem('username') !== null) {
+            this.setState({isLogin: true, username: localStorage.getItem('username')})
+        }
+    }
+
     componentDidMount() {
         // To disabled submit button at the beginning.
         this.props.form.validateFields();
@@ -48,8 +54,10 @@ class HorizontalLoginForm extends React.Component {
     }
     loginsuccess = () => {
         message.success("Login Success!")
+        localStorage.setItem('username', 'BB');
+        localStorage.setItem('isLogin', 'true');
         setTimeout(this.link_to_chat, 1500)
-        this.setState({isLoding: true})
+        // this.setState({isLoding: true})
     }
     wrongpassword = () => {
         message.error("Wrong Password!");
@@ -126,17 +134,17 @@ class HorizontalLoginForm extends React.Component {
                 })
                     .then(result => result.json())
                     .then(result => {
-                        if (result[0].data==='registsuccess'){
+                        if (result[0].data === 'registsuccess') {
                             message.success('Regist Success!')
-                            setTimeout(function(){
+                            setTimeout(function () {
                                 window.location.reload(true)
-                            },1000)
+                            }, 1000)
                         }
                         else {
                             message.warning('User Has Existed!')
                         }
                     })
-                    .catch(err=>{
+                    .catch(err => {
                         console.log(err)
                     })
                 // console.log('Received values of form: ', values);
