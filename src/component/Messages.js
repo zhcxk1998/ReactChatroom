@@ -19,7 +19,7 @@ export default class Messages extends Component {
     componentDidMount() {
 
         // console.log(this.props.headportrait)
-        /*fetch('http://192.168.1.105:4000/avater')
+        /*fetch('http://localhost:4000/avater')
             .then(res => {
                 if (res.ok) {
                     res.json()
@@ -93,7 +93,7 @@ class Message extends Component {
             if (avater == null) {
                 avater = huaji
             }
-            // fetch('http://192.168.1.105:4000/avater')
+            // fetch('http://localhost:4000/avater')
             //     .then(res => {
             //         if (res.ok) {
             //             res.json()

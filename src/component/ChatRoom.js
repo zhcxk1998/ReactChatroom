@@ -37,7 +37,7 @@ export default class ChatRoom extends Component {
     }
 
     componentWillMount() {
-        fetch('http://192.168.1.105:4000/avater')
+        fetch('http://localhost:4000/avater')
             .then(res => {
                 if (res.ok) {
                     res.json()
@@ -48,7 +48,7 @@ export default class ChatRoom extends Component {
                         })
                 }
             })
-        fetch('http://192.168.1.105:4000/chathistory')
+        fetch('http://localhost:4000/chathistory')
             .then(res => {
                 if (res.ok) {
                     res.json()
@@ -66,7 +66,7 @@ export default class ChatRoom extends Component {
                         })
                 }
             })
-        fetch('http://192.168.1.105:4000/avater')
+        fetch('http://localhost:4000/avater')
             .then(res => {
                 if (res.ok) {
                     res.json()
@@ -111,7 +111,7 @@ export default class ChatRoom extends Component {
     componentDidUpdate() {
         var str = window.getComputedStyle(document.getElementById('sider_item_avater'), null)['background'];
         var base64 = str.split('("')[1].split('")')[0]
-        fetch('http://192.168.1.105:4000/headportrait', {
+        fetch('http://localhost:4000/headportrait', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -271,7 +271,7 @@ export default class ChatRoom extends Component {
                         }
                     }
                     message.success('Change successfully!')
-                    fetch('http://192.168.1.105:4000/update_headportrait', {
+                    fetch('http://localhost:4000/update_headportrait', {
                         method: 'POST',
                         mode: 'cors',
                         headers: {
@@ -299,7 +299,7 @@ export default class ChatRoom extends Component {
                     }
                 }
                 message.success('Change successfully!')
-                fetch('http://192.168.1.105:4000/update_headportrait', {
+                fetch('http://localhost:4000/update_headportrait', {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
@@ -321,7 +321,7 @@ export default class ChatRoom extends Component {
         var newly = document.getElementById('new_password').value;
         if (used !== '' && newly !== '') {
             var password = document.getElementById('used_password').value
-            fetch('http://192.168.1.105:4000/login', {
+            fetch('http://localhost:4000/login', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -333,7 +333,7 @@ export default class ChatRoom extends Component {
                 .then(result => {
                     // console.log(result)
                     if (result[0].data === 'loginsuccess') {
-                        fetch('http://192.168.1.105:4000/change', {
+                        fetch('http://localhost:4000/change', {
                             method: 'POST',
                             mode: 'cors',
                             headers: {

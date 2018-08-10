@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-    host: '192.168.1.105',
+    host: 'localhost',
     user: 'root',
     password: 'czk8379530',
     database: 'chatroom'
