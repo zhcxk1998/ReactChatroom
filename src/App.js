@@ -54,7 +54,7 @@ class HorizontalLoginForm extends React.Component {
     }
     loginsuccess = () => {
         message.success("Login Success!")
-        localStorage.setItem('username', 'BB');
+        localStorage.setItem('username', this.state.username);
         localStorage.setItem('isLogin', 'true');
         setTimeout(this.link_to_chat, 1500)
         // this.setState({isLoding: true})
@@ -270,111 +270,6 @@ class HorizontalLoginForm extends React.Component {
 }
 
 HorizontalLoginForm = Form.create()(HorizontalLoginForm);
-
-
-const CollectionCreateForm = Form.create()(
-    class extends React.Component {
-        render() {
-            const {visible, onCancel, onCreate, form} = this.props;
-            const {getFieldDecorator} = form;
-            return (
-                <Modal
-                    visible={visible}
-                    title="登录您的账号..."
-                    okText="Login"
-                    cancelText="Cancel"
-                    onCancel={onCancel}
-                    onOk={onCreate}
-                >
-                    <Form layout="vertical" hideRequiredMark={true}>
-                        <FormItem label="UserName">
-                            {getFieldDecorator('userName', {
-                                rules: [{required: true, message: 'Please input the title of collection!'}],
-                            })(
-                                <Input/>
-                            )}
-                        </FormItem>
-                        <FormItem label="PassWord">
-                            {getFieldDecorator('password', {rules: [{required: true}]})(<Input/>)}
-                        </FormItem>
-                        <FormItem className="collection-create-form_last-form-item">
-                            {getFieldDecorator('modifier', {
-                                initialValue: 'public',
-                            })(
-                                <Radio.Group>
-                                    <Radio value="public">Public</Radio>
-                                    <Radio value="private">Private</Radio>
-                                </Radio.Group>
-                            )}
-                        </FormItem>
-                    </Form>
-                </Modal>
-            );
-        }
-    }
-);
-
-class CollectionsPage extends React.Component {
-    state = {
-        visible: false,
-    };
-
-    showModal = () => {
-        this.setState({visible: true});
-    }
-
-    handleCancel = () => {
-        this.setState({visible: false});
-    }
-
-    handleCreate = () => {
-        const form = this.formRef.props.form;
-        form.validateFields((err, values) => {
-            if (err) {
-                return;
-            }
-            var t = [values];
-            var username = t[0].userName;
-            var password = t[0].password;
-            fetch('http://localhost:4000/form', {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: "userName=" + username + "&password=" + password,
-            }).then((res) => {
-                if (res.ok) {
-                    alert('ok');
-                }
-                else {
-                    alert('no');
-                }
-            });
-            console.log('Received values of form: ', values);
-            form.resetFields();
-            this.setState({visible: false});
-        });
-    }
-
-    saveFormRef = (formRef) => {
-        this.formRef = formRef;
-    }
-
-    render() {
-        return (
-            <div>
-                <Button type="primary" onClick={this.showModal}>登录</Button>
-                <CollectionCreateForm
-                    wrappedComponentRef={this.saveFormRef}
-                    visible={this.state.visible}
-                    onCancel={this.handleCancel}
-                    onCreate={this.handleCreate}
-                />
-            </div>
-        );
-    }
-}
 
 class App extends React.Component {
     render() {

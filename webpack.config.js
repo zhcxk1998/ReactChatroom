@@ -1,6 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+var webpack = require('webpack');
+
 module.exports = {
     entry: './src/index.js', //相对路径
     output: {
@@ -9,10 +12,46 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(['build']),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        }),
+        new UglifyJsPlugin({
+            parallel: 4,
+            uglifyOptions: {
+                output: {
+                    comments: false,
+                    beautify: false,
+                },
+                compress: {
+                    warnings: false,
+                    drop_console: true,
+                    collapse_vars: true,
+                    reduce_vars: true,
+
+                },
+            },
+            cache: true,
+        }),
         new HtmlWebpackPlugin({
             template: './public/index.html', //指定模板路径
             filename: 'index.html', //指定文件名
-        })
+            inject: true,
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                keepClosingSlash: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true,
+            },
+            chunksSortMode: 'dependency'
+        }),
     ],
     module: {
         loaders: [ //配置加载器
@@ -31,7 +70,7 @@ module.exports = {
                 test: /\.js$/, //配置要处理的文件格式，一般使用正则表达式匹配
                 loader: 'babel-loader', //使用的加载器名称
                 query: { //babel的配置参数，可以写在.babelrc文件里也可以写在这里
-                    presets: ['env', 'react','stage-1']
+                    presets: ['env', 'react', 'stage-1']
                 }
             },
         ]
