@@ -10,7 +10,7 @@ class Chat extends React.Component {
         this.state = {
             username: this.props.username,
             uid: this.props.uid,
-            socket: io('http://localhost:4000'),
+            socket: io('http://112.74.57.211 :4000'),
             message:[]
         }
     }

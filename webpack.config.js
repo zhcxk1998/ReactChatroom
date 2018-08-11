@@ -2,10 +2,15 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-var webpack = require('webpack');
+const webpack = require('webpack');
+const CompressionPlugin = require("compression-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js', //相对路径
+    entry: {
+        bundle: './src/index.js',
+        vendor:['react','antd'],
+    }, //相对路径
     output: {
         path: path.resolve(__dirname, 'build'), //打包文件的输出路径
         filename: 'bundle.js' //打包文件名
@@ -13,9 +18,11 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['build']),
         new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: '"production"'
-            }
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name:'vendor',
+            filename:'vendor.js'
         }),
         new UglifyJsPlugin({
             parallel: 4,
@@ -31,13 +38,25 @@ module.exports = {
                     reduce_vars: true,
 
                 },
+
             },
             cache: true,
         }),
+        new CompressionPlugin({
+            asset: '[path].gz[query]', //目标资源名称。[file] 会被替换成原资源。[path] 会被替换成原资源路径，[query] 替换成原查询字符串
+            algorithm: 'gzip',//算法
+            test: new RegExp(
+                '\\.(js|css)$'    //压缩 js 与 css
+            ),
+            threshold: 10240,//只处理比这个值大的资源。按字节计算
+            minRatio: 0.8//只有压缩率比这个值小的资源才会被处理
+        }),
+
+        new ExtractTextPlugin("style.css"),
         new HtmlWebpackPlugin({
             template: './public/index.html', //指定模板路径
             filename: 'index.html', //指定文件名
-            inject: true,
+            inject: false,
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,
@@ -57,7 +76,17 @@ module.exports = {
         loaders: [ //配置加载器
             {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader'
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                minimize: true //css压缩
+                            }
+                        }
+                    ]
+                }),
             },
             {
                 test: [/\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/, /\.ico$/],
@@ -75,6 +104,7 @@ module.exports = {
             },
         ]
     },
+
     devServer: {
         contentBase: './build', //默认webpack-dev-server会为根文件夹提供本地服务器，如果想为另外一个目录下的文件提供本地服务器，应该在这里设置其所在目录（本例设置到"build"目录）
         historyApiFallback: true, //在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
