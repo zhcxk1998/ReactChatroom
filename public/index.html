@@ -4,40 +4,441 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
-    -->
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <script src="../node_modules/socket.io-client/dist/socket.io.js" type="text/javascript"></script>
     <title>BB聊天室</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="icon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="data:image/png;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADf9v0Cst72FrHf9BjZ7/wCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIvT+DR2zPuqcMr88GjI/f9oyP3/cMr88nXL+6qK0Pg2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3Pb+An/Q+ohqyP38aMf9/2jH/f9lxfz/ZcX8/2jH/f9ox/7/asj9/H3N+ojU7/gCAAAAAAAAAAAAAAAAAAAAAIDQ+45nyP3/Zsf9/0ur5v9Do9//RKTh/0Sl4f9Do9//S6vm/2fG/P9ox/3/e8z6jAAAAAAAAAAAAAAAAIzU+kBqyP3/ZcX7/0in4/9hwPf/aMf+/2jI/v9oyP7/aMf9/2HB+P9IqOP/ZMT7/2nI/f+Hz/g+AAAAAAAAAAB1zPy2aMf+/1Gx6/9mxvz/aMj+/2jI/v9oyP7/aMj+/2jI/v9oyP7/Z8f9/1Gw6v9ox/3/dMr7uAAAAADF7f0Mbcn8+GHA+P9iwvj/aMj+/2jI/v9oyP7/aMj+/2jI/v9oyP7/aMj+/2jI/v9jw/r/YL/2/23J/Pq85PcMlNr4KmjH/v9jwvn/aMf+/2jI/v9oyP7/aMj+/2jI/v9oyP7/aMj+/2jI/v9oyP7/aMj9/2PC+f9ox/3/kNP1LJTa+TBox/3/aMf9/2jH/f9ox/3/aMj+/2jI/v9oyP7/aMj+/2jI/v9oyP7/aMf+/2jI/f9nx/3/aMf9/43S9TC+7PsUa8T7/GWq9P9lqPP/Zrr5/2jI/v9oyP7/aMj+/2jI/v9oyP7/aMf9/2av9f9kqfP/ZrP3/2vI/f+14vYU2/L3BH7F6uRrt+v/bb/6/2nG/P91zPz/ec78/2jH/f9oyP3/dsTv/2m86/9uxPv/aLz5/3TI+v+J0/rSAAAAANTt9QpwmLHIfqa9/8bq9v/F6vb/w+n1/5DW+v9ox/3/acj9/26mx/91nrf/x+r1/8Xq9v/F6fX/y+v2hgAAAAAAAAAA5/b/AorU+rR+z/v/es78/2rE9v9ox/3/aMj+/2jI/v9ox/3/b8X1/37P+/98zvv/fc/6sN73/gIAAAAAAAAAAAAAAAC06PoMe834vmXC9v9Un8v/aMj+/2jI/v9oyP7/aMj+/1Sfy/9kwPT/esv3wLbk+QwAAAAAAAAAAAAAAAAAAAAAAAAAAGh9i05SfZSKcMX02GnI/f9ox/3/aMf9/2jI/f9yxvTaUnyTimZ7iVTs6fAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOv+/wCp4/smgtL6RInW+kil4fkk5/r/AAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAPgfAADgBwAAwAMAAMADAACAAQAAgAEAAIABAACAAQAAgAEAAIABAACAAQAAwAMAAOAHAADwDwAA//8AAA=="/>
+    <script type="text/javascript" src="bundle.js" defer="defer"></script>
+    <style>
+        body {
+            background: -webkit-linear-gradient(left top, red, blue); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(bottom right, red, blue); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(bottom right, red, blue); /* Firefox 3.6 - 15 */
+            background: linear-gradient(to bottom right, #fa4b2a, #1faaff) no-repeat; /* 标准的语法 */
+            background-size: cover;
+            background-attachment: fixed;
+        }
+    </style>
+    <style>
+        @-webkit-keyframes rotate_pacman_half_up {
+            0% {
+                -webkit-transform: rotate(270deg);
+                transform: rotate(270deg);
+            }
+
+            50% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(270deg);
+                transform: rotate(270deg);
+            }
+        }
+
+        @keyframes rotate_pacman_half_up {
+            0% {
+                -webkit-transform: rotate(270deg);
+                transform: rotate(270deg);
+            }
+
+            50% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(270deg);
+                transform: rotate(270deg);
+            }
+        }
+
+        @-webkit-keyframes rotate_pacman_half_down {
+            0% {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+
+            50% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+        }
+
+        @keyframes rotate_pacman_half_down {
+            0% {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+
+            50% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+        }
+
+        @keyframes pacman-balls {
+            0% {
+                opacity: 0.5;
+            }
+            25% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            75% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.5;
+                -webkit-transform: translate(-100px, -6.25px);
+                transform: translate(-100px, -6.25px);
+            }
+        }
+
+        .loader {
+            box-sizing: border-box;
+            display: flex;
+            flex: 0 1 auto;
+            flex-direction: column;
+            flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: 25%;
+            max-width: 82%;
+            height: 200px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 100px;
+        }
+
+        .pacman {
+            position: relative;
+        }
+
+        .pacman > div:nth-child(3) {
+            -webkit-animation: pacman-balls 1s 0.33s infinite linear;
+            animation: pacman-balls 1s 0.99s infinite linear;
+        }
+
+        .pacman > div:nth-child(4) {
+            -webkit-animation: pacman-balls 1s 0.66s infinite linear;
+            animation: pacman-balls 1s 1.32s infinite linear;
+        }
+
+        .pacman > div:nth-child(5) {
+            -webkit-animation: pacman-balls 1s 0.99s infinite linear;
+            animation: pacman-balls 1s 1.65s infinite linear;
+        }
+
+        .pacman > div:nth-child(6) {
+            -webkit-animation: pacman-balls 1s 0.99s infinite linear;
+            animation: pacman-balls 1s 0.00s infinite linear;
+        }
+
+        .pacman > div:nth-child(7) {
+            -webkit-animation: pacman-balls 1s 0.99s infinite linear;
+            animation: pacman-balls 1s 0.33s infinite linear;
+        }
+
+        .pacman > div:nth-child(8) {
+            -webkit-animation: pacman-balls 1s 0.99s infinite linear;
+            animation: pacman-balls 1s 0.66s infinite linear;
+        }
+
+        .pacman > div:first-of-type {
+            width: 0px;
+            height: 0px;
+            border-right: 50px solid transparent;
+            border-top: 50px solid #fff;
+            border-left: 50px solid #fff;
+            border-bottom: 50px solid #fff;
+            border-radius: 50px;
+            -webkit-animation: rotate_pacman_half_up 0.5s 0s infinite;
+            animation: rotate_pacman_half_up 0.5s 0s infinite;
+        }
+
+        .pacman > div:nth-child(2) {
+            width: 0px;
+            height: 0px;
+            border-right: 50px solid transparent;
+            border-top: 50px solid #fff;
+            border-left: 50px solid #fff;
+            border-bottom: 50px solid #fff;
+            border-radius: 50px;
+            -webkit-animation: rotate_pacman_half_down 0.5s 0s infinite;
+            animation: rotate_pacman_half_down 0.5s 0s infinite;
+            margin-top: -100px;
+        }
+
+        .pacman > div:nth-child(3), .pacman > div:nth-child(4), .pacman > div:nth-child(5) {
+            background-color: #fff;
+            /*width: 15px;*/
+            /*height: 15px;*/
+            opacity: 0;
+            border-radius: 100%;
+            margin: 2px;
+            width: 13px;
+            height: 13px;
+            position: absolute;
+            -webkit-transform: translate(0, -6.25px);
+            -ms-transform: translate(0, -6.25px);
+            transform: translate(0, -6.25px);
+            top: 50px;
+            left: 150px;
+        }
+
+        .pacman > div:nth-child(6), .pacman > div:nth-child(7), .pacman > div:nth-child(8) {
+            background-color: #fff;
+            /*width: 15px;*/
+            opacity: 0;
+            /*height: 15px;*/
+            border-radius: 100%;
+            margin: 2px;
+            width: 13px;
+            height: 13px;
+            position: absolute;
+            -webkit-transform: translate(0, -6.25px);
+            -ms-transform: translate(0, -6.25px);
+            transform: translate(0, -6.25px);
+            top: 50px;
+            left: 250px;
+        }
+    </style>
+    <style>
+        #preloader_4 {
+            display: flex;
+            flex: 0 1 auto;
+            flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: 25%;
+            max-width: 95%;
+            align-items: center;
+            justify-content: center;
+            margin-top: 100px;
+        }
+
+        #preloader_4 span {
+            text-align: center;
+            line-height: 40px;
+            /*position: absolute;*/
+            float: left;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            opacity: 0;
+            color: #0d264b;
+            border-radius: 20px;
+            -webkit-animation: preloader_4 3.6s infinite ease-in-out;
+            -moz-animation: preloader_4 3.6s infinite ease-in-out;
+            -ms-animation: preloader_4 3.6s infinite ease-in-out;
+            animation: preloader_4 2.8s infinite ease-in-out;
+
+        }
+
+        #preloader_4 span:nth-child(2) {
+            left: 40px;
+            -webkit-animation-delay: 0.4s;
+            -moz-animation-delay: 0.4s;
+            -ms-animation-delay: 0.4s;
+            animation-delay: 0.4s;
+        }
+
+        #preloader_4 span:nth-child(3) {
+            left: 80px;
+            -webkit-animation-delay: 0.8s;
+            -moz-animation-delay: 0.8s;
+            -ms-animation-delay: 0.8s;
+            animation-delay: 0.8s;
+        }
+
+        #preloader_4 span:nth-child(4) {
+            left: 120px;
+            -webkit-animation-delay: 1.2s;
+            -moz-animation-delay: 1.2s;
+            -ms-animation-delay: 1.2s;
+            animation-delay: 1.2s;
+        }
+
+        #preloader_4 span:nth-child(5) {
+            left: 160px;
+            -webkit-animation-delay: 1.6s;
+            -moz-animation-delay: 1.6s;
+            -ms-animation-delay: 1.6s;
+            animation-delay: 1.6s;
+        }
+
+        #preloader_4 span:nth-child(6) {
+            left: 200px;
+            -webkit-animation-delay: 2.0s;
+            -moz-animation-delay: 2.0s;
+            -ms-animation-delay: 2.0s;
+            animation-delay: 2.0s;
+        }
+
+        #preloader_4 span:nth-child(7) {
+            left: 240px;
+            -webkit-animation-delay: 2.4s;
+            -moz-animation-delay: 2.4s;
+            -ms-animation-delay: 2.4s;
+            animation-delay: 2.4s;
+        }
+
+        #preloader_4 span:nth-child(8) {
+            left: 280px;
+            -webkit-animation-delay: 2.8s;
+            -moz-animation-delay: 2.8s;
+            -ms-animation-delay: 2.8s;
+            animation-delay: 2.8s;
+        }
+
+        #preloader_4 span:nth-child(9) {
+            left: 320px;
+            -webkit-animation-delay: 3.2s;
+            -moz-animation-delay: 3.2s;
+            -ms-animation-delay: 3.2s;
+            animation-delay: 3.2s;
+        }
+
+        #preloader_4 span:nth-child(10) {
+            left: 360px;
+            -webkit-animation-delay: 3.6s;
+            -moz-animation-delay: 3.6s;
+            -ms-animation-delay: 3.6s;
+            animation-delay: 3.6s;
+        }
+
+        @-webkit-keyframes preloader_4 {
+            0% {
+                opacity: 0.3;
+                -webkit-transform: translateY(0px);
+                box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+            }
+            50% {
+                opacity: 0.6;
+                -webkit-transform: translateY(-10px);
+                background: #fff;
+                box-shadow: 0px 20px 3px rgba(0, 0, 0, 0.05);
+            }
+            100% {
+                opacity: 0.3;
+                -webkit-transform: translateY(0px);
+                box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        @-moz-keyframes preloader_4 {
+            0% {
+                opacity: 0.3;
+                -moz-transform: translateY(0px);
+                box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+            }
+            50% {
+                opacity: 1;
+                -moz-transform: translateY(-10px);
+                background: #fff;
+                box-shadow: 0px 20px 3px rgba(0, 0, 0, 0.05);
+            }
+            100% {
+                opacity: 0.3;
+                -moz-transform: translateY(0px);
+                box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        @-ms-keyframes preloader_4 {
+            0% {
+                opacity: 0.3;
+                -ms-transform: translateY(0px);
+                box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+            }
+            50% {
+                opacity: 1;
+                -ms-transform: translateY(-10px);
+                background: #fff;
+                box-shadow: 0px 20px 3px rgba(0, 0, 0, 0.05);
+            }
+            100% {
+                opacity: 0.3;
+                -ms-transform: translateY(0px);
+                box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        @keyframes preloader_4 {
+            0% {
+                opacity: 0;
+                transform: translateY(0px);
+                box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-10px);
+                background: #fff;
+                box-shadow: 0px 20px 3px rgba(0, 0, 0, 0.05);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(0px);
+                box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+            }
+        }
+    </style>
 </head>
 <body>
 <noscript>
     You need to enable JavaScript to run this app.
 </noscript>
-<div id="root"></div>
-<!--
-  This HTML file is a template.
-  If you open it directly in the browser, you will see an empty page.
+<div id="root">
+    <div class="loader">
 
-  You can add webfonts, meta tags, or analytics to this file.
-  The build step will place the bundled scripts into the <body> tag.
+        <div style="opacity: 0.8" class="pacman">
 
-  To begin the development, run `npm start` or `yarn start`.
-  To create a production bundle, use `npm run build` or `yarn build`.
--->
-<script src="vendor.js"></script>
-<script src="bundle.js"></script>
+            <div></div>
+
+            <div></div>
+
+            <div></div>
+
+            <div></div>
+
+            <div></div>
+
+            <div></div>
+
+            <div></div>
+
+            <div></div>
+
+
+        </div>
+
+    </div>
+
+    <div id="preloader_4">
+        <span>首</span>
+        <span>次</span>
+        <span>加</span>
+        <span>载</span>
+        <span>需</span>
+        <span>要</span>
+        <span>少</span>
+        <span>许</span>
+        <span>时</span>
+        <span>间</span>
+    </div>
+</div>
+<script type="text/javascript" src="vendor.js"></script>
 </body>
 </html>

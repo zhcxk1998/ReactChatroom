@@ -9,7 +9,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
     entry: {
         bundle: './src/index.js',
-        vendor:['react','antd'],
+        vendor: ['antd'],
     }, //相对路径
     output: {
         path: path.resolve(__dirname, 'build'), //打包文件的输出路径
@@ -21,8 +21,8 @@ module.exports = {
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name:'vendor',
-            filename:'vendor.js'
+            name: 'vendor',
+            filename: 'vendor.js'
         }),
         new UglifyJsPlugin({
             parallel: 4,
@@ -99,7 +99,7 @@ module.exports = {
                 test: /\.js$/, //配置要处理的文件格式，一般使用正则表达式匹配
                 loader: 'babel-loader', //使用的加载器名称
                 query: { //babel的配置参数，可以写在.babelrc文件里也可以写在这里
-                    presets: ['env', 'react', 'stage-1']
+                    presets: ['env', 'react', 'stage-1'],
                 }
             },
         ]

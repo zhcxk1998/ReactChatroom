@@ -1,7 +1,6 @@
 import React from 'react';
 import ChatRoom from './ChatRoom';
 
-// const socket = require('socket.io-client')('http://localhost:4000');
 const io = require('socket.io-client');
 
 class Chat extends React.Component {
@@ -10,7 +9,7 @@ class Chat extends React.Component {
         this.state = {
             username: this.props.username,
             uid: this.props.uid,
-            socket: io('http://112.74.57.211 :4000'),
+            socket: io('http://112.74.57.211:4000'),
             message:[]
         }
     }

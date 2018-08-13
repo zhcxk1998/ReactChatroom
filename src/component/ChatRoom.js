@@ -3,7 +3,6 @@ import RoomStatus from './RoomStatus';
 import Messages from './Messages';
 import ChatInput from './ChatInput';
 import {Layout, Input, Icon, Button, Drawer, Modal, message, Divider} from 'antd';
-import 'antd/dist/antd.css';
 
 var temp;
 
@@ -37,18 +36,16 @@ export default class ChatRoom extends Component {
     }
 
     componentWillMount() {
-        fetch('http://112.74.57.211 :4000/avater')
+        fetch('http://112.74.57.211:4000/avater')
             .then(res => {
                 if (res.ok) {
                     res.json()
                         .then(data => {
-                            // console.log('WillMount222')
-                            // console.log(data)
                             this.setState({headportrait: data})
                         })
                 }
             })
-        fetch('http://112.74.57.211 :4000/chathistory')
+        fetch('http://112.74.57.211:4000/chathistory')
             .then(res => {
                 if (res.ok) {
                     res.json()
@@ -62,11 +59,10 @@ export default class ChatRoom extends Component {
                                 var div = document.getElementById('messages');
                                 div.scrollTop = div.scrollHeight;
                             }
-
                         })
                 }
             })
-        fetch('http://112.74.57.211 :4000/avater')
+        fetch('http://112.74.57.211:4000/avater')
             .then(res => {
                 if (res.ok) {
                     res.json()
@@ -91,10 +87,6 @@ export default class ChatRoom extends Component {
             })
     }
 
-    componentDidMount() {
-
-    }
-
     showModal = () => {
         this.setState({
             headportrait_visible: true,
@@ -111,7 +103,7 @@ export default class ChatRoom extends Component {
     componentDidUpdate() {
         var str = window.getComputedStyle(document.getElementById('sider_item_avater'), null)['background'];
         var base64 = str.split('("')[1].split('")')[0]
-        fetch('http://112.74.57.211 :4000/headportrait', {
+        fetch('http://112.74.57.211:4000/headportrait', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -195,7 +187,6 @@ export default class ChatRoom extends Component {
         const socket = this.state.socket;
         socket.on('login', (o) => {
             this.updateSysMsg(o, 'login');
-            // console.log(o, "这是o")
         })
         socket.on('logout', (o) => {
             this.updateSysMsg(o, 'logout');
@@ -205,13 +196,8 @@ export default class ChatRoom extends Component {
             var div = document.getElementById('messages');
             var height = div.scrollHeight;
             if (obj.username === this.state.username) {
-                console.log('isME')
                 div.scrollTop = div.scrollHeight;
                 height = div.scrollHeight;
-            }
-            else {
-                console.log('not ME')
-                // div.scrollTop = height;
             }
         })
     }
@@ -273,7 +259,7 @@ export default class ChatRoom extends Component {
                         }
                     }
                     message.success('Change successfully!')
-                    fetch('http://112.74.57.211 :4000/update_headportrait', {
+                    fetch('http://112.74.57.211:4000/update_headportrait', {
                         method: 'POST',
                         mode: 'cors',
                         headers: {
@@ -301,7 +287,7 @@ export default class ChatRoom extends Component {
                     }
                 }
                 message.success('Change successfully!')
-                fetch('http://112.74.57.211 :4000/update_headportrait', {
+                fetch('http://112.74.57.211:4000/update_headportrait', {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
@@ -323,7 +309,7 @@ export default class ChatRoom extends Component {
         var newly = document.getElementById('new_password').value;
         if (used !== '' && newly !== '') {
             var password = document.getElementById('used_password').value
-            fetch('http://112.74.57.211 :4000/login', {
+            fetch('http://112.74.57.211:4000/login', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -333,9 +319,8 @@ export default class ChatRoom extends Component {
             })
                 .then(result => result.json())
                 .then(result => {
-                    // console.log(result)
                     if (result[0].data === 'loginsuccess') {
-                        fetch('http://112.74.57.211 :4000/change', {
+                        fetch('http://112.74.57.211:4000/change', {
                             method: 'POST',
                             mode: 'cors',
                             headers: {

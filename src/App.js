@@ -57,7 +57,6 @@ class HorizontalLoginForm extends React.Component {
         localStorage.setItem('username', this.state.username);
         localStorage.setItem('isLogin', 'true');
         setTimeout(this.link_to_chat, 1500)
-        // this.setState({isLoding: true})
     }
     wrongpassword = () => {
         message.error("Wrong Password!");
@@ -80,7 +79,7 @@ class HorizontalLoginForm extends React.Component {
                 var username = t[0].username;
                 var password = t[0].password;
                 this.setState({username: username})
-                fetch('http://112.74.57.211 :4000/login', {
+                fetch('http://112.74.57.211:4000/login', {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
@@ -90,7 +89,6 @@ class HorizontalLoginForm extends React.Component {
                 })
                     .then(result => result.json())
                     .then(result => {
-                        // console.log(result)
                         if (result[0].data === 'loginsuccess') {
                             this.loginsuccess()
                         }
@@ -105,7 +103,6 @@ class HorizontalLoginForm extends React.Component {
                         this.wrongpassword()
                         console.log(error)
                     })
-                // console.log('Received values of form: ', values);
             }
         });
         this.props.form.resetFields();
@@ -122,9 +119,7 @@ class HorizontalLoginForm extends React.Component {
                 t = [values];
                 var username = t[0].username;
                 var password = t[0].password;
-                // var uid=this.generateUid();
-                // console.log(username, password);
-                fetch('http://112.74.57.211 :4000/regist', {
+                fetch('http://112.74.57.211:4000/regist', {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
@@ -147,7 +142,6 @@ class HorizontalLoginForm extends React.Component {
                     .catch(err => {
                         console.log(err)
                     })
-                // console.log('Received values of form: ', values);
             }
         });
         this.props.form.resetFields();
