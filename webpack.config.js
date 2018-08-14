@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 const CompressionPlugin = require("compression-webpack-plugin");
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -52,7 +52,7 @@ module.exports = {
             minRatio: 0.8//只有压缩率比这个值小的资源才会被处理
         }),
 
-        new ExtractTextPlugin("style.css"),
+        // new ExtractTextPlugin("style.css"),
         new HtmlWebpackPlugin({
             template: './public/index.html', //指定模板路径
             filename: 'index.html', //指定文件名
@@ -76,17 +76,21 @@ module.exports = {
         loaders: [ //配置加载器
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                minimize: true //css压缩
-                            }
-                        }
-                    ]
-                }),
+                loader: 'style-loader!css-loader',
+
+                // use: ExtractTextPlugin.extract({
+                //     fallback: "style-loader",
+                //     use: [
+                //         {
+                //             loader: 'css-loader',
+                //             options: {
+                //                 minimize: true //css压缩
+                //             }
+                //         }
+                //     ]
+                // }),
+
+
             },
             {
                 test: [/\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/, /\.ico$/],
@@ -110,5 +114,5 @@ module.exports = {
         historyApiFallback: true, //在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
         inline: true, //设置为true，当源文件改变时会自动刷新页面
         port: 8080, //设置默认监听端口，如果省略，默认为"8080"
-    }
+    },
 };

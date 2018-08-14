@@ -10,7 +10,7 @@
 
 body {
     font-family: 幼圆;
-    animation:fadein 2s linear 1;
+    animation:fadein 1.5s linear 1;
 }
 
 .login_form {
