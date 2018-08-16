@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import RoomStatus from './RoomStatus';
 import Messages from './Messages';
 import ChatInput from './ChatInput';
-import {Layout, Input, Icon, Button, Drawer, Modal, message, Divider} from 'antd';
+import {Layout, Input, Icon, Button, Drawer, Modal, message, Divider, Tooltip, List} from 'antd';
 
 var temp;
 
@@ -10,6 +10,18 @@ var huaji = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAO
 
 const {Header, Footer, Sider, Content} = Layout;
 
+
+const qq = <div style={{display: 'flex', flexDirection: 'column ', alignItems: 'center', justifyContent: 'center'}}><img
+    width={100} height={100}
+    src={'data:image/jpeg;base64,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'}></img>
+    <p style={{textAlign: 'center', fontSize: 12}}>QQ号：464203147</p>
+</div>
+
+const wechat = <div style={{display: 'flex', flexDirection: 'column ', alignItems: 'center', justifyContent: 'center'}}>
+    <img width={100} height={100}
+         src={'data:image/jpeg;base64,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'}></img>
+    <p style={{textAlign: 'center', fontSize: 12}}>微信号：zhcxk1998</p>
+</div>
 export default class ChatRoom extends Component {
 
     constructor(props) {
@@ -31,20 +43,12 @@ export default class ChatRoom extends Component {
             headportrait_visible: false,
             headportrait_url: '',
             headportrait: [],
+            user_visible: false,
         };
         this.ready();
     }
 
     componentWillMount() {
-        /*fetch('http://localhost:4000/avater')
-            .then(res => {
-                if (res.ok) {
-                    res.json()
-                        .then(data => {
-                            this.setState({headportrait: data})
-                        })
-                }
-            })*/
         fetch('http://localhost:4000/chathistory')
             .then(res => {
                 if (res.ok) {
@@ -55,10 +59,6 @@ export default class ChatRoom extends Component {
                                 latestmessage: data[data.length - 1].username + "：" + data[data.length - 1].action,
                                 latesttime: data[data.length - 1].time,
                             })
-                            // if (document.getElementById('messages') !== null) {
-                            //     var div = document.getElementById('messages');
-                            //     div.scrollTop = div.scrollHeight;
-                            // }
                         })
                 }
             })
@@ -87,17 +87,15 @@ export default class ChatRoom extends Component {
             })
     }
 
-    /*componentDidMount() {
-        if (document.getElementById('messages') !== null) {
-            document.getElementById('messages').scrollIntoView(false);
-        }
-    }*/
-
     showModal = () => {
         this.setState({
             headportrait_visible: true,
             headportrait_url: document.getElementById('headportrait').style.backgroundImage
         });
+    }
+    showUser = () => {
+        document.getElementById('user_list').style.display = 'flex';
+        console.log(document.getElementById('user_list').style.display)
     }
 
     handleCancel = (e) => {
@@ -106,32 +104,16 @@ export default class ChatRoom extends Component {
         });
     }
 
-    /*componentDidUpdate() {
-        var str = window.getComputedStyle(document.getElementById('sider_item_avater'), null)['background'];
-        var base64 = str.split('("')[1].split('")')[0]
-        fetch('http://localhost:4000/headportrait', {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: "img=" + base64,
-        })
-            .then(result => result.json())
-            .then(result => {
-                var str = result[0].img;
-            })
-    }*/
-
     // 处理在线人数及用户名
     handleUsers() {
         const users = this.state.onlineUsers;
         let userhtml = '';
         let separator = '';
+
         for (let key in users) {
             if (users.hasOwnProperty(key)) {
                 userhtml += separator + users[key];
-                separator = '、';
+                separator = ',';
             }
         }
         this.setState({userhtml: userhtml})
@@ -206,17 +188,19 @@ export default class ChatRoom extends Component {
                 height = div.scrollHeight;
             }
         })
-    }
+        document.onclick = function (event) {
+            var e = event || window.event;
+            var elem = e.srcElement || e.target;
 
-    showDrawer = () => {
-        this.setState({
-            visible: true
-        })
-    }
-    onclose = () => {
-        this.setState({
-            visible: false
-        })
+            while (elem) {
+                if (elem.className == "user_list") {
+                    return;
+                }
+                elem = elem.parentNode;
+            }
+            //隐藏div的方法
+            document.getElementsByClassName('user_list')[0].style.display = 'none';
+        }
     }
 
     select_headportrait = () => {
@@ -365,7 +349,13 @@ export default class ChatRoom extends Component {
         }
     }
 
+    jump = (url) => {
+        open(url)
+    }
+
     render() {
+        var userinfo = this.state.userhtml.split(',');
+        var headportrait=this.state.headportrait;
         return (
             <div id='main_background' className="main_background">
                 <div className="chat_background">
@@ -399,19 +389,29 @@ export default class ChatRoom extends Component {
                                 </div>
                                 <div className='sider_icon'>
                                     <div className='sider_icon_item first_item'>
-                                        <Button shape={'circle'} type={'primary'} icon={'github'}/>
+                                        <Button shape={'circle'} type={'primary'} icon={'github'}
+                                                onClick={() => this.jump('https://github.com/zhcxk1998/ReactChatroom')}/>
                                     </div>
                                     <div className='sider_icon_item'>
-                                        <Button shape={'circle'} type={'primary'} icon={'qq'}/>
+                                        <Tooltip placement={'right'} title={qq} autoAdjustOverflow>
+                                            <Button shape={'circle'} type={'primary'} icon={'qq'}/></Tooltip>
                                     </div>
                                     <div className='sider_icon_item'>
-                                        <Button shape={'circle'} type={'primary'} icon={'wechat'}/>
+                                        <Tooltip placement={'right'} title={wechat} autoAdjustOverflow><Button
+                                            shape={'circle'}
+                                            type={'primary'}
+                                            icon={'wechat'}/></Tooltip>
+
                                     </div>
                                     <div className='sider_icon_item'>
-                                        <Button shape={'circle'} type={'primary'} icon={'pay-circle-o'}/>
+                                        <Button shape={'circle'} type={'primary'} icon={'message'} onClick={() => {
+                                            message.warning('The Blog is not open yet.')
+                                        }}/>
                                     </div>
                                     <div className='sider_icon_item'>
-                                        <Button shape={'circle'} type={'primary'} icon={'setting'}/>
+                                        <Button shape={'circle'} type={'primary'} icon={'setting'} onClick={() => {
+                                            message.warning('The Setting is not open yet.')
+                                        }}/>
                                     </div>
                                     <div className='sider_icon_item'>
                                         <Button shape={'circle'} type={'primary'} icon={'poweroff'}
@@ -443,18 +443,36 @@ export default class ChatRoom extends Component {
                                 </div>
                             </div>
                         </Sider>
-                        <Layout style={{borderBottomRightRadius: 12, borderTopRightRadius: 12}}>
-                            <Header style={{backgroundColor: 'white', height: 60}}>
+                        <Layout className={'layout'}
+                                style={{borderBottomRightRadius: 12, borderTopRightRadius: 12, position: 'relative'}}>
+                            <div style={{display: 'none'}} id={'user_list'} className='user_list'>
+                                <div className='user_list_header'><span>群组信息</span></div>
+                                <span className='user_list_onlinecount'>在线成员 {this.state.onlineCount}</span>
+                                <div className='user_list_onlineuser'>
+                                    {userinfo.map(function (user) {
+                                        var user_avater=headportrait.filter(function (item) {
+                                            return item.username===user;
+                                        })
+                                        var avater;
+                                        if (user_avater.length!=0)
+                                            avater=user_avater[0].img;
+                                        else
+                                            avater=huaji;
+                                        return <div className='user_list_onlineuser_item'>
+                                            <div className='user_list_onlineuser_avater' style={{backgroundImage:'url("'+avater+'")'}}></div>
+                                            <span className='user_list_onlineuser_username'>{user}</span>
+
+                                            </div>
+                                    })}
+                                    {/*{userinfo.map(function (user) {*/}
+                                        {/*return <div className='user_list_onlineuser_item'>{user}</div>*/}
+                                    {/*})}*/}
+                                </div>
+                            </div>
+                            <Header className='chat_header'>
                                 <div className="room-name">
                                     <p>肥宅の圣地</p>
-                                    <Button type={'default'} icon={'menu-fold'} onClick={this.showDrawer.bind(this)}/>
-                                    <div>
-                                        <Drawer style={{height: 510}} closable={false} title={'在线用户'}
-                                                visible={this.state.visible}
-                                                placement={'right'} onClose={this.onclose}>
-                                            <p>{this.state.userhtml}</p>
-                                        </Drawer>
-                                    </div>
+                                    <Button type={'default'} icon={'menu-fold'} onClick={this.showUser}/>
                                 </div>
                             </Header>
                             <Content>
@@ -468,6 +486,7 @@ export default class ChatRoom extends Component {
                                 <ChatInput myId={this.state.myId} myName={this.state.myName}
                                            socket={this.state.socket}/>
                             </Footer>
+
                         </Layout>
                     </Layout>
                 </div>
