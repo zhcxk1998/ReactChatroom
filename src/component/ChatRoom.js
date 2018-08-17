@@ -49,7 +49,7 @@ export default class ChatRoom extends Component {
     }
 
     componentWillMount() {
-        fetch('http://localhost:4000/chathistory')
+        fetch('http://112.74.57.211:4000/chathistory')
             .then(res => {
                 if (res.ok) {
                     res.json()
@@ -62,7 +62,7 @@ export default class ChatRoom extends Component {
                         })
                 }
             })
-        fetch('http://localhost:4000/avater')
+        fetch('http://112.74.57.211:4000/avater')
             .then(res => {
                 if (res.ok) {
                     res.json()
@@ -94,7 +94,7 @@ export default class ChatRoom extends Component {
         });
     }
     showUser = () => {
-        document.getElementById('user_list').style.display = 'flex';
+        document.getElementById('user_list').style.display = '';
         console.log(document.getElementById('user_list').style.display)
     }
 
@@ -249,7 +249,7 @@ export default class ChatRoom extends Component {
                         }
                     }
                     message.success('Change successfully!')
-                    fetch('http://localhost:4000/update_headportrait', {
+                    fetch('http://112.74.57.211:4000/update_headportrait', {
                         method: 'POST',
                         mode: 'cors',
                         headers: {
@@ -277,7 +277,7 @@ export default class ChatRoom extends Component {
                     }
                 }
                 message.success('Change successfully!')
-                fetch('http://localhost:4000/update_headportrait', {
+                fetch('http://112.74.57.211:4000/update_headportrait', {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
@@ -299,7 +299,7 @@ export default class ChatRoom extends Component {
         var newly = document.getElementById('new_password').value;
         if (used !== '' && newly !== '') {
             var password = document.getElementById('used_password').value
-            fetch('http://localhost:4000/login', {
+            fetch('http://112.74.57.211:4000/login', {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -310,7 +310,7 @@ export default class ChatRoom extends Component {
                 .then(result => result.json())
                 .then(result => {
                     if (result[0].data === 'loginsuccess') {
-                        fetch('http://localhost:4000/change', {
+                        fetch('http://112.74.57.211:4000/change', {
                             method: 'POST',
                             mode: 'cors',
                             headers: {
@@ -464,9 +464,6 @@ export default class ChatRoom extends Component {
 
                                             </div>
                                     })}
-                                    {/*{userinfo.map(function (user) {*/}
-                                        {/*return <div className='user_list_onlineuser_item'>{user}</div>*/}
-                                    {/*})}*/}
                                 </div>
                             </div>
                             <Header className='chat_header'>
