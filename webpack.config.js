@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
-const CompressionPlugin = require("compression-webpack-plugin");
+// const CompressionPlugin = require("compression-webpack-plugin");
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
@@ -42,15 +42,15 @@ module.exports = {
             },
             cache: true,
         }),
-        new CompressionPlugin({
-            asset: '[path].gz[query]', //目标资源名称。[file] 会被替换成原资源。[path] 会被替换成原资源路径，[query] 替换成原查询字符串
-            algorithm: 'gzip',//算法
-            test: new RegExp(
-                '\\.(js|css)$'    //压缩 js 与 css
-            ),
-            threshold: 10240,//只处理比这个值大的资源。按字节计算
-            minRatio: 0.8//只有压缩率比这个值小的资源才会被处理
-        }),
+        // new CompressionPlugin({
+        //     asset: '[path].gz[query]', //目标资源名称。[file] 会被替换成原资源。[path] 会被替换成原资源路径，[query] 替换成原查询字符串
+        //     algorithm: 'gzip',//算法
+        //     test: new RegExp(
+        //         '\\.(js|css)$'    //压缩 js 与 css
+        //     ),
+        //     threshold: 10240,//只处理比这个值大的资源。按字节计算
+        //     minRatio: 0.8//只有压缩率比这个值小的资源才会被处理
+        // }),
 
         // new ExtractTextPlugin("style.css"),
         new HtmlWebpackPlugin({
@@ -96,7 +96,7 @@ module.exports = {
                 test: [/\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/, /\.ico$/],
                 loader: 'url-loader',
                 options: {
-                    limit: 1000000, //xxx字节以下大小的图片会自动转成base64
+                    limit: 100, //xxx字节以下大小的图片会自动转成base64
                 },
             },
             {

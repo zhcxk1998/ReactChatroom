@@ -11,7 +11,6 @@
 body {
     font-family: 幼圆;
     animation: fadein 1s ease-in-out 1;
-
 }
 
 .login_form {
@@ -38,23 +37,34 @@ body {
 }
 
 .main_background {
-    background: url("http://cdn.algbb.fun/ochki-za-graniu-devushka-forma-anime-kuriyama-mirai-kyoukai.jpg") center no-repeat;
+    background-image: url(http://cdn.algbb.fun/4.jpg);
     background-size: 100% 100%;
+    background-repeat: no-repeat;
     justify-content: center;
     align-items: center;
     display: flex;
     position: absolute;
     width: 100%;
     height: 100%;
+}
 
+.chat_blur {
+    width: 930px;
+    height: 530px;
+    background-size: 100% 100%;
+    position: fixed;
+    filter: blur(10px);
+    background: inherit;
+    /*opacity: 0.8;*/
+    border-radius: 12px;
 }
 
 .chat_background {
     width: 920px;
-    height: 500px;
-    opacity: 0.95;
+    height: 510px;
+    /*opacity: 0.8;*/
     border-radius: 12px;
-    box-shadow: #1890ff 0 0 10px;
+    box-shadow: #0d264b 0 0 20px 2px;
 }
 
 .chatArea {
@@ -103,6 +113,7 @@ body {
     height: 380px;
     overflow-y: auto;
     margin: auto auto;
+    background-color: rgba(255, 255, 255, 0.51);
 }
 
 .messages::-webkit-scrollbar {
@@ -112,8 +123,8 @@ body {
 
 .messages::-webkit-scrollbar-thumb {
     border-radius: 12px;
-    -webkit-box-shadow: inset 0 0 10px #d1d1d1;
-    background: #aaa;
+    -webkit-box-shadow: inset 0 0 5px #d1d1d1;
+    background: rgba(13, 38, 75, 0.6);
 }
 
 .messages::-webkit-scrollbar-thumb:active {
@@ -122,12 +133,12 @@ body {
 
 .messages::-webkit-scrollbar-track {
     border-radius: 12px;
-    background: #f1f1f1;
+    background: rgba(241, 241, 241, 0.1);
 }
 
 .one-message.system-message {
     font-size: 13px;
-    color: #c1c1c1;
+    color: #e6e6e6;
     flex-direction: row;
     justify-content: center;
     align-items: baseline;
@@ -149,7 +160,7 @@ p {
 }
 
 .time {
-    color: #bbbbbb;
+    color: #e6e6e6;
     user-select: none;
     font-size: 12px;
 }
@@ -166,7 +177,7 @@ p {
     word-break: break-word;
     border-radius: 10px;
     display: inline-block;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.8);
     /*word-wrap: normal;*/
     max-width: 61%;
 }
@@ -178,7 +189,7 @@ p {
 }
 
 .me .message-content {
-    background: rgb(84, 195, 255);
+    background: rgba(84, 195, 255, 0.8);
     color: white;
 }
 
@@ -204,7 +215,7 @@ p {
     height: 32px;
     background: url("http://cdn.algbb.fun/icon/emoji.png") no-repeat center;
     background-size: 100% 100%;
-    opacity: 0.6;
+    opacity: 0.8;
     outline: none;
     border: none;
     transition: all 0.25s ease-in-out;
@@ -238,7 +249,7 @@ p {
     transition: all 0.5s;
 }
 
-.emoji_item > div{
+.emoji_item > div {
     width: 30px;
     height: 30px;
     background-size: 100% 100%;
@@ -246,6 +257,7 @@ p {
 
 .input_box {
     width: 360px;
+    opacity: 0.6;
 }
 
 .send_button {
@@ -254,7 +266,7 @@ p {
     background: url("http://cdn.algbb.fun/icon/send.png") no-repeat center;
     background-size: 100% 100%;
     transform: rotate(45deg);
-    opacity: 0.6;
+    opacity: 0.8;
     outline: none;
     border: none;
     transition: all 0.25s ease-in-out;
@@ -282,7 +294,7 @@ p {
     border-top: rgba(222, 222, 222, 0.8) 1px solid;
     border-bottom-right-radius: 12px;
     padding: 24px 32px;
-    background-color: rgba(250, 250, 250, 0.8)
+    background-color: rgba(255, 255, 255, 0.61);
 }
 
 .button {
@@ -441,8 +453,8 @@ p {
 
 .sider_tools {
     height: 510px;
-    background-color: #1890ff;
-    opacity: 0.8;
+    background-color: rgba(24, 144, 255, 0.6);
+    /*opacity: 0.8;*/
     width: 70px;
     border-bottom-left-radius: 12px;
     border-top-left-radius: 12px;
@@ -451,8 +463,8 @@ p {
 
 .sider_content {
     height: 510px;
-    background-color: #54c3ff;
-    opacity: 0.8;
+    background-color: rgba(84, 195, 255, 0.6);
+    /*opacity: 0.8;*/
     width: 280px;
     float: right;
     user-select: none;
@@ -489,7 +501,7 @@ p {
 .sider_items {
     width: 280px;
     height: 90px;
-    background-color: #1faaff;
+    background-color: rgba(31, 170, 255, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;

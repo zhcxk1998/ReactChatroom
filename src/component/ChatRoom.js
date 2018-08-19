@@ -358,9 +358,10 @@ export default class ChatRoom extends Component {
         var headportrait=this.state.headportrait;
         return (
             <div id='main_background' className="main_background">
+                <div className='chat_blur'></div>
                 <div className="chat_background">
                     <Layout style={{borderRadius: 12}}>
-                        <Sider width={350} theme='light' style={{borderTopLeftRadius: 12, borderBottomLeftRadius: 12}}>
+                        <Sider width={350} theme='light' style={{backgroundColor:'transparent',borderTopLeftRadius: 12, borderBottomLeftRadius: 12}}>
                             <div className='sider_tools'>
                                 <div className='sider_avater'>
                                     <button id='headportrait' className='headportrait'
@@ -444,7 +445,7 @@ export default class ChatRoom extends Component {
                             </div>
                         </Sider>
                         <Layout className={'layout'}
-                                style={{borderBottomRightRadius: 12, borderTopRightRadius: 12, position: 'relative'}}>
+                                style={{backgroundColor:'transparent',borderBottomRightRadius: 12, borderTopRightRadius: 12, position: 'relative'}}>
                             <div style={{display: 'none'}} id={'user_list'} className='user_list'>
                                 <div className='user_list_header'><span>群组信息</span></div>
                                 <span className='user_list_onlinecount'>在线成员 {this.state.onlineCount}</span>
@@ -466,10 +467,10 @@ export default class ChatRoom extends Component {
                                     })}
                                 </div>
                             </div>
-                            <Header className='chat_header'>
+                            <Header className='chat_header' style={{backgroundColor:'rgba(255, 255, 255, 0.65)'}}>
                                 <div className="room-name">
                                     <p>肥宅の圣地</p>
-                                    <Button type={'default'} icon={'menu-fold'} onClick={this.showUser}/>
+                                    <Button type={'primary'} icon={'menu-fold'} onClick={this.showUser}/>
                                 </div>
                             </Header>
                             <Content>
@@ -479,7 +480,7 @@ export default class ChatRoom extends Component {
                                               headportrait={this.state.headportrait}/>
                                 </div>
                             </Content>
-                            <Footer className='footer'>
+                            <Footer style={{backgroundColor:'rgba(255, 255, 255, 0.65)'}} className='footer'>
                                 <ChatInput myId={this.state.myId} myName={this.state.myName}
                                            socket={this.state.socket}/>
                             </Footer>
