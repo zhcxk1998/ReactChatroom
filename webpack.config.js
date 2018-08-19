@@ -13,7 +13,7 @@ module.exports = {
     }, //相对路径
     output: {
         path: path.resolve(__dirname, 'build'), //打包文件的输出路径
-        filename: 'bundle.js' //打包文件名
+        filename: 'bundle.[hash:8].js' //打包文件名
     },
     plugins: [
         new CleanWebpackPlugin(['build']),
@@ -22,7 +22,7 @@ module.exports = {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
-            filename: 'vendor.js'
+            filename: 'vendor.[hash:8].js'
         }),
         new UglifyJsPlugin({
             parallel: 4,
@@ -56,7 +56,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './public/index.html', //指定模板路径
             filename: 'index.html', //指定文件名
-            inject: false,
+            inject: true,
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,

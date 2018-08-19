@@ -37,9 +37,8 @@ body {
 }
 
 .main_background {
-    background-image: url(http://cdn.algbb.fun/4.jpg);
+    background: url(http://cdn.algbb.fun/4.jpg) no-repeat;
     background-size: 100% 100%;
-    background-repeat: no-repeat;
     justify-content: center;
     align-items: center;
     display: flex;
