@@ -33,6 +33,7 @@ class HorizontalLoginForm extends React.Component {
         this.wrongpassword = this.wrongpassword.bind(this);
     }
 
+
     componentWillMount() {
         if (localStorage.getItem('username') !== null) {
             this.setState({isLogin: true, username: localStorage.getItem('username')})
@@ -107,6 +108,7 @@ class HorizontalLoginForm extends React.Component {
         });
         this.props.form.resetFields();
     };
+
     registSubmit = (e) => {
         e.preventDefault();
         var list;

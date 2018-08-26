@@ -56,7 +56,7 @@ export default class ChatRoom extends Component {
                         .then(data => {
                             this.setState({
                                 messages: data,
-                                latestmessage: data[data.length - 1].username + "：" + data[data.length - 1].action,
+                                latestmessage: data[data.length - 1].type!=='img'?data[data.length - 1].username + "：" + data[data.length - 1].action:data[data.length - 1].username + "："+'[image]',
                                 latesttime: data[data.length - 1].time,
                             })
                         })
@@ -143,7 +143,7 @@ export default class ChatRoom extends Component {
     updateMsg(obj) {
         let messages = this.state.messages;
         const newMsg = {
-            type: 'chat',
+            type: obj.type,
             username: obj.username,
             action: obj.message,
             time: this.generateTime()
@@ -151,7 +151,7 @@ export default class ChatRoom extends Component {
         messages = messages.concat(newMsg);
         this.setState({
             messages: messages,
-            latestmessage: obj.username + "：" + obj.message,
+            latestmessage: obj.type!=='img'?obj.username + "：" + obj.message:obj.username+"：[image]",
             latesttime: this.generateTime()
         })
     }
@@ -355,13 +355,17 @@ export default class ChatRoom extends Component {
 
     render() {
         var userinfo = this.state.userhtml.split(',');
-        var headportrait=this.state.headportrait;
+        var headportrait = this.state.headportrait;
         return (
             <div id='main_background' className="main_background">
                 <div className='chat_blur'></div>
                 <div className="chat_background">
                     <Layout style={{borderRadius: 12}}>
-                        <Sider width={350} theme='light' style={{backgroundColor:'transparent',borderTopLeftRadius: 12, borderBottomLeftRadius: 12}}>
+                        <Sider width={350} theme='light' style={{
+                            backgroundColor: 'transparent',
+                            borderTopLeftRadius: 12,
+                            borderBottomLeftRadius: 12
+                        }}>
                             <div className='sider_tools'>
                                 <div className='sider_avater'>
                                     <button id='headportrait' className='headportrait'
@@ -445,29 +449,35 @@ export default class ChatRoom extends Component {
                             </div>
                         </Sider>
                         <Layout className={'layout'}
-                                style={{backgroundColor:'transparent',borderBottomRightRadius: 12, borderTopRightRadius: 12, position: 'relative'}}>
+                                style={{
+                                    backgroundColor: 'transparent',
+                                    borderBottomRightRadius: 12,
+                                    borderTopRightRadius: 12,
+                                    position: 'relative'
+                                }}>
                             <div style={{display: 'none'}} id={'user_list'} className='user_list'>
                                 <div className='user_list_header'><span>群组信息</span></div>
                                 <span className='user_list_onlinecount'>在线成员 {this.state.onlineCount}</span>
                                 <div className='user_list_onlineuser'>
                                     {userinfo.map(function (user) {
-                                        var user_avater=headportrait.filter(function (item) {
-                                            return item.username===user;
+                                        var user_avater = headportrait.filter(function (item) {
+                                            return item.username === user;
                                         })
                                         var avater;
-                                        if (user_avater.length!=0)
-                                            avater=user_avater[0].img;
+                                        if (user_avater.length != 0)
+                                            avater = user_avater[0].img;
                                         else
-                                            avater=huaji;
+                                            avater = huaji;
                                         return <div className='user_list_onlineuser_item'>
-                                            <div className='user_list_onlineuser_avater' style={{backgroundImage:'url("'+avater+'")'}}></div>
+                                            <div className='user_list_onlineuser_avater'
+                                                 style={{backgroundImage: 'url("' + avater + '")'}}></div>
                                             <span className='user_list_onlineuser_username'>{user}</span>
 
-                                            </div>
+                                        </div>
                                     })}
                                 </div>
                             </div>
-                            <Header className='chat_header' style={{backgroundColor:'rgba(255, 255, 255, 0.65)'}}>
+                            <Header className='chat_header' style={{backgroundColor: 'rgba(255, 255, 255, 0.65)'}}>
                                 <div className="room-name">
                                     <p>肥宅の圣地</p>
                                     <Button type={'primary'} icon={'menu-fold'} onClick={this.showUser}/>
@@ -480,7 +490,7 @@ export default class ChatRoom extends Component {
                                               headportrait={this.state.headportrait}/>
                                 </div>
                             </Content>
-                            <Footer style={{backgroundColor:'rgba(255, 255, 255, 0.65)'}} className='footer'>
+                            <Footer style={{backgroundColor: 'rgba(255, 255, 255, 0.65)'}} className='footer'>
                                 <ChatInput myId={this.state.myId} myName={this.state.myName}
                                            socket={this.state.socket}/>
                             </Footer>

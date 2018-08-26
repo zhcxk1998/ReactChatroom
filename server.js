@@ -6,7 +6,7 @@ var path = require('path');
 app.use(express.static(path.join(__dirname, 'build')));
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-        host: 'localhost',
+    host: 'localhost',
     user: 'root',
     password: 'czk8379530',
     database: 'chatroom'
@@ -68,7 +68,7 @@ io.on('connection', function (socket) {
         console.log(obj.username + "说:" + obj.message);
         var action = obj.message;
         var time = generateTime();
-        var type = 'chat';
+        var type = obj.type;
         var username = obj.username;
         var info = [action, time, type, username];
         connection.query('insert into chatlog(action,time,type,username) values(?,?,?,?)', info, function (err, res) {

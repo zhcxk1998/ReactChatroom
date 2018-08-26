@@ -49,19 +49,18 @@ export default class Messages extends Component {
 class Message extends Component {
 
 
-
     render() {
         var user = this.props.msgUser;
         var headportrait = this.props.headportrait;
         var action = this.props.action;
         var emoji = action.match(/#\(\d{2}\)/g);
-        var te=action;
+        var te = action;
         if (emoji != null) {
             emoji.map(function (item) {
-                if(item.match(/\d{2}/)[0]>=1&&item.match(/\d{2}/)[0]<=33)
-                    te=te.replace(item,'<img src="'+getemoji(item)+'" width=30 height=30/>')
+                if (item.match(/\d{2}/)[0] >= 1 && item.match(/\d{2}/)[0] <= 33)
+                    te = te.replace(item, '<img src="' + getemoji(item) + '" width=30 height=30/>')
             })
-            action=<div dangerouslySetInnerHTML={{__html:te}}></div>
+            action = <div dangerouslySetInnerHTML={{__html: te}}></div>
         }
 
         if (headportrait.length !== 0) {
@@ -81,28 +80,60 @@ class Message extends Component {
                 )
             }
             else if (this.props.isMe) {
-                return (
-                    <div style={{display: 'flex'}}>
-                        <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
-                            <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
-                            <div className="message-content">{action}</div>
+                if (this.props.msgType === 'img') {
+                    return (
+                        <div style={{display: 'flex'}}>
+                            <div style={{backgroundColor: 'transparent'}}
+                                 className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
+                                <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
+                                <div style={{backgroundColor: 'transparent'}} className="message-content"><img
+                                    src={action}/></div>
+                            </div>
+                            <div id="chat_avater" className='chat_avater my_avater'
+                                 style={{backgroundImage: "url('" + avater + "')"}}></div>
                         </div>
-                        <div id="chat_avater" className='chat_avater my_avater'
-                             style={{backgroundImage: "url('" + avater + "')"}}></div>
-                    </div>
-                )
+                    )
+                }
+                else {
+                    return (
+                        <div style={{display: 'flex'}}>
+                            <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
+                                <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
+                                <div className="message-content">{action}</div>
+                            </div>
+                            <div id="chat_avater" className='chat_avater my_avater'
+                                 style={{backgroundImage: "url('" + avater + "')"}}></div>
+                        </div>
+                    )
+                }
             }
             else {
-                return (
-                    <div style={{display: 'flex'}}>
-                        <div id="chat_avater" style={{backgroundImage: "url('" + avater + "')"}}
-                             className={(this.props.isMe) ? 'myavater chat_avater' : 'other chat_avater'}></div>
-                        <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
-                            <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
-                            <div className="message-content">{action}</div>
+                if (this.props.msgType === 'img') {
+                    return (
+                        <div style={{display: 'flex'}}>
+                            <div id="chat_avater" className='chat_avater my_avater'
+                                 style={{backgroundImage: "url('" + avater + "')"}}></div>
+                            <div style={{backgroundColor: 'transparent'}}
+                                 className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
+                                <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
+                                <div style={{backgroundColor: 'transparent'}} className="message-content"><img
+                                    src={action}/></div>
+                            </div>
                         </div>
-                    </div>
-                )
+                    )
+                }
+                else {
+                    return (
+                        <div style={{display: 'flex'}}>
+                            <div id="chat_avater" style={{backgroundImage: "url('" + avater + "')"}}
+                                 className={(this.props.isMe) ? 'myavater chat_avater' : 'other chat_avater'}></div>
+                            <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
+                                <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
+                                <div className="message-content">{action}</div>
+                            </div>
+                        </div>
+                    )
+                }
             }
         }
         return (<div>

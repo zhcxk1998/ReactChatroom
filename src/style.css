@@ -63,7 +63,7 @@ body {
     height: 510px;
     /*opacity: 0.8;*/
     border-radius: 12px;
-    box-shadow: #0d264b 0 0 20px 2px;
+    box-shadow: #0d547d 0 0 20px 2px;
 }
 
 .chatArea {
@@ -113,6 +113,7 @@ body {
     overflow-y: auto;
     margin: auto auto;
     background-color: rgba(255, 255, 255, 0.51);
+    scroll-behavior: smooth;
 }
 
 .messages::-webkit-scrollbar {
