@@ -184,7 +184,7 @@ export default class ChatRoom extends Component {
             var div = document.getElementById('messages');
             var height = div.scrollHeight;
             if (obj.username === this.state.username) {
-                div.scrollTop = div.scrollHeight;
+                div.scrollTop = div.scrollHeight+999;
                 height = div.scrollHeight;
             }
         })

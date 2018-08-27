@@ -87,7 +87,7 @@ class Message extends Component {
                                  className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
                                 <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
                                 <div style={{backgroundColor: 'transparent'}} className="message-content"><img
-                                    src={action}/></div>
+                                    className='image_message' src={action}/></div>
                             </div>
                             <div id="chat_avater" className='chat_avater my_avater'
                                  style={{backgroundImage: "url('" + avater + "')"}}></div>

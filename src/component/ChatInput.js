@@ -61,43 +61,33 @@ export default class ChatInput extends Component {
         var file = document.getElementById('sendImage').files[0];
         var r = new FileReader();
 
-        /*r.onload = function () {
-            // this.setState({message:r.result})
-            // alert(r.result)
-            t=r.result;
-
-        }*/
-        function compress(img, width, height, ratio) {
-            var canvas, ctx, img64;
-
-            canvas = document.createElement('canvas');
-            canvas.width = width;
-            canvas.height = height;
-
-            ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, width, height);
-
-            img64 = canvas.toDataURL("image/png", ratio);
-
-            return img64;
-        }
-
         r.onload = function () {
-            var temp = r.result;
-            if (temp.split('/')[1].split(';')[0] !== 'gif') {
-                var image = new Image();
-                image.src = r.result;
-                image.onload = function () {
-                    var img64 = compress(image, 200, 200, 0.6);
-                    document.getElementById('image_content').value = img64;
-                    document.getElementById('image_send').click();
-                };
-            }
-            else {
-                document.getElementById('image_content').value = r.result;
-                document.getElementById('image_send').click();
-            }
-        }
+            fetch('http://112.74.57.211:4000/upload')
+                .then(res => {
+                    if (res.ok) {
+                        res.json()
+                            .then(data => {
+                                var pic = r.result.split(',')[1];
+                                var token = data;
+                                var url = "http://upload-z2.qiniu.com/putb64/-1";
+                                var xhr = new XMLHttpRequest();
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === 4) {
+                                        // document.getElementById('img').src = "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key;
+                                        document.getElementById('image_content').value = "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key;
+                                        document.getElementById('image_send').click();
+                                    }
+                                };
+                                xhr.open("POST", url, true);
+                                xhr.setRequestHeader("Content-Type", "application/octet-stream");
+                                xhr.setRequestHeader("Authorization", "UpToken " + token);
+                                xhr.send(pic);
+                            }).then(()=>{
+                                document.getElementById('sendImage').value=null;
+                        })
+                    }
+                })
+        };
 
         r.readAsDataURL(file);
     }

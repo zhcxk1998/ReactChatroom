@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function bb() {
+            var file = document.getElementById('file').files[0];
+            var r = new FileReader();
+            r.onload = function () {
+                fetch('http://localhost:4000/upload')
+                    .then(res => {
+                        if (res.ok) {
+                            res.json()
+                                .then(data => {
+                                    var pic = r.result.split(',')[1];
+                                    var token = data;
+                                    var url = "http://upload-z2.qiniu.com/putb64/-1";
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.onreadystatechange = function () {
+                                        if (xhr.readyState === 4) {
+                                            document.getElementById('img').src = "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key;
+                                        }
+                                    };
+                                    xhr.open("POST", url, true);
+                                    xhr.setRequestHeader("Content-Type", "application/octet-stream");
+                                    xhr.setRequestHeader("Authorization", "UpToken " + token);
+                                    xhr.send(pic);
+                                })
+                        }
+                    })
+            };
+            r.readAsDataURL(file);
+        }
+    </script>
+</head>
+<body>
+<input type="file" id="file" onchange="bb()"/>
+<p id="content"></p>
+<img id="img" src=""/>
+</body>
+</html>

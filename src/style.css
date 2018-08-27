@@ -179,9 +179,12 @@ p {
     display: inline-block;
     background-color: rgba(255, 255, 255, 0.8);
     /*word-wrap: normal;*/
-    max-width: 61%;
+    max-width: 320px;
 }
-
+.image_message{
+    max-width: 300px;
+    max-height: 300px;
+}
 .me {
     flex-direction: column;
     justify-content: flex-start;
