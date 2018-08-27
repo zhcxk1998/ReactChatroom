@@ -34,7 +34,7 @@ export default class Messages extends Component {
             var keyid = (new Date().getTime() + Math.floor(Math.random() * 999) + Math.random() * 10).toString();
             if (document.getElementById('messages').length != 0 && flag) {
                 var div = document.getElementById('messages');
-                div.scrollTop = div.scrollHeight;
+                div.scrollTop = div.scrollHeight+999999999;
             }
             return (
                 <Message key={keyid} msgType={message.type} msgUser={message.username} action={message.action}
@@ -117,7 +117,7 @@ class Message extends Component {
                                  className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
                                 <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
                                 <div style={{backgroundColor: 'transparent'}} className="message-content"><img
-                                    src={action}/></div>
+                                    className='image_message' src={action}/></div>
                             </div>
                         </div>
                     )

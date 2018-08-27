@@ -56,7 +56,7 @@ export default class ChatRoom extends Component {
                         .then(data => {
                             this.setState({
                                 messages: data,
-                                latestmessage: data[data.length - 1].type!=='img'?data[data.length - 1].username + "：" + data[data.length - 1].action:data[data.length - 1].username + "："+'[image]',
+                                latestmessage: data[data.length - 1].type !== 'img' ? data[data.length - 1].username + "：" + data[data.length - 1].action : data[data.length - 1].username + "：" + '[image]',
                                 latesttime: data[data.length - 1].time,
                             })
                         })
@@ -151,7 +151,7 @@ export default class ChatRoom extends Component {
         messages = messages.concat(newMsg);
         this.setState({
             messages: messages,
-            latestmessage: obj.type!=='img'?obj.username + "：" + obj.message:obj.username+"：[image]",
+            latestmessage: obj.type !== 'img' ? obj.username + "：" + obj.message : obj.username + "：[image]",
             latesttime: this.generateTime()
         })
     }
@@ -184,7 +184,7 @@ export default class ChatRoom extends Component {
             var div = document.getElementById('messages');
             var height = div.scrollHeight;
             if (obj.username === this.state.username) {
-                div.scrollTop = div.scrollHeight+999;
+                div.scrollTop = div.scrollHeight + 999;
                 height = div.scrollHeight;
             }
         })
@@ -212,84 +212,56 @@ export default class ChatRoom extends Component {
         const headportrait = this.state.headportrait;
         var file = document.getElementById('change_headportrait').files[0];
         var r = new FileReader();
-        var url;
-
-        function compress(img, width, height, ratio) {
-            var canvas, ctx, img64;
-
-            canvas = document.createElement('canvas');
-            canvas.width = width;
-            canvas.height = height;
-
-            ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, width, height);
-
-            img64 = canvas.toDataURL("image/png", ratio);
-
-            return img64;
-        }
 
         r.onload = function () {
-            temp = r.result;
-            if (temp.split('/')[1].split(';')[0] !== 'gif') {
-                var image = new Image();
-                image.src = r.result;
-                image.onload = function () {
-                    var img64 = compress(image, 200, 200, 0.8);
-                    document.getElementById('headportrait').style.backgroundImage = "url('" + img64 + "')";
-                    document.getElementById('select_headportrait').style.backgroundImage = "url('" + img64 + "')";
-                    var list = document.getElementsByClassName('my_avater');
-                    for (var i = 0; i < list.length; i++) {
-                        list[i].style.backgroundImage = "url('" + img64 + "')";
-                    }
-                    var json = headportrait;
-                    for (var index = 0; index < json.length; index++) {
-                        if (json[index].username === username) {
-                            json[index].img = img64
-                        }
-                    }
-                    message.success('Change successfully!')
-                    fetch('http://112.74.57.211:4000/update_headportrait', {
-                        method: 'POST',
-                        mode: 'cors',
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded"
-                        },
-                        body: "img=" + img64 + "&username=" + username,
-                    })
-                        .then(result => result.json())
-                        .then(result => {
+            fetch('http://112.74.57.211:4000/upload')
+                .then(res => {
+                    if (res.ok) {
+                        res.json()
+                            .then(data => {
+                                var pic = r.result.split(',')[1];
+                                var token = data;
+                                var url = "http://upload-z2.qiniu.com/putb64/-1";
+                                var xhr = new XMLHttpRequest();
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === 4) {
+                                        // document.getElementById('img').src = "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key;
+                                        document.getElementById('headportrait').style.backgroundImage = "url('" + "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key + "')";
+                                        document.getElementById('select_headportrait').style.backgroundImage = "url('" + "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key + "')";
+                                        var list = document.getElementsByClassName('my_avater');
+                                        for (var i = 0; i < list.length; i++) {
+                                            list[i].style.backgroundImage = "url('" + "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key + "')";
+                                        }
+                                        var json = headportrait;
+                                        for (var index = 0; index < json.length; index++) {
+                                            if (json[index].username === username) {
+                                                json[index].img = "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key
+                                            }
+                                        }
+                                        message.success('Change successfully!')
+                                        fetch('http://112.74.57.211:4000/update_headportrait', {
+                                            method: 'POST',
+                                            mode: 'cors',
+                                            headers: {
+                                                "Content-Type": "application/x-www-form-urlencoded"
+                                            },
+                                            body: "img=" + "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key + "&username=" + username,
+                                        })
+                                            .then(result => result.json())
+                                            .then(result => {
 
+                                            })
+                                    }
+                                };
+                                xhr.open("POST", url, true);
+                                xhr.setRequestHeader("Content-Type", "application/octet-stream");
+                                xhr.setRequestHeader("Authorization", "UpToken " + token);
+                                xhr.send(pic);
+                            }).then(() => {
+                            document.getElementById('sendImage').value = null;
                         })
-                };
-            }
-            else {
-                document.getElementById('headportrait').style.backgroundImage = "url('" + r.result + "')";
-                document.getElementById('select_headportrait').style.backgroundImage = "url('" + r.result + "')";
-                var list = document.getElementsByClassName('my_avater');
-                for (var i = 0; i < list.length; i++) {
-                    list[i].style.backgroundImage = "url('" + r.result + "')";
-                }
-                var json = headportrait;
-                for (var index = 0; index < json.length; index++) {
-                    if (json[index].username === username) {
-                        json[index].img = r.result
                     }
-                }
-                message.success('Change successfully!')
-                fetch('http://112.74.57.211:4000/update_headportrait', {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    body: "img=" + r.result + "&username=" + username,
                 })
-                    .then(result => result.json())
-                    .then(result => {
-
-                    })
-            }
         }
         r.readAsDataURL(file);
     }
