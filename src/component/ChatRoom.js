@@ -48,7 +48,7 @@ export default class ChatRoom extends Component {
         this.ready();
     }
 
-    componentWillMount() {
+    componentDidMount() {
         fetch('http://112.74.57.211:4000/chathistory')
             .then(res => {
                 if (res.ok) {

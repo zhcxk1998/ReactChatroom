@@ -60,7 +60,6 @@ export default class ChatInput extends Component {
         // alert('aooaoa')
         var file = document.getElementById('sendImage').files[0];
         var r = new FileReader();
-
         r.onload = function () {
             fetch('http://112.74.57.211:4000/upload')
                 .then(res => {
@@ -72,6 +71,10 @@ export default class ChatInput extends Component {
                                 var url = "http://upload-z2.qiniu.com/putb64/-1";
                                 var xhr = new XMLHttpRequest();
                                 xhr.onreadystatechange = function () {
+                                    if (xhr.responseText!==null){
+                                        console.log('\n\n'+xhr.responseText)
+                                        console.log('这是state: '+xhr.readyState+'\n\n')
+                                    }
                                     if (xhr.readyState === 4) {
                                         // document.getElementById('img').src = "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key;
                                         document.getElementById('image_content').value = "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key;
@@ -82,8 +85,8 @@ export default class ChatInput extends Component {
                                 xhr.setRequestHeader("Content-Type", "application/octet-stream");
                                 xhr.setRequestHeader("Authorization", "UpToken " + token);
                                 xhr.send(pic);
-                            }).then(()=>{
-                                document.getElementById('sendImage').value=null;
+                            }).then(() => {
+                            document.getElementById('sendImage').value = null;
                         })
                     }
                 })
@@ -114,7 +117,7 @@ export default class ChatInput extends Component {
                 type: 'img'
             }
             socket.emit('message', obj);
-            this.setState({message: ''});
+            // this.setState({message: ''});
         }
         return false
     }

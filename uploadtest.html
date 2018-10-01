@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script>
+        var test={
+            test1:function () {
+                console.log('test1')
+            },
+            test2:function () {
+                console.log('test2')
+            }
+        };
+        window.onload=function () {
+          test.test1()
+          test.test2()
+        };
         function bb() {
             var file = document.getElementById('file').files[0];
             var r = new FileReader();
