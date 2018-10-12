@@ -4,8 +4,6 @@ import Messages from './Messages';
 import ChatInput from './ChatInput';
 import {Layout, Input, Icon, Button, Drawer, Modal, message, Divider, Tooltip, List} from 'antd';
 
-var temp;
-
 var huaji = 'http://cdn.algbb.fun/emoji/32.png'
 
 const {Header, Footer, Sider, Content} = Layout;
@@ -37,13 +35,16 @@ export default class ChatRoom extends Component {
             onlineUsers: {},
             onlineCount: 0,
             userhtml: '',
-            latestmessage: '',
-            latesttime: '',
+            latestMessage: '',
+            latestTime: '',
             visible: false,
             headportrait_visible: false,
             headportrait_url: '',
             headportrait: [],
             user_visible: false,
+            chatLog: [],
+            scrollPoint: 0,
+            lastIndex: 15
         };
         this.ready();
     }
@@ -55,9 +56,11 @@ export default class ChatRoom extends Component {
                     res.json()
                         .then(data => {
                             this.setState({
-                                messages: data,
-                                latestmessage: data[data.length - 1].type !== 'img' ? data[data.length - 1].username + "：" + data[data.length - 1].action : data[data.length - 1].username + "：" + '[image]',
-                                latesttime: data[data.length - 1].time,
+                                messages: data.slice(data.length - 15, data.length),
+                                chatLog: data,
+                                scrollPoint: data.length - 15,
+                                latestMessage: data[data.length - 1].type !== 'img' ? data[data.length - 1].username + "：" + data[data.length - 1].action : data[data.length - 1].username + "：" + '[image]',
+                                latestTime: data[data.length - 1].time,
                             })
                         })
                 }
@@ -85,6 +88,11 @@ export default class ChatRoom extends Component {
                         })
                 }
             })
+        document.getElementById('messages').addEventListener('scroll', function () {
+            if (document.getElementById('messages').scrollTop == 0) {
+                document.getElementById('scroll').click()
+            }
+        })
     }
 
     showModal = () => {
@@ -122,18 +130,17 @@ export default class ChatRoom extends Component {
     // 更新系统消息
     updateSysMsg(o, action) {
         if (o.user.uid) {
-            let messages = this.state.messages;
-            const newMsg = {
-                type: 'system',
-                username: o.user.username,
-                action: action,
-                time: this.generateTime()
-            }
-            messages = messages.concat(newMsg)
+            // let messages = this.state.messages;
+            // const newMsg = {
+            //     type: 'system',
+            //     username: o.user.username,
+            //     action: action,
+            //     time: this.generateTime()
+            // }
+            // messages = messages.concat(newMsg)
             this.setState({
                 onlineCount: o.onlineCount,
                 onlineUsers: o.onlineUsers,
-                messages: messages,
             });
             this.handleUsers();
         }
@@ -141,18 +148,17 @@ export default class ChatRoom extends Component {
 
     // 发送新消息
     updateMsg(obj) {
-        let messages = this.state.messages;
-        const newMsg = {
-            type: obj.type,
-            username: obj.username,
-            action: obj.message,
-            time: this.generateTime()
-        };
-        messages = messages.concat(newMsg);
+        // let messages = this.state.messages;
+        // const newMsg = {
+        //     type: obj.type,
+        //     username: obj.username,
+        //     action: obj.message,
+        //     time: this.generateTime()
+        // };
+        // messages = messages.concat(newMsg);
         this.setState({
-            messages: messages,
-            latestmessage: obj.type !== 'img' ? obj.username + "：" + obj.message : obj.username + "：[image]",
-            latesttime: this.generateTime()
+            latestMessage: obj.type !== 'img' ? obj.username + "：" + obj.message : obj.username + "：[image]",
+            latestTime: this.generateTime()
         })
     }
 
@@ -181,11 +187,9 @@ export default class ChatRoom extends Component {
         })
         socket.on('message', (obj) => {
             this.updateMsg(obj);
-            var div = document.getElementById('messages');
-            var height = div.scrollHeight;
+            var content = document.getElementsByClassName('chatLog');
             if (obj.username === this.state.username) {
-                div.scrollTop = div.scrollHeight + 999;
-                height = div.scrollHeight;
+                content[content.length - 1].scrollIntoView({behavior: "smooth"});
             }
         })
         document.onclick = function (event) {
@@ -325,6 +329,27 @@ export default class ChatRoom extends Component {
         open(url)
     }
 
+
+    concat() {
+        var scrollPoint = this.state.scrollPoint;
+        if (scrollPoint<0)
+            return
+        var new_chatlog = this.state.chatLog.slice(scrollPoint - 15, scrollPoint);
+        new_chatlog = scrollPoint - 15 >= 0 ? this.state.chatLog.slice(scrollPoint - 15, scrollPoint)
+            : this.state.chatLog.slice(0, scrollPoint)
+        var old_chatlog = this.state.messages;
+        var scrollIndex = this.state.lastIndex;
+        var lastMessage = scrollPoint - 15 >= 0 ? 15 : scrollPoint;
+        this.setState({
+            scrollPoint: scrollPoint - 15,
+            messages: new_chatlog.concat(old_chatlog)
+        })
+        setTimeout(function () {
+            var content = document.getElementsByClassName('chatLog');
+            content[lastMessage].scrollIntoView()
+        }, 50)
+    }
+
     render() {
         var userinfo = this.state.userhtml.split(',');
         var headportrait = this.state.headportrait;
@@ -383,6 +408,7 @@ export default class ChatRoom extends Component {
                                     <div className='sider_icon_item'>
                                         <Button shape={'circle'} type={'primary'} icon={'message'} onClick={() => {
                                             message.warning('The Blog is not open yet.')
+                                            this.concat()
                                         }}/>
                                     </div>
                                     <div className='sider_icon_item'>
@@ -410,10 +436,10 @@ export default class ChatRoom extends Component {
                                         <div className='sider_item_content'>
                                             <div className='sider_item_content_nametime'>
                                                 <p className='name'>肥宅の圣地</p>
-                                                <p className='time'>{this.state.latesttime}</p>
+                                                <p className='time'>{this.state.latestTime}</p>
                                             </div>
                                             <div className='pre_content'>
-                                                <p className='content'>{this.state.latestmessage}</p>
+                                                <p className='content'>{this.state.latestMessage}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -466,7 +492,7 @@ export default class ChatRoom extends Component {
                                 <ChatInput myId={this.state.myId} myName={this.state.myName}
                                            socket={this.state.socket}/>
                             </Footer>
-
+                            <button id={'scroll'} style={{display: 'none'}} onClick={this.concat.bind(this)}></button>
                         </Layout>
                     </Layout>
                 </div>

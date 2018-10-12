@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getemoji} from "./emoji";
+import {getemoji} from "./Emoji";
 
 var huaji = 'http://cdn.algbb.fun/emoji/32.png'
 var flag = true;
@@ -22,19 +22,20 @@ export default class Messages extends Component {
 
     }
 
+
     render() {
         var user = this.state.username;
         var headportrait = this.props.headportrait;
         var messages = this.props.messages;
-
         const oneMessage = this.props.messages.map(function (message, index) {
             if (message.type == 'system') {
                 flag = false;
             }
             var keyid = (new Date().getTime() + Math.floor(Math.random() * 999) + Math.random() * 10).toString();
-            if (document.getElementById('messages').length != 0 && flag) {
-                var div = document.getElementById('messages');
-                div.scrollTop = div.scrollHeight+999999999;
+            var content = document.getElementsByClassName('chatLog');
+            if (content.length!=0 && flag){
+                content[content.length-1].scrollIntoView()
+                flag=false
             }
             return (
                 <Message key={keyid} msgType={message.type} msgUser={message.username} action={message.action}
@@ -71,18 +72,18 @@ class Message extends Component {
             if (avater == null) {
                 avater = huaji
             }
-            if (this.props.msgType === 'system') {
-                return (
-                    <div className="one-message system-message">
-                        {this.props.msgUser} {(this.props.action === 'login') ? ' 闪亮登场！' : ' 悄咪咪的走了！'} <span
-                        className="time">&nbsp;{this.props.time}</span>
-                    </div>
-                )
-            }
-            else if (this.props.isMe) {
+            // if (this.props.msgType === 'system') {
+            //     return (
+            //         <div className="one-message system-message">
+            //             {this.props.msgUser} {(this.props.action === 'login') ? ' 闪亮登场！' : ' 悄咪咪的走了！'} <span
+            //             className="time">&nbsp;{this.props.time}</span>
+            //         </div>
+            //     )
+            // }
+            if (this.props.isMe) {
                 if (this.props.msgType === 'img') {
                     return (
-                        <div style={{display: 'flex'}}>
+                        <div className="chatLog" style={{display: 'flex'}}>
                             <div style={{backgroundColor: 'transparent'}}
                                  className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
                                 <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
@@ -96,7 +97,7 @@ class Message extends Component {
                 }
                 else {
                     return (
-                        <div style={{display: 'flex'}}>
+                        <div className="chatLog" style={{display: 'flex'}}>
                             <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
                                 <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
                                 <div className="message-content">{action}</div>
@@ -110,7 +111,7 @@ class Message extends Component {
             else {
                 if (this.props.msgType === 'img') {
                     return (
-                        <div style={{display: 'flex'}}>
+                        <div className="chatLog" style={{display: 'flex'}}>
                             <div id="chat_avater" className='chat_avater my_avater'
                                  style={{backgroundImage: "url('" + avater + "')"}}></div>
                             <div style={{backgroundColor: 'transparent'}}
@@ -124,7 +125,7 @@ class Message extends Component {
                 }
                 else {
                     return (
-                        <div style={{display: 'flex'}}>
+                        <div className="chatLog" style={{display: 'flex'}}>
                             <div id="chat_avater" style={{backgroundImage: "url('" + avater + "')"}}
                                  className={(this.props.isMe) ? 'myavater chat_avater' : 'other chat_avater'}></div>
                             <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>

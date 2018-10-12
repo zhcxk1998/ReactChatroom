@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Input, Menu, Dropdown, Button, Tabs} from 'antd';
 import 'antd/dist/antd.css';
-import {getemoji} from "./emoji";
+import {getemoji} from "./Emoji";
 import {message} from "antd/lib/index";
 
 const TabPane = Tabs.TabPane;
@@ -71,10 +71,6 @@ export default class ChatInput extends Component {
                                 var url = "http://upload-z2.qiniu.com/putb64/-1";
                                 var xhr = new XMLHttpRequest();
                                 xhr.onreadystatechange = function () {
-                                    if (xhr.responseText!==null){
-                                        console.log('\n\n'+xhr.responseText)
-                                        console.log('这是state: '+xhr.readyState+'\n\n')
-                                    }
                                     if (xhr.readyState === 4) {
                                         // document.getElementById('img').src = "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key;
                                         document.getElementById('image_content').value = "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key;

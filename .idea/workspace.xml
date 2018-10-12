@@ -5,9 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/component/ChatInput.js" afterPath="$PROJECT_DIR$/src/component/ChatInput.js" />
       <change beforePath="$PROJECT_DIR$/src/component/ChatRoom.js" afterPath="$PROJECT_DIR$/src/component/ChatRoom.js" />
+      <change beforePath="$PROJECT_DIR$/src/component/Messages.js" afterPath="$PROJECT_DIR$/src/component/Messages.js" />
       <change beforePath="$PROJECT_DIR$/src/style.css" afterPath="$PROJECT_DIR$/src/style.css" />
-      <change beforePath="$PROJECT_DIR$/uploadtest.html" afterPath="$PROJECT_DIR$/uploadtest.html" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" afterPath="$PROJECT_DIR$/webpack.config.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,8 +23,8 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1824">
-              <caret line="57" column="29" lean-forward="false" selection-start-line="57" selection-start-column="29" selection-end-line="57" selection-end-column="29" />
+            <state relative-caret-position="0">
+              <caret line="25" column="15" lean-forward="false" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -34,8 +33,8 @@
       <file leaf-file-name="Messages.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/component/Messages.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4160">
-              <caret line="131" column="24" lean-forward="false" selection-start-line="131" selection-start-column="24" selection-end-line="131" selection-end-column="24" />
+            <state relative-caret-position="2432">
+              <caret line="77" column="40" lean-forward="true" selection-start-line="77" selection-start-column="40" selection-end-line="77" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -44,8 +43,8 @@
       <file leaf-file-name="ChatRoom.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/component/ChatRoom.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4326">
-              <caret line="150" column="33" lean-forward="true" selection-start-line="150" selection-start-column="33" selection-end-line="150" selection-end-column="33" />
+            <state relative-caret-position="131">
+              <caret line="275" column="12" lean-forward="false" selection-start-line="275" selection-start-column="12" selection-end-line="275" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -54,32 +53,12 @@
       <file leaf-file-name="ChatInput.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/component/ChatInput.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1728">
-              <caret line="12" column="21" lean-forward="true" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+            <state relative-caret-position="2016">
+              <caret line="72" column="70" lean-forward="false" selection-start-line="72" selection-start-column="70" selection-end-line="72" selection-end-column="70" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
-                <element signature="e#4970#13253#0" expanded="false" />
+                <element signature="e#4702#12985#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="uploadtest.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/uploadtest.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="uploadtest.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/uploadtest.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="9" column="48" lean-forward="true" selection-start-line="9" selection-start-column="48" selection-end-line="9" selection-end-column="48" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -87,8 +66,8 @@
       <file leaf-file-name="webpack.config.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webpack.config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1152">
-              <caret line="36" column="40" lean-forward="false" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
+            <state relative-caret-position="128">
+              <caret line="19" column="8" lean-forward="false" selection-start-line="19" selection-start-column="8" selection-end-line="21" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -97,18 +76,8 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="39" column="43" lean-forward="false" selection-start-line="39" selection-start-column="43" selection-end-line="39" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Chat.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/component/Chat.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="9" />
+            <state relative-caret-position="3392">
+              <caret line="106" column="1" lean-forward="false" selection-start-line="106" selection-start-column="1" selection-end-line="106" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -144,9 +113,15 @@
       <find>emoji</find>
       <find>style.css</find>
       <find>opacity</find>
-      <find>scroll</find>
-      <find>112.74.57.211</find>
       <find>scrollT</find>
+      <find>112.74.57.211</find>
+      <find>闪亮</find>
+      <find>scroll</find>
+      <find>chatHistory</find>
+      <find>scrollTop</find>
+      <find>login</find>
+      <find>latestmessage</find>
+      <find>latesttime</find>
       <find>localhost</find>
     </findStrings>
     <replaceStrings>
@@ -156,6 +131,9 @@
       <replace>112.74.57.211:</replace>
       <replace>localhost:</replace>
       <replace>localhost</replace>
+      <replace>chatLog</replace>
+      <replace>latestMessage</replace>
+      <replace>latestTime</replace>
       <replace>112.74.57.211</replace>
     </replaceStrings>
   </component>
@@ -194,7 +172,6 @@
         <option value="$PROJECT_DIR$/src/component/Chat.js" />
         <option value="$PROJECT_DIR$/a.html" />
         <option value="$PROJECT_DIR$/eeee.css" />
-        <option value="$PROJECT_DIR$/aaa.html" />
         <option value="$PROJECT_DIR$/flextest.html" />
         <option value="$USER_HOME$/Desktop/flex布局/flextest.html" />
         <option value="$USER_HOME$/Desktop/压缩图片/test.html" />
@@ -210,16 +187,20 @@
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/uploadtest.js" />
         <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/src/component/Messages.js" />
-        <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$USER_HOME$/Desktop/sort.html" />
         <option value="$USER_HOME$/Desktop/temp code/canvas.js" />
         <option value="$USER_HOME$/Desktop/temp code/sort.html" />
         <option value="$USER_HOME$/Desktop/code store/leetcode/628.三个数的最大乘积.html" />
-        <option value="$PROJECT_DIR$/src/component/ChatInput.js" />
         <option value="$PROJECT_DIR$/uploadtest.html" />
+        <option value="$USER_HOME$/Desktop/code store/JsTest/JSON_Test.js" />
+        <option value="$USER_HOME$/Desktop/code store/JsTest/scrollTest.html" />
         <option value="$PROJECT_DIR$/src/style.css" />
+        <option value="$PROJECT_DIR$/aaa.html" />
+        <option value="$PROJECT_DIR$/scrollTest.html" />
+        <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/src/component/ChatRoom.js" />
+        <option value="$PROJECT_DIR$/src/component/Messages.js" />
+        <option value="$PROJECT_DIR$/src/component/ChatInput.js" />
       </list>
     </option>
   </component>
@@ -245,9 +226,9 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-17" />
-    <option name="width" value="1432" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-8" />
+    <option name="width" value="976" />
     <option name="height" value="1038" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -269,7 +250,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -297,6 +277,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -339,6 +320,20 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager" selected="Node.js.ChatRoom.js">
+    <configuration name="ChatRoom.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="ChatRoom.js" working-dir="$PROJECT_DIR$/src/component" />
+    <configuration name="JSON_Test.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="JSON_Test.js" working-dir="$USER_HOME$/Desktop/code store/JsTest" />
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Node.js.JSON_Test.js" />
+      <item index="1" class="java.lang.String" itemvalue="Node.js.ChatRoom.js" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.ChatRoom.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.JSON_Test.js" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -413,27 +408,35 @@
       <workItem from="1536164000613" duration="120000" />
       <workItem from="1537082792902" duration="1440000" />
       <workItem from="1537105933787" duration="583000" />
-      <workItem from="1538360307733" duration="1158000" />
+      <workItem from="1538360307733" duration="1807000" />
+      <workItem from="1538366522339" duration="1331000" />
+      <workItem from="1538379827936" duration="935000" />
+      <workItem from="1538532941885" duration="38692000" />
+      <workItem from="1538791215457" duration="16109000" />
+      <workItem from="1538877417828" duration="6778000" />
+      <workItem from="1538917528885" duration="3761000" />
+      <workItem from="1539249218084" duration="5568000" />
+      <workItem from="1539301603924" duration="2521000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="565724000" />
+    <option name="totallyTimeSpent" value="642068000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12896407" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15697674" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42873433" sideWeight="0.5063425" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43443558" sideWeight="0.5105708" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43443558" sideWeight="0.4936575" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43443558" sideWeight="0.48942918" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -458,15 +461,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tt.html" />
-    <entry file="file://$PROJECT_DIR$/src/static/img/loading.gif">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bbb.html" />
-    <entry file="file://$PROJECT_DIR$/build/1.css" />
-    <entry file="file://$PROJECT_DIR$/public/icon.png" />
     <entry file="file://$PROJECT_DIR$/aoao.html" />
     <entry file="file://$PROJECT_DIR$/test.js" />
     <entry file="file://$PROJECT_DIR$/package.json">
@@ -479,7 +473,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/a.html" />
     <entry file="file://$PROJECT_DIR$/eeee.css" />
-    <entry file="file://$PROJECT_DIR$/aaa.html" />
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -571,14 +564,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1152">
-          <caret line="36" column="40" lean-forward="false" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Desktop/sort.html" />
     <entry file="file://$USER_HOME$/Desktop/temp code/canvas.js" />
     <entry file="file://$USER_HOME$/Desktop/temp code/sort.html" />
@@ -589,83 +574,132 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/emoji.js">
+    <entry file="file://$PROJECT_DIR$/src/component/Chat.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        <state relative-caret-position="480">
+          <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/round.html">
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1024">
-          <caret line="32" column="29" lean-forward="false" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1824">
-          <caret line="57" column="29" lean-forward="false" selection-start-line="57" selection-start-column="29" selection-end-line="57" selection-end-column="29" />
-          <folding />
+        <state relative-caret-position="-1824">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/uploadtest.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="9" column="48" lean-forward="true" selection-start-line="9" selection-start-column="48" selection-end-line="9" selection-end-column="48" />
-          <folding />
+        <state relative-caret-position="-107">
+          <caret line="9" column="48" lean-forward="false" selection-start-line="9" selection-start-column="48" selection-end-line="9" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/round.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="28" column="31" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="39" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/uploadtest.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="-477">
+          <caret line="19" column="45" lean-forward="true" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/code store/JsTest/scrollTest.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="117" column="17" lean-forward="true" selection-start-line="117" selection-start-column="17" selection-end-line="117" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="39" column="43" lean-forward="false" selection-start-line="39" selection-start-column="43" selection-end-line="39" selection-end-column="43" />
+        <state relative-caret-position="3392">
+          <caret line="106" column="1" lean-forward="false" selection-start-line="106" selection-start-column="1" selection-end-line="106" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/Chat.js">
+    <entry file="file://$PROJECT_DIR$/src/component/Emoji.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="9" />
+        <state relative-caret-position="320">
+          <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="15067" column="17" lean-forward="false" selection-start-line="15067" selection-start-column="17" selection-end-line="15067" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="25" column="15" lean-forward="false" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/code store/JsTest/JSON_Test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="928">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="19" column="8" lean-forward="false" selection-start-line="19" selection-start-column="8" selection-end-line="21" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrollTest.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="736">
+          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aaa.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1600">
+          <caret line="50" column="22" lean-forward="false" selection-start-line="50" selection-start-column="22" selection-end-line="50" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/component/ChatRoom.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4326">
-          <caret line="150" column="33" lean-forward="true" selection-start-line="150" selection-start-column="33" selection-end-line="150" selection-end-column="33" />
+        <state relative-caret-position="131">
+          <caret line="275" column="12" lean-forward="false" selection-start-line="275" selection-start-column="12" selection-end-line="275" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/component/Messages.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4160">
-          <caret line="131" column="24" lean-forward="false" selection-start-line="131" selection-start-column="24" selection-end-line="131" selection-end-column="24" />
+        <state relative-caret-position="2432">
+          <caret line="77" column="40" lean-forward="true" selection-start-line="77" selection-start-column="40" selection-end-line="77" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/component/ChatInput.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1728">
-          <caret line="12" column="21" lean-forward="true" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+        <state relative-caret-position="2016">
+          <caret line="72" column="70" lean-forward="false" selection-start-line="72" selection-start-column="70" selection-end-line="72" selection-end-column="70" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#4970#13253#0" expanded="false" />
+            <element signature="e#4702#12985#0" expanded="false" />
           </folding>
         </state>
       </provider>
