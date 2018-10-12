@@ -148,15 +148,16 @@ export default class ChatRoom extends Component {
 
     // 发送新消息
     updateMsg(obj) {
-        // let messages = this.state.messages;
-        // const newMsg = {
-        //     type: obj.type,
-        //     username: obj.username,
-        //     action: obj.message,
-        //     time: this.generateTime()
-        // };
-        // messages = messages.concat(newMsg);
+        let messages = this.state.messages;
+        const newMsg = {
+            type: obj.type,
+            username: obj.username,
+            action: obj.message,
+            time: this.generateTime()
+        };
+        messages = messages.concat(newMsg);
         this.setState({
+            messages:messages,
             latestMessage: obj.type !== 'img' ? obj.username + "：" + obj.message : obj.username + "：[image]",
             latestTime: this.generateTime()
         })
@@ -188,9 +189,8 @@ export default class ChatRoom extends Component {
         socket.on('message', (obj) => {
             this.updateMsg(obj);
             var content = document.getElementsByClassName('chatLog');
-            if (obj.username === this.state.username) {
+            if (obj.username === this.state.username)
                 content[content.length - 1].scrollIntoView({behavior: "smooth"});
-            }
         })
         document.onclick = function (event) {
             var e = event || window.event;

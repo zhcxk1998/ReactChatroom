@@ -41,6 +41,7 @@ export default class ChatInput extends Component {
         var div = document.getElementById('input_box');
         div.value = div.value + ' ' + name + ' ';
         this.setState({message: div.value})
+        document.getElementById('input_box').focus()
     }
 
     // 点击提交或按回车
@@ -57,7 +58,6 @@ export default class ChatInput extends Component {
     }
 
     changeImg = () => {
-        // alert('aooaoa')
         var file = document.getElementById('sendImage').files[0];
         var r = new FileReader();
         r.onload = function () {
@@ -98,7 +98,6 @@ export default class ChatInput extends Component {
 
     sendImg = () => {
         document.getElementById('sendImage').click();
-        // alert('aoao')
     }
 
     //发送图片信息
