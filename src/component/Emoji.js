@@ -1,4 +1,4 @@
-var emoji = {
+const emoji = {
     "#(01)": 'http://cdn.algbb.fun/emoji/01.png',
     "#(02)": 'http://cdn.algbb.fun/emoji/02.png',
     "#(03)": 'http://cdn.algbb.fun/emoji/03.png',

@@ -8,20 +8,7 @@ var huaji = 'http://cdn.algbb.fun/emoji/32.png'
 
 const {Header, Footer, Sider, Content} = Layout;
 
-
-const qq = <div style={{display: 'flex', flexDirection: 'column ', alignItems: 'center', justifyContent: 'center'}}><img
-    width={100} height={100}
-    src={'http://cdn.algbb.fun/icon/qq.png'}></img>
-    <p style={{textAlign: 'center', fontSize: 12}}>QQ号：464203147</p>
-</div>
-
-const wechat = <div style={{display: 'flex', flexDirection: 'column ', alignItems: 'center', justifyContent: 'center'}}>
-    <img width={100} height={100}
-         src={'http://cdn.algbb.fun/icon/wechat.jpg'}></img>
-    <p style={{textAlign: 'center', fontSize: 12}}>微信号：zhcxk1998</p>
-</div>
 export default class ChatRoom extends Component {
-
     constructor(props) {
         super(props);
         const socket = this.props.socket;
@@ -37,11 +24,9 @@ export default class ChatRoom extends Component {
             userhtml: '',
             latestMessage: '',
             latestTime: '',
-            visible: false,
             headportrait_visible: false,
             headportrait_url: '',
             headportrait: [],
-            user_visible: false,
             chatLog: [],
             scrollPoint: 0,
             lastIndex: 15
@@ -157,7 +142,7 @@ export default class ChatRoom extends Component {
         };
         messages = messages.concat(newMsg);
         this.setState({
-            messages:messages,
+            messages: messages,
             latestMessage: obj.type !== 'img' ? obj.username + "：" + obj.message : obj.username + "：[image]",
             latestTime: this.generateTime()
         })
@@ -262,7 +247,7 @@ export default class ChatRoom extends Component {
                                 xhr.setRequestHeader("Authorization", "UpToken " + token);
                                 xhr.send(pic);
                             }).then(() => {
-                            document.getElementById('sendImage').value = null;
+                            document.getElementById('selectImage').value = null;
                         })
                     }
                 })
@@ -332,7 +317,7 @@ export default class ChatRoom extends Component {
 
     concat() {
         var scrollPoint = this.state.scrollPoint;
-        if (scrollPoint<0)
+        if (scrollPoint < 0)
             return
         var new_chatlog = this.state.chatLog.slice(scrollPoint - 15, scrollPoint);
         new_chatlog = scrollPoint - 15 >= 0 ? this.state.chatLog.slice(scrollPoint - 15, scrollPoint)
@@ -353,6 +338,19 @@ export default class ChatRoom extends Component {
     render() {
         var userinfo = this.state.userhtml.split(',');
         var headportrait = this.state.headportrait;
+        const qq = <div
+            style={{display: 'flex', flexDirection: 'column ', alignItems: 'center', justifyContent: 'center'}}><img
+            width={100} height={100}
+            src={'http://cdn.algbb.fun/icon/qq.png'}></img>
+            <p style={{textAlign: 'center', fontSize: 12}}>QQ号：464203147</p>
+        </div>
+
+        const wechat = <div
+            style={{display: 'flex', flexDirection: 'column ', alignItems: 'center', justifyContent: 'center'}}>
+            <img width={100} height={100}
+                 src={'http://cdn.algbb.fun/icon/wechat.jpg'}></img>
+            <p style={{textAlign: 'center', fontSize: 12}}>微信号：zhcxk1998</p>
+        </div>
         return (
             <div id='main_background' className="main_background">
                 <div className='chat_blur'></div>
@@ -408,7 +406,6 @@ export default class ChatRoom extends Component {
                                     <div className='sider_icon_item'>
                                         <Button shape={'circle'} type={'primary'} icon={'message'} onClick={() => {
                                             message.warning('The Blog is not open yet.')
-                                            this.concat()
                                         }}/>
                                     </div>
                                     <div className='sider_icon_item'>

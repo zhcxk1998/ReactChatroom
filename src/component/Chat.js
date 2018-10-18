@@ -10,7 +10,7 @@ class Chat extends React.Component {
             username: this.props.username,
             uid: this.props.uid,
             socket: io('http://112.74.57.211:4000'),
-            message:[]
+            message: []
         }
     }
 
@@ -19,12 +19,11 @@ class Chat extends React.Component {
         this.state.socket.emit('login', {uid: this.state.uid, username: this.state.username})
     }
 
-    
 
     render() {
-        let renderDOM;
-        renderDOM = <ChatRoom uid={this.state.uid} username={this.state.username} socket={this.state.socket}/>
-        return (<div>{renderDOM}</div>)
+        // let renderDOM;
+        // renderDOM = <ChatRoom uid={this.state.uid} username={this.state.username} socket={this.state.socket}/>
+        return (<div><ChatRoom uid={this.state.uid} username={this.state.username} socket={this.state.socket}/></div>)
     }
 }
 

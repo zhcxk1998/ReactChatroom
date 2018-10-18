@@ -5,7 +5,6 @@ var huaji = 'http://cdn.algbb.fun/emoji/32.png'
 var flag = true;
 
 export default class Messages extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -21,7 +20,6 @@ export default class Messages extends Component {
     componentDidMount() {
 
     }
-
 
     render() {
         var user = this.state.username;
@@ -48,8 +46,6 @@ export default class Messages extends Component {
 }
 
 class Message extends Component {
-
-
     render() {
         var user = this.props.msgUser;
         var headportrait = this.props.headportrait;
