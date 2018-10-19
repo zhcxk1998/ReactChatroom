@@ -31,9 +31,9 @@ export default class Messages extends Component {
             }
             var keyid = (new Date().getTime() + Math.floor(Math.random() * 999) + Math.random() * 10).toString();
             var content = document.getElementsByClassName('chatLog');
-            if (content.length!=0 && flag){
-                content[content.length-1].scrollIntoView()
-                flag=false
+            if (content.length != 0 && flag) {
+                content[content.length - 1].scrollIntoView()
+                flag = false
             }
             return (
                 <Message key={keyid} msgType={message.type} msgUser={message.username} action={message.action}
@@ -51,23 +51,22 @@ class Message extends Component {
         var headportrait = this.props.headportrait;
         var action = this.props.action;
         var emoji = action.match(/#\(\d{2}\)/g);
-        var te = action;
+        var html = action;
         if (emoji != null) {
             emoji.map(function (item) {
                 if (item.match(/\d{2}/)[0] >= 1 && item.match(/\d{2}/)[0] <= 33)
-                    te = te.replace(item, '<img src="' + getemoji(item) + '" width=30 height=30/>')
+                    html = html.replace(item, '<img src="' + getemoji(item) + '" width=30 height=30/>')
             })
-            action = <div dangerouslySetInnerHTML={{__html: te}}></div>
+            action = <div dangerouslySetInnerHTML={{__html: html}}></div>
         }
 
         if (headportrait.length !== 0) {
             var user_avater = headportrait.filter(function (e) {
                 return e.username === user;
             });
-            var avater = user_avater[0].img;
-            if (avater == null) {
-                avater = huaji
-            }
+            var avater = "";
+            if (user_avater.length != 0)
+                avater = user_avater[0].img;
             // if (this.props.msgType === 'system') {
             //     return (
             //         <div className="one-message system-message">

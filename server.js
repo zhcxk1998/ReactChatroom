@@ -97,12 +97,12 @@ app.post('/regist', function (req, result) {
     username = req.body.username;
     password = req.body.password;
     info = [
-        req.body.username, req.body.password
+        req.body.username, req.body.password,'http://cdn.algbb.fun/emoji/32.png'
     ];
     connection.query('select * from userinfo where binary username="' + username + '"', function (err, res) {
         if (err) console.log(err);
         if (res.length === 0) {
-            connection.query('insert into userinfo(username,password) values(?,?)', info, function (err, res) {
+            connection.query('insert into userinfo(username,password,img) values(?,?,?)', info, function (err, res) {
             });
             return result.send([{"data": "registsuccess"}])
         }

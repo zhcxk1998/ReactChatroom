@@ -62,21 +62,18 @@ export default class ChatRoom extends Component {
                                 var user_avater = headportrait.filter(function (e) {
                                     return e.username === user;
                                 });
-                                var avater = user_avater[0].img;
-                                if (avater == null) {
-                                    document.getElementById('headportrait').style.backgroundImage = "url('" + huaji + "')";
-                                }
-                                else {
-                                    document.getElementById('headportrait').style.backgroundImage = "url('" + avater + "')";
-                                }
+                                var avater="";
+                                if (user_avater.length!=0)
+                                    avater = user_avater[0].img;
+                                document.getElementById('headportrait').style.backgroundImage = "url('" + avater + "')";
                             }
                         })
                 }
             })
+        var that=this;
         document.getElementById('messages').addEventListener('scroll', function () {
-            if (document.getElementById('messages').scrollTop == 0) {
-                document.getElementById('scroll').click()
-            }
+            if (document.getElementById('messages').scrollTop == 0)
+                that.concat();
         })
     }
 
@@ -88,7 +85,6 @@ export default class ChatRoom extends Component {
     }
     showUser = () => {
         document.getElementById('user_list').style.display = '';
-        console.log(document.getElementById('user_list').style.display)
     }
 
     handleCancel = (e) => {
@@ -180,11 +176,9 @@ export default class ChatRoom extends Component {
         document.onclick = function (event) {
             var e = event || window.event;
             var elem = e.srcElement || e.target;
-
             while (elem) {
-                if (elem.className == "user_list") {
+                if (elem.className == "user_list")
                     return;
-                }
                 elem = elem.parentNode;
             }
             //隐藏div的方法
@@ -218,14 +212,12 @@ export default class ChatRoom extends Component {
                                         document.getElementById('headportrait').style.backgroundImage = "url('" + "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key + "')";
                                         document.getElementById('select_headportrait').style.backgroundImage = "url('" + "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key + "')";
                                         var list = document.getElementsByClassName('my_avater');
-                                        for (var i = 0; i < list.length; i++) {
+                                        for (var i = 0; i < list.length; i++)
                                             list[i].style.backgroundImage = "url('" + "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key + "')";
-                                        }
                                         var json = headportrait;
                                         for (var index = 0; index < json.length; index++) {
-                                            if (json[index].username === username) {
+                                            if (json[index].username === username)
                                                 json[index].img = "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key
-                                            }
                                         }
                                         message.success('Change successfully!')
                                         fetch('http://112.74.57.211:4000/update_headportrait', {
@@ -288,9 +280,8 @@ export default class ChatRoom extends Component {
                                     document.getElementById('used_password').value = '';
                                     document.getElementById('new_password').value = '';
                                 }
-                                else if (result[0].data === 'no') {
+                                else if (result[0].data === 'no')
                                     message.error('Error occur!')
-                                }
                             })
                             .catch(error => {
                                 console.log(error)
@@ -305,9 +296,8 @@ export default class ChatRoom extends Component {
                     console.log(error)
                 })
         }
-        else {
+        else
             message.warning('Please finsh the form!')
-        }
     }
 
     jump = (url) => {
@@ -318,7 +308,7 @@ export default class ChatRoom extends Component {
     concat() {
         var scrollPoint = this.state.scrollPoint;
         if (scrollPoint < 0)
-            return
+            return;
         var new_chatlog = this.state.chatLog.slice(scrollPoint - 15, scrollPoint);
         new_chatlog = scrollPoint - 15 >= 0 ? this.state.chatLog.slice(scrollPoint - 15, scrollPoint)
             : this.state.chatLog.slice(0, scrollPoint)
@@ -458,16 +448,13 @@ export default class ChatRoom extends Component {
                                         var user_avater = headportrait.filter(function (item) {
                                             return item.username === user;
                                         })
-                                        var avater;
+                                        let avater = "";
                                         if (user_avater.length != 0)
                                             avater = user_avater[0].img;
-                                        else
-                                            avater = huaji;
                                         return <div className='user_list_onlineuser_item'>
                                             <div className='user_list_onlineuser_avater'
                                                  style={{backgroundImage: 'url("' + avater + '")'}}></div>
                                             <span className='user_list_onlineuser_username'>{user}</span>
-
                                         </div>
                                     })}
                                 </div>

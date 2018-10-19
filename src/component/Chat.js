@@ -21,8 +21,6 @@ class Chat extends React.Component {
 
 
     render() {
-        // let renderDOM;
-        // renderDOM = <ChatRoom uid={this.state.uid} username={this.state.username} socket={this.state.socket}/>
         return (<div><ChatRoom uid={this.state.uid} username={this.state.username} socket={this.state.socket}/></div>)
     }
 }
