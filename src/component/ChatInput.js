@@ -61,7 +61,6 @@ export default class ChatInput extends Component {
                     }
                 })
         };
-
         r.readAsDataURL(file);
     }
 

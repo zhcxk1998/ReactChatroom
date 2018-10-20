@@ -62,19 +62,34 @@ export default class ChatRoom extends Component {
                                 var user_avater = headportrait.filter(function (e) {
                                     return e.username === user;
                                 });
-                                var avater="";
-                                if (user_avater.length!=0)
-                                    avater = user_avater[0].img;
+                                var avater = user_avater.length != 0 ? user_avater[0].img : huaji;
                                 document.getElementById('headportrait').style.backgroundImage = "url('" + avater + "')";
                             }
                         })
                 }
             })
-        var that=this;
+        var that = this;
         document.getElementById('messages').addEventListener('scroll', function () {
             if (document.getElementById('messages').scrollTop == 0)
                 that.concat();
         })
+        let user_list = document.getElementById("user_list"),
+            show_user = document.getElementById("show_user");
+        document.addEventListener('click', function (event) {
+            let e = event || window.event,
+                elem = e.srcElement || e.target;
+            if (elem !== show_user)
+                user_list.style.display = 'none';
+        })
+        user_list.addEventListener('click', function (event) {
+            event = event || window.event;
+            let button=document.getElementById('user_list_function');
+            if (event.srcElement!==button||event.target!==button)
+                event.stopPropagation();
+        })
+        show_user.onclick = function () {
+            user_list.style.display = 'block';
+        }
     }
 
     showModal = () => {
@@ -111,14 +126,6 @@ export default class ChatRoom extends Component {
     // 更新系统消息
     updateSysMsg(o, action) {
         if (o.user.uid) {
-            // let messages = this.state.messages;
-            // const newMsg = {
-            //     type: 'system',
-            //     username: o.user.username,
-            //     action: action,
-            //     time: this.generateTime()
-            // }
-            // messages = messages.concat(newMsg)
             this.setState({
                 onlineCount: o.onlineCount,
                 onlineUsers: o.onlineUsers,
@@ -173,17 +180,6 @@ export default class ChatRoom extends Component {
             if (obj.username === this.state.username)
                 content[content.length - 1].scrollIntoView({behavior: "smooth"});
         })
-        document.onclick = function (event) {
-            var e = event || window.event;
-            var elem = e.srcElement || e.target;
-            while (elem) {
-                if (elem.className == "user_list")
-                    return;
-                elem = elem.parentNode;
-            }
-            //隐藏div的方法
-            document.getElementsByClassName('user_list')[0].style.display = 'none';
-        }
     }
 
     select_headportrait = () => {
@@ -303,7 +299,6 @@ export default class ChatRoom extends Component {
     jump = (url) => {
         open(url)
     }
-
 
     concat() {
         var scrollPoint = this.state.scrollPoint;
@@ -441,16 +436,14 @@ export default class ChatRoom extends Component {
                                     position: 'relative'
                                 }}>
                             <div style={{display: 'none'}} id={'user_list'} className='user_list'>
-                                <div className='user_list_header'><span>群组信息</span></div>
-                                <span className='user_list_onlinecount'>在线成员 {this.state.onlineCount}</span>
+                                <div className='user_list_header'><p>群组信息</p></div>
+                                <p>在线成员 {this.state.onlineCount}</p>
                                 <div className='user_list_onlineuser'>
                                     {userinfo.map(function (user) {
                                         var user_avater = headportrait.filter(function (item) {
                                             return item.username === user;
                                         })
-                                        let avater = "";
-                                        if (user_avater.length != 0)
-                                            avater = user_avater[0].img;
+                                        var avater = user_avater.length != 0 ? user_avater[0].img : huaji;
                                         return <div className='user_list_onlineuser_item'>
                                             <div className='user_list_onlineuser_avater'
                                                  style={{backgroundImage: 'url("' + avater + '")'}}></div>
@@ -458,11 +451,15 @@ export default class ChatRoom extends Component {
                                         </div>
                                     })}
                                 </div>
+                                <p>功能 </p>
+                                <Button className={'user_list_function'} id={'user_list_function'} type={'primary'} onClick={()=>{
+                                    message.error('退什么退！！啊！？？')
+                                }}>退出群聊</Button>
                             </div>
                             <Header className='chat_header' style={{backgroundColor: 'rgba(255, 255, 255, 0.65)'}}>
                                 <div className="room-name">
                                     <p>肥宅の圣地</p>
-                                    <Button type={'primary'} icon={'menu-fold'} onClick={this.showUser}/>
+                                    <Button type={'primary'} icon={'menu-fold'} id={'show_user'}/>
                                 </div>
                             </Header>
                             <Content>

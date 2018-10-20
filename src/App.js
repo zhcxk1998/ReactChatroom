@@ -35,9 +35,8 @@ class HorizontalLoginForm extends React.Component {
 
 
     componentWillMount() {
-        if (localStorage.getItem('username') !== null) {
+        if (localStorage.getItem('username') !== null)
             this.setState({isLogin: true, username: localStorage.getItem('username')})
-        }
     }
 
     componentDidMount() {
@@ -111,16 +110,16 @@ class HorizontalLoginForm extends React.Component {
 
     registSubmit = (e) => {
         e.preventDefault();
-        var list;
-        var t;
+        let data;
+        let that=this;
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 this.setState({
                     data: [values]
                 })
-                t = [values];
-                var username = t[0].username;
-                var password = t[0].password;
+                data = [values];
+                var username = data[0].username;
+                var password = data[0].password;
                 fetch('http://112.74.57.211:4000/regist', {
                     method: 'POST',
                     mode: 'cors',
@@ -132,14 +131,15 @@ class HorizontalLoginForm extends React.Component {
                     .then(result => result.json())
                     .then(result => {
                         if (result[0].data === 'registsuccess') {
+                            this.setState({username: username})
                             message.success('Regist Success!')
                             setTimeout(function () {
-                                window.location.reload(true)
+                                // window.location.reload(true)
+                                that.loginsuccess();
                             }, 1000)
                         }
-                        else {
+                        else
                             message.warning('User Has Existed!')
-                        }
                     })
                     .catch(err => {
                         console.log(err)
