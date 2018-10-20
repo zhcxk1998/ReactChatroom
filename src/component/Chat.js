@@ -9,7 +9,9 @@ class Chat extends React.Component {
         this.state = {
             username: this.props.username,
             uid: this.props.uid,
-            socket: io('http://112.74.57.211:4000'),
+            socket: io('http://112.74.57.211:4000',{
+                transports:['websocket','polling']
+            }),
             message: []
         }
     }
@@ -17,6 +19,7 @@ class Chat extends React.Component {
     // 登陆
     componentDidMount() {
         this.state.socket.emit('login', {uid: this.state.uid, username: this.state.username})
+
     }
 
 

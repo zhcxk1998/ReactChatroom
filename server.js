@@ -26,7 +26,7 @@ io.on('connection', function (socket) {
     socket.on('login', function (obj) {
         // 用户id设为socketid
         socket.id = obj.uid;
-
+        console.log(obj)
         // 如果没有这个用户，那么在线人数+1，将其添加进在线用户
         if (!onlineUsers.hasOwnProperty(obj.uid)) {
             onlineUsers[obj.uid] = obj.username;
