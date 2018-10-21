@@ -26,7 +26,6 @@ io.on('connection', function (socket) {
     socket.on('login', function (obj) {
         // 用户id设为socketid
         socket.id = obj.uid;
-        console.log(obj)
         // 如果没有这个用户，那么在线人数+1，将其添加进在线用户
         if (!onlineUsers.hasOwnProperty(obj.uid)) {
             onlineUsers[obj.uid] = obj.username;
@@ -93,11 +92,12 @@ var info;
 var username;
 var password;
 app.post('/regist', function (req, result) {
-
+    let id=Math.floor(Math.random()*33+1);
+    let name = id.toString().length > 1 ?  id.toString() : '0' + id.toString();
     username = req.body.username;
     password = req.body.password;
     info = [
-        req.body.username, req.body.password,'http://cdn.algbb.fun/emoji/32.png'
+        req.body.username, req.body.password,'http://cdn.algbb.fun/emoji/'+name+'.png'
     ];
     connection.query('select * from userinfo where binary username="' + username + '"', function (err, res) {
         if (err) console.log(err);

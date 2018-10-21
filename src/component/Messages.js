@@ -22,18 +22,18 @@ export default class Messages extends Component {
     }
 
     render() {
-        var user = this.state.username;
-        var headportrait = this.props.headportrait;
-        var messages = this.props.messages;
+        const user = this.state.username;
+        const headportrait = this.props.headportrait;
+        const messages = this.props.messages;
         const oneMessage = this.props.messages.map(function (message, index) {
-            var keyid = (new Date().getTime() + Math.floor(Math.random() * 999) + Math.random() * 10).toString();
-            var content = document.getElementsByClassName('chatLog');
-            if (content.length != 0 && flag) {
-                content[content.length - 1].scrollIntoView()
+            const keyId = (new Date().getTime() + Math.floor(Math.random() * 999) + Math.random() * 10).toString();
+            const content = document.getElementsByClassName('chatLog');
+            if (content.length !== 0 && flag) {
+                content[content.length - 1].scrollIntoView();
                 flag = false
             }
             return (
-                <Message key={keyid} msgType={message.type} msgUser={message.username} action={message.action}
+                <Message key={keyId} msgType={message.type} msgUser={message.username} action={message.action}
                          isMe={(message.username === user)} time={message.time} headportrait={headportrait}
                          messages={messages}/>
             )

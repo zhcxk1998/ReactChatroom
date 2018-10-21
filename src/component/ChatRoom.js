@@ -322,7 +322,6 @@ export default class ChatRoom extends Component {
 
     render() {
         var userinfo = this.state.userhtml.split(',');
-        console.log(userinfo)
         var headportrait = this.state.headportrait;
         const qq = <div
             style={{display: 'flex', flexDirection: 'column ', alignItems: 'center', justifyContent: 'center'}}><img
