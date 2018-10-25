@@ -27,9 +27,9 @@ BB小天使聊天室是一个主要面向校园闲置物品交易
 
 ## 运行截图
 
-![](http://github.com/zhcxk1998/ReactChatroom/raw/master/sceneshots/show1.png)
-![](http://github.com/zhcxk1998/ReactChatroom/raw/master/sceneshots/show2.png)
-![](http://github.com/zhcxk1998/ReactChatroom/raw/master/sceneshots/show4.png)
+![](./sceneshots/show1.png)
+![](./sceneshots/show2.png)
+![](./sceneshots/show4.png)
 
 ## 安装运行
 
