@@ -27,9 +27,9 @@ BB小天使聊天室是一个主要面向校园闲置物品交易
 
 ## 运行截图
 
-![](http://cdn.algbb.fun/show1.png)
-![](http://cdn.algbb.fun/show2.png)
-![](http://cdn.algbb.fun/show4.png)
+![](http://github.com/zhcxk1998/ReactChatroom/raw/master/sceneshots/show1.png)
+![](http://github.com/zhcxk1998/ReactChatroom/raw/master/sceneshots/show2.png)
+![](http://github.com/zhcxk1998/ReactChatroom/raw/master/sceneshots/show4.png)
 
 ## 安装运行
 
@@ -48,6 +48,7 @@ BB小天使聊天室是一个主要面向校园闲置物品交易
 
     |-- [build]                   // webpack构建
     |-- [public]                  // 静态资源
+    |-- [sceneshots]              // 运行截图
     |-- [src]                     // 客户端代码
         -- [component]            // 组件代码
     |-- server.js                 // 服务端代码
