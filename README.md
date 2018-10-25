@@ -27,9 +27,9 @@ BB小天使聊天室是一个主要面向校园闲置物品交易
 
 ## 运行截图
 
-![](./sceneshots/show1.png)
-![](./sceneshots/show2.png)
-![](./sceneshots/show4.png)
+![](http://cdn.algbb.fun/show1.png)
+![](http://cdn.algbb.fun/show2.png)
+![](http://cdn.algbb.fun/show4.png)
 
 ## 安装运行
 
