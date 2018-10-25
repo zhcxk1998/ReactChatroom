@@ -8,7 +8,7 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        bundle: './src/index.js',
+        bundle: './src/App.js',
         vendor: ['antd'],
     }, //相对路径
     output: {

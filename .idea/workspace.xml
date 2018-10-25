@@ -3,9 +3,19 @@
   <component name="ChangeListManager">
     <list default="true" id="538dcbfa-afe7-424e-87d0-711f54489cb1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" afterPath="$PROJECT_DIR$/src/App.js" />
+      <change beforePath="$PROJECT_DIR$/src/component/ChatInput.js" afterPath="$PROJECT_DIR$/src/component/ChatInput.js" />
       <change beforePath="$PROJECT_DIR$/src/component/ChatRoom.js" afterPath="$PROJECT_DIR$/src/component/ChatRoom.js" />
+      <change beforePath="$PROJECT_DIR$/src/component/Emoji.js" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/component/Messages.js" afterPath="$PROJECT_DIR$/src/component/Messages.js" />
+      <change beforePath="$PROJECT_DIR$/src/component/RoomStatus.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/logo.svg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/style.css" afterPath="$PROJECT_DIR$/src/style.css" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" afterPath="$PROJECT_DIR$/webpack.config.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,8 +32,8 @@
       <file leaf-file-name="ChatRoom.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/component/ChatRoom.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10304">
-              <caret line="324" column="26" lean-forward="false" selection-start-line="324" selection-start-column="26" selection-end-line="324" selection-end-column="26" />
+            <state relative-caret-position="5344">
+              <caret line="170" column="41" lean-forward="false" selection-start-line="170" selection-start-column="41" selection-end-line="170" selection-end-column="41" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -34,68 +44,63 @@
       <file leaf-file-name="Messages.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/component/Messages.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="26" column="45" lean-forward="true" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Emoji.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/component/Emoji.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
-              <caret line="33" column="14" lean-forward="false" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-160">
-              <caret line="84" column="1" lean-forward="false" selection-start-line="84" selection-start-column="1" selection-end-line="84" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Chat.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/component/Chat.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="9" column="38" lean-forward="false" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2240">
-              <caret line="91" column="13" lean-forward="true" selection-start-line="91" selection-start-column="13" selection-end-line="91" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChatInput.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/component/ChatInput.js">
-          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="32">
-              <caret line="3" column="16" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="16" />
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4736">
-              <caret line="152" column="26" lean-forward="false" selection-start-line="152" selection-start-column="26" selection-end-line="152" selection-end-column="26" />
+            <state relative-caret-position="117">
+              <caret line="224" column="7" lean-forward="true" selection-start-line="224" selection-start-column="7" selection-end-line="224" selection-end-column="7" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="157">
+                <caret line="42" column="24" lean-forward="false" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
+                <folding />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="11" column="30" lean-forward="false" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="320">
+              <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="webpack.config.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webpack.config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="320">
+              <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -114,21 +119,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>192.168.1.105</find>
-      <find>height</find>
-      <find>112.74.57.211 :</find>
-      <find>div.scroll</find>
-      <find>scrollinto</find>
-      <find>headportrait</find>
-      <find>/headportrait</find>
-      <find>112.74.57.211:</find>
-      <find>location</find>
-      <find>console</find>
-      <find>visible</find>
-      <find>emoji</find>
-      <find>style.css</find>
-      <find>opacity</find>
-      <find>scrollT</find>
       <find>闪亮</find>
       <find>chatHistory</find>
       <find>scrollTop</find>
@@ -143,6 +133,21 @@
       <find>scroll</find>
       <find>.img</find>
       <find>112.74.57.211</find>
+      <find>userName</find>
+      <find>username</find>
+      <find>userhtml</find>
+      <find>headportrait_visible</find>
+      <find>headportrait_url</find>
+      <find>chathistory</find>
+      <find>user_list</find>
+      <find>that</find>
+      <find>main_background</find>
+      <find>_</find>
+      <find>get_base64</find>
+      <find>select_headportrait</find>
+      <find>change_password</find>
+      <find>getemoji(item)</find>
+      <find>concat</find>
       <find>localhost</find>
     </findStrings>
     <replaceStrings>
@@ -151,12 +156,22 @@
       <replace>aa</replace>
       <replace>112.74.57.211:</replace>
       <replace>localhost:</replace>
-      <replace>chatLog</replace>
       <replace>latestMessage</replace>
       <replace>latestTime</replace>
       <replace>selectImage</replace>
       <replace>chooseImage</replace>
       <replace>localhost</replace>
+      <replace>username</replace>
+      <replace>userName</replace>
+      <replace>userInfo</replace>
+      <replace>headportraitVisible</replace>
+      <replace>headportraitUrl</replace>
+      <replace>chatLog</replace>
+      <replace>main-background</replace>
+      <replace>changeAvater</replace>
+      <replace>selectAvater</replace>
+      <replace>changePassword</replace>
+      <replace>loadMore</replace>
       <replace>112.74.57.211</replace>
     </replaceStrings>
   </component>
@@ -176,13 +191,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$USER_HOME$/Desktop/压缩图片/test.html" />
-        <option value="$PROJECT_DIR$/aa.html" />
-        <option value="$PROJECT_DIR$/src/component/emoji.js" />
-        <option value="$PROJECT_DIR$/test.html" />
-        <option value="$PROJECT_DIR$/public/index.html" />
-        <option value="$PROJECT_DIR$/build/index.html" />
-        <option value="$PROJECT_DIR$/src/logo.svg" />
         <option value="$PROJECT_DIR$/round.html" />
         <option value="$PROJECT_DIR$/src/util/regist.js" />
         <option value="$PROJECT_DIR$/src/util/login.js" />
@@ -193,10 +201,8 @@
         <option value="$USER_HOME$/Desktop/code store/leetcode/628.三个数的最大乘积.html" />
         <option value="$PROJECT_DIR$/uploadtest.html" />
         <option value="$USER_HOME$/Desktop/code store/JsTest/JSON_Test.js" />
-        <option value="$USER_HOME$/Desktop/code store/JsTest/scrollTest.html" />
         <option value="$PROJECT_DIR$/aaa.html" />
         <option value="$PROJECT_DIR$/scrollTest.html" />
-        <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/src/component/inputClick.html" />
         <option value="$USER_HOME$/Desktop/code store/JsTest/inputClick.html" />
         <option value="$USER_HOME$/Desktop/code store/leetcode/908. 最小差值 I.js" />
@@ -219,14 +225,23 @@
         <option value="$USER_HOME$/Desktop/code store/leetcode/202. 快乐数.js" />
         <option value="$PROJECT_DIR$/src/component/temp.js" />
         <option value="$USER_HOME$/Desktop/code store/JsTest/model.html" />
-        <option value="$PROJECT_DIR$/src/style.css" />
-        <option value="$PROJECT_DIR$/src/App.js" />
-        <option value="$PROJECT_DIR$/src/component/Chat.js" />
-        <option value="$PROJECT_DIR$/src/component/ChatRoom.js" />
-        <option value="$PROJECT_DIR$/src/component/ChatInput.js" />
+        <option value="$USER_HOME$/Desktop/code store/JsTest/socket.js" />
+        <option value="$USER_HOME$/Desktop/code store/JsTest/socket/socket.js" />
+        <option value="$PROJECT_DIR$/src/socket.js" />
+        <option value="$USER_HOME$/Desktop/code store/cssTest/center.html" />
+        <option value="$USER_HOME$/Desktop/code store/JsTest/字符串去重.js" />
         <option value="$PROJECT_DIR$/src/component/Emoji.js" />
+        <option value="$PROJECT_DIR$/src/style.css" />
+        <option value="$USER_HOME$/Desktop/code store/JsTest/动态分配对象.js" />
+        <option value="$PROJECT_DIR$/src/component/ChatInput.js" />
+        <option value="$USER_HOME$/Desktop/code store/JsTest/scrollTest.html" />
+        <option value="$PROJECT_DIR$/src/component/Chat.js" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/src/component/Messages.js" />
+        <option value="$PROJECT_DIR$/src/component/ChatRoom.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -252,7 +267,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="width" value="976" />
     <option name="height" value="1038" />
@@ -320,19 +335,19 @@
     <property name="SearchEverywhereHistoryKey" value="div.scroll&#9;null&#9;null&#10;room-name&#9;null&#9;null" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\ReactChatroom\build" />
-      <recent name="D:\ReactChatroom\src" />
-      <recent name="D:\ReactChatroom\src\static\img" />
-      <recent name="D:\ReactChatroom\src\component" />
-      <recent name="D:\ReactChatroom\public" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\ReactChatroom\src\component" />
       <recent name="D:\ReactChatroom\src\static\img" />
       <recent name="D:\ReactChatroom\src\static" />
       <recent name="C:\Users\46420\WebstormProjects\reactform" />
       <recent name="C:\Users\46420\WebstormProjects\reactform\src" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\ReactChatroom\src" />
+      <recent name="D:\ReactChatroom\build" />
+      <recent name="D:\ReactChatroom\src\static\img" />
+      <recent name="D:\ReactChatroom\src\component" />
+      <recent name="D:\ReactChatroom\public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -347,26 +362,24 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.server.js (1)">
-    <configuration name="202. 快乐数.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="202. 快乐数.js" working-dir="$USER_HOME$/Desktop/code store/leetcode" />
-    <configuration name="500. 键盘行.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="500. 键盘行.js" working-dir="$USER_HOME$/Desktop/code store/leetcode" />
+  <component name="RunManager" selected="Node.js.Emoji.js">
     <configuration name="Emoji.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="Emoji.js" working-dir="$PROJECT_DIR$/src/component" />
-    <configuration name="server.js (1)" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="server.js" working-dir="$PROJECT_DIR$" />
-    <configuration name="server.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="$PROJECT_DIR$/src/component/server.js" working-dir="$PROJECT_DIR$" />
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Node.js.202. 快乐数.js" />
-      <item index="1" class="java.lang.String" itemvalue="Node.js.500. 键盘行.js" />
-      <item index="2" class="java.lang.String" itemvalue="Node.js.Emoji.js" />
-      <item index="3" class="java.lang.String" itemvalue="Node.js.server.js" />
-      <item index="4" class="java.lang.String" itemvalue="Node.js.server.js (1)" />
+    <configuration name="字符串去重.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="字符串去重.js" working-dir="$USER_HOME$/Desktop/code store/JsTest" />
+    <configuration name="动态分配对象.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="动态分配对象.js" working-dir="$USER_HOME$/Desktop/code store/JsTest" />
+    <configuration name="socket.js (1)" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="socket.js" working-dir="$PROJECT_DIR$/src" />
+    <configuration name="socket.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="socket.js" working-dir="$USER_HOME$/Desktop/code store/JsTest/socket" />
+    <list size="4">
+      <item index="0" class="java.lang.String" itemvalue="Node.js.Emoji.js" />
+      <item index="1" class="java.lang.String" itemvalue="Node.js.socket.js" />
+      <item index="2" class="java.lang.String" itemvalue="Node.js.socket.js (1)" />
+      <item index="3" class="java.lang.String" itemvalue="Node.js.字符串去重.js" />
     </list>
     <recent_temporary>
-      <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.server.js (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.Emoji.js" />
-        <item index="2" class="java.lang.String" itemvalue="Node.js.server.js" />
-        <item index="3" class="java.lang.String" itemvalue="Node.js.202. 快乐数.js" />
-        <item index="4" class="java.lang.String" itemvalue="Node.js.500. 键盘行.js" />
+      <list size="4">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.Emoji.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.字符串去重.js" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.socket.js (1)" />
+        <item index="3" class="java.lang.String" itemvalue="Node.js.socket.js" />
       </list>
     </recent_temporary>
   </component>
@@ -464,15 +477,23 @@
       <workItem from="1539948018318" duration="813000" />
       <workItem from="1540016336006" duration="30854000" />
       <workItem from="1540060100387" duration="155000" />
-      <workItem from="1540091244541" duration="5670000" />
+      <workItem from="1540091244541" duration="5836000" />
+      <workItem from="1540305361616" duration="1819000" />
+      <workItem from="1540346550509" duration="1172000" />
+      <workItem from="1540349412293" duration="1267000" />
+      <workItem from="1540360875697" duration="837000" />
+      <workItem from="1540363377556" duration="11669000" />
+      <workItem from="1540398952133" duration="949000" />
+      <workItem from="1540452176644" duration="25775000" />
+      <workItem from="1540487779263" duration="2874000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="736538000" />
+    <option name="totallyTimeSpent" value="783066000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15697674" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -509,89 +530,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Desktop/code store/leetcode/628.三个数的最大乘积.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1824">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uploadtest.js" />
-    <entry file="file://$PROJECT_DIR$/round.html" />
-    <entry file="file://$PROJECT_DIR$/uploadtest.html" />
-    <entry file="file://$USER_HOME$/Desktop/code store/JsTest/scrollTest.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="117" column="17" lean-forward="true" selection-start-line="117" selection-start-column="17" selection-end-line="117" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="15067" column="17" lean-forward="false" selection-start-line="15067" selection-start-column="17" selection-end-line="15067" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/code store/JsTest/JSON_Test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="928">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scrollTest.html" />
-    <entry file="file://$PROJECT_DIR$/aaa.html" />
-    <entry file="file://$PROJECT_DIR$/src/component/inputClick.html" />
-    <entry file="file://$USER_HOME$/Desktop/code store/JsTest/inputClick.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="7" column="52" lean-forward="false" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/code store/leetcode/908. 最小差值 I.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/code store/leetcode/438. 找到字符串中所有字母异位词.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="19" column="8" lean-forward="false" selection-start-line="19" selection-start-column="8" selection-end-line="21" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/code store/leetcode/389. 找不同.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="3" column="22" lean-forward="true" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Desktop/code store/leetcode/448. 找到所有数组中消失的数字.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="14" column="62" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="11" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Desktop/code store/leetcode/724. 寻找数组的中心索引.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="512">
@@ -690,26 +628,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/logo.svg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/static/img/2.jpg" />
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/RoomStatus.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="3" column="14" lean-forward="false" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/component/temp.js" />
     <entry file="file://$USER_HOME$/Desktop/code store/JsTest/model.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -722,25 +641,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="18" column="14" lean-forward="false" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4736">
-          <caret line="152" column="26" lean-forward="false" selection-start-line="152" selection-start-column="26" selection-end-line="152" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/ChatRoom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10304">
-          <caret line="324" column="26" lean-forward="false" selection-start-line="324" selection-start-column="26" selection-end-line="324" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -748,9 +648,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-96">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -758,9 +655,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1056">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -768,9 +662,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1728">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -778,7 +669,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-384">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -786,55 +676,181 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/code store/JsTest/socket.js" />
+    <entry file="file://$USER_HOME$/Desktop/code store/JsTest/socket/socket.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="1" column="25" lean-forward="false" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/socket.js" />
+    <entry file="file://$USER_HOME$/Desktop/code store/cssTest/center.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="57" column="9" lean-forward="false" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/code store/JsTest/字符串去重.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/Emoji.js" />
+    <entry file="file://$USER_HOME$/Desktop/code store/canvas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="3" column="9" lean-forward="false" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/code store/JsTest/动态分配对象.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="4" column="16" lean-forward="true" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="144" column="15" lean-forward="false" selection-start-line="144" selection-start-column="15" selection-end-line="144" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="15059" column="17" lean-forward="false" selection-start-line="15059" selection-start-column="17" selection-end-line="15059" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/code store/JsTest/scrollTest.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="23" column="54" lean-forward="false" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/Chat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="13" column="15" lean-forward="true" selection-start-line="13" selection-start-column="15" selection-end-line="13" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/component/ChatInput.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="3" column="16" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="16" />
+        <state relative-caret-position="544">
+          <caret line="149" column="16" lean-forward="false" selection-start-line="149" selection-start-column="16" selection-end-line="149" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/Chat.js">
+    <entry file="file://$PROJECT_DIR$/src/component/RoomStatus.js" />
+    <entry file="file://$PROJECT_DIR$/src/App.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/logo.svg" />
+    <entry file="file://$PROJECT_DIR$/src/registerServiceWorker.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
-          <caret line="9" column="38" lean-forward="false" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+          <caret line="12" column="17" lean-forward="true" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/style.css">
+    <entry file="file://$PROJECT_DIR$/public/favicon.ico">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-160">
-          <caret line="84" column="1" lean-forward="false" selection-start-line="84" selection-start-column="1" selection-end-line="84" selection-end-column="1" />
+        <state relative-caret-position="352">
+          <caret line="11" column="30" lean-forward="false" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/Emoji.js">
+    <entry file="file://$PROJECT_DIR$/public/manifest.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="33" column="14" lean-forward="false" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="47" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/component/Messages.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="26" column="45" lean-forward="true" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
+        <state relative-caret-position="32">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
+    <entry file="file://$PROJECT_DIR$/src/component/ChatRoom.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2240">
-          <caret line="91" column="13" lean-forward="true" selection-start-line="91" selection-start-column="13" selection-end-line="91" selection-end-column="13" />
+        <state relative-caret-position="5344">
+          <caret line="170" column="41" lean-forward="false" selection-start-line="170" selection-start-column="41" selection-end-line="170" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.js" />
+    <entry file="file://$PROJECT_DIR$/src/index.css" />
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="157">
+            <caret line="42" column="24" lean-forward="false" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="224" column="7" lean-forward="true" selection-start-line="224" selection-start-column="7" selection-end-line="224" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

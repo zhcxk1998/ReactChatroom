@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Input, Menu, Dropdown, Button, Tabs} from 'antd';
 import 'antd/dist/antd.css';
-import {getemoji} from "./Emoji";
 
 const TabPane = Tabs.TabPane;
 
@@ -16,25 +15,24 @@ export default class ChatInput extends Component {
         }
     }
 
-    // 监控input变化
-    handleChange(e) {
-        this.setState({message: e.target.value})
+    // Monitor inputBox change
+    handleChange = (e) => {
+        this.setState({message: e.target.value});
     }
 
-    addemoji(name) {
-        var div = document.getElementById('input_box');
-        this.setState({message: div.value + ' ' + name + ' '})
-        document.getElementById('input_box').focus()
+    addemoji = (name) => {
+        const div = document.getElementById('input_box');
+        this.setState({message: div.value + ' #(' + name + ') '});
+        document.getElementById('input_box').focus();
     }
 
-    // 点击提交或按回车
-    handleClick(e) {
+    handleClick = (e) => {
         e.preventDefault();
-        this.sendMessage()
+        this.sendMessage();
     }
 
     chooseImage = () => {
-        let file = document.getElementById('selectImage').files[0],
+        const file = document.getElementById('selectImage').files[0],
             r = new FileReader(),
             that = this;
         r.onload = function () {
@@ -43,13 +41,14 @@ export default class ChatInput extends Component {
                     if (res.ok) {
                         res.json()
                             .then(data => {
-                                let pic = r.result.split(',')[1],
+                                const pic = r.result.split(',')[1],
                                     token = data,
                                     url = "http://upload-z2.qiniu.com/putb64/-1",
                                     xhr = new XMLHttpRequest();
                                 xhr.onreadystatechange = function () {
-                                    if (xhr.readyState === 4)
+                                    if (xhr.readyState === 4) {
                                         that.sendImage("http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key);
+                                    }
                                 };
                                 xhr.open("POST", url, true);
                                 xhr.setRequestHeader("Content-Type", "application/octet-stream");
@@ -68,8 +67,8 @@ export default class ChatInput extends Component {
         document.getElementById('selectImage').click();
     }
 
-    //发送图片信息
-    sendImage(e) {
+    // Send img message
+    sendImage = (e) => {
         const message = e,
             socket = this.state.socket;
         if (message) {
@@ -84,7 +83,7 @@ export default class ChatInput extends Component {
         return false
     }
 
-    // 发送聊天信息
+    // Send message
     sendMessage(e) {
         const message = this.state.message,
             socket = this.state.socket;
@@ -109,9 +108,10 @@ export default class ChatInput extends Component {
                         <TabPane tab="贴吧表情" key="1">
                             <div className='emoji_content'>
                                 {Array.from({length: 33}, (item, index) => index + 1).map((item) => {
-                                    let name = item.toString().length > 1 ? '#(' + item.toString() + ')' : '#(0' + item.toString() + ')'
+                                    let name = item.toString().length > 1 ? item.toString() : '0' + item.toString()
                                     return <div className='emoji_item' onClick={() => this.addemoji(name)}>
-                                        <div style={{backgroundImage: 'url("' + getemoji(name) + '")'}}></div>
+                                        <div
+                                            style={{backgroundImage: 'url("' + `http://cdn.algbb.fun/emoji/${name}.png` + '")'}}></div>
                                     </div>
                                 })}
                             </div>

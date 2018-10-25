@@ -1,56 +1,54 @@
 const qiniu = require('qiniu');
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: false}));
-var path = require('path');
-app.use(express.static(path.join(__dirname, 'build')));
-var mysql = require('mysql');
-var connection = mysql.createConnection({
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const path = require('path');
+const mysql = require('mysql');
+const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'czk8379530',
     database: 'chatroom'
 });
+app.use(express.static(path.join(__dirname, 'build')));
+app.use(bodyParser.urlencoded({extended: false}));
 //------------------------------------------------------------------------
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
-// 在线用户
-var onlineUsers = {};
-// 在线用户人数
-var onlineCount = 0;
+let onlineUsers = {};
+let onlineCount = 0;
 
 io.on('connection', function (socket) {
-    // 监听客户端的登陆
+    // Monitor user login
     socket.on('login', function (obj) {
-        // 用户id设为socketid
+        // Change user id to socketid
         socket.id = obj.uid;
-        // 如果没有这个用户，那么在线人数+1，将其添加进在线用户
+        // If has not this user, add it to onlinUsers
         if (!onlineUsers.hasOwnProperty(obj.uid)) {
             onlineUsers[obj.uid] = obj.username;
             onlineCount++;
         }
 
-        // 向客户端发送登陆事件，同时发送在线用户、在线人数以及登陆用户
+        // Send login event，and send onlineUsers and OnlineCount
         io.emit('login', {onlineUsers: onlineUsers, onlineCount: onlineCount, user: obj});
-        console.log(obj.username + '加入了群聊');
+        console.log(obj.username + ' Join in ~');
     });
 
-    // 监听客户端的断开连接
+    // Monitor user disconnect
     socket.on('disconnect', function () {
 
-        // 如果有这个用户
+        // If has this user
         if (onlineUsers.hasOwnProperty(socket.id)) {
             var obj = {uid: socket.id, username: onlineUsers[socket.id]};
 
-            // 删掉这个用户，在线人数-1
+            // Delete this user, onlineCount - 1
             delete onlineUsers[socket.id];
             onlineCount--;
 
-            // 向客户端发送登出事件，同时发送在线用户、在线人数以及登出用户
+            // Send logout event，and send onlineUsers and OnlineCount
             io.emit('logout', {onlineUsers: onlineUsers, onlineCount: onlineCount, user: obj});
-            console.log(obj.username + '退出了群聊');
+            console.log(obj.username + ' Quit ChatRoom ~');
         }
     });
 
@@ -65,12 +63,12 @@ io.on('connection', function (socket) {
     // 监听客户端发送的信息
     socket.on('message', function (obj) {
         io.emit('message', obj);
-        console.log(obj.username + "说:" + obj.message);
-        var action = obj.message;
-        var time = generateTime();
-        var type = obj.type;
-        var username = obj.username;
-        var info = [action, time, type, username];
+        console.log(obj.username + " say:" + obj.message);
+        const action = obj.message,
+            time = generateTime(),
+            type = obj.type,
+            username = obj.username,
+            info = [action, time, type, username];
         connection.query('insert into chatlog(action,time,type,username) values(?,?,?,?)', info, function (err, res) {
         });
     })
@@ -88,16 +86,16 @@ app.all('*', function (req, res, next) {
     res.header("Content-Type", "application/json;charset=utf-8");
     next();
 });
-var info;
-var username;
-var password;
+let info,
+    username,
+    password;
 app.post('/regist', function (req, result) {
-    let id=Math.floor(Math.random()*33+1);
-    let name = id.toString().length > 1 ?  id.toString() : '0' + id.toString();
+    let id = Math.floor(Math.random() * 33 + 1);
+    let name = id.toString().length > 1 ? id.toString() : '0' + id.toString();
     username = req.body.username;
     password = req.body.password;
     info = [
-        req.body.username, req.body.password,'http://cdn.algbb.fun/emoji/'+name+'.png'
+        req.body.username, req.body.password, 'http://cdn.algbb.fun/emoji/' + name + '.png'
     ];
     connection.query('select * from userinfo where binary username="' + username + '"', function (err, res) {
         if (err) console.log(err);
@@ -138,13 +136,13 @@ app.post('/change', function (req, result) {
 });
 
 app.post('/headportrait', function (req, result) {
-    var str = req.body.img;
+    let str = req.body.img;
     str = str.replace(/ /g, '+');
     return result.send([{"img": str}]);
 });
 
 app.post('/update_headportrait', function (req, result) {
-    var str = req.body.img;
+    let str = req.body.img;
     str = str.replace(/ /g, '+');
     connection.query('UPDATE userinfo SET img="' + str + '" WHERE username="' + req.body.username + '"')
 
@@ -160,7 +158,7 @@ app.get('/avater', function (req, result) {
     })
 });
 
-app.get('/chathistory', function (req, result) {
+app.get('/chatLog', function (req, result) {
     connection.query('select * from chatlog', function (err, res) {
         res = JSON.stringify(res);
         res = JSON.parse(res);
@@ -169,23 +167,23 @@ app.get('/chathistory', function (req, result) {
     })
 });
 app.get('/upload', function (req, res) {
-    var accessKey = 'vynFEg1tanKcC2-QeMKrice5n8z9JC16ekZcPlWE';
-    var secretKey = 'p-alIlT5t4yjDInTMnKfadrHJsy4m7w-zFqIKvoi';
-    var mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
-    // var keyToOverwrite = new Date().getTime()+"";
-    var options = {
-        scope: 'reactchatroom',
-        // expires: 3600,
-        saveKey:"ImageMessages/$(etag)",
-        mimeLimit:"image/*"
-    };
-    var putPolicy = new qiniu.rs.PutPolicy(options);
-    var uploadToken = putPolicy.uploadToken(mac);
+    const accessKey = 'vynFEg1tanKcC2-QeMKrice5n8z9JC16ekZcPlWE',
+        secretKey = 'p-alIlT5t4yjDInTMnKfadrHJsy4m7w-zFqIKvoi',
+        mac = new qiniu.auth.digest.Mac(accessKey, secretKey),
+        // var keyToOverwrite = new Date().getTime()+"";
+        options = {
+            scope: 'reactchatroom',
+            // expires: 3600,
+            saveKey: "ImageMessages/$(etag)",
+            mimeLimit: "image/*"
+        },
+        putPolicy = new qiniu.rs.PutPolicy(options),
+        uploadToken = putPolicy.uploadToken(mac);
     res.json(uploadToken)
 });
 
 server.listen(4000, function () {
-    var host = server.address().address;
-    var port = server.address().port;
+    const host = server.address().address,
+        port = server.address().port;
     console.log(host, port);
 });

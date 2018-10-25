@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import {Form, Icon, Input, Button, Modal, Radio, Tabs, notification, message} from 'antd';
 import Chat from './component/Chat';
@@ -35,17 +36,17 @@ class HorizontalLoginForm extends React.Component {
 
 
     componentWillMount() {
-        if (localStorage.getItem('username') !== null)
+        if (localStorage.getItem('username') !== null) {
             this.setState({isLogin: true, username: localStorage.getItem('username')})
+        }
     }
 
     componentDidMount() {
         // To disabled submit button at the beginning.
         this.props.form.validateFields();
-
     }
 
-    generateUid() {
+    generateUid = () => {
         return new Date().getTime() + "" + Math.floor(Math.random() * 9 + 1);
     }
 
@@ -68,16 +69,14 @@ class HorizontalLoginForm extends React.Component {
     }
     loginSubmit = (e) => {
         e.preventDefault();
-        var list;
-        var t;
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 this.setState({
                     data: [values]
                 })
-                t = [values];
-                var username = t[0].username;
-                var password = t[0].password;
+                const data = [values],
+                    username = data[0].username,
+                    password = data[0].password;
                 this.setState({username: username})
                 fetch('http://112.74.57.211:4000/login', {
                     method: 'POST',
@@ -110,16 +109,15 @@ class HorizontalLoginForm extends React.Component {
 
     registSubmit = (e) => {
         e.preventDefault();
-        let data;
-        let that=this;
+        let that = this;
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 this.setState({
                     data: [values]
                 })
-                data = [values];
-                var username = data[0].username;
-                var password = data[0].password;
+                const data = [values],
+                    username = data[0].username,
+                    password = data[0].password;
                 fetch('http://112.74.57.211:4000/regist', {
                     method: 'POST',
                     mode: 'cors',
@@ -150,7 +148,6 @@ class HorizontalLoginForm extends React.Component {
     };
 
     render() {
-        const flag = true;
         let renderdom;
         const {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} = this.props.form;
         // Only show error after a field is touched.
@@ -160,11 +157,11 @@ class HorizontalLoginForm extends React.Component {
             renderdom = <Chat username={this.state.username} uid={this.generateUid()}/>
         }
         else {
-            renderdom = (<div className='main_background'>
+            renderdom = (<div className='main-background'>
                     <div className='login_form'>
                         <Tabs defaultActiveKey="Login" tabBarStyle={{textAlign: 'center'}}>
                             <TabPane tab={<span><Icon type="login"/>Login</span>} key="Login">
-                                <Form hideRequiredMark={flag} onSubmit={this.loginSubmit}>
+                                <Form hideRequiredMark={true} onSubmit={this.loginSubmit}>
                                     <FormItem
                                         label='Username'
                                         validateStatus={userNameError ? 'error' : ''}
@@ -275,4 +272,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+ReactDOM.render(<App />, document.getElementById('root'));
