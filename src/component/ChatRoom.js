@@ -31,7 +31,6 @@ export default class ChatRoom extends Component {
         this.ready();
     }
 
-
     componentDidMount() {
         // Get the chatLog
         fetch('http://112.74.57.211:4000/chatLog')
@@ -134,7 +133,10 @@ export default class ChatRoom extends Component {
             });
             this.handleUsers();
         }
-
+        const content = document.getElementsByClassName('chatLog');
+        if (content.length !== 0 && o.user.username === this.state.username) {
+            content[content.length - 1].scrollIntoView();
+        }
     }
 
     updateMsg = (obj) => {
@@ -174,7 +176,6 @@ export default class ChatRoom extends Component {
             const content = document.getElementsByClassName('chatLog');
             if (content.length !== 0 && o.user.username === this.state.username) {
                 content[content.length - 1].scrollIntoView();
-                console.log(content[content.length - 1])
             }
         })
         socket.on('logout', (o) => {

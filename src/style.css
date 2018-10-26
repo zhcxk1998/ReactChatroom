@@ -161,7 +161,6 @@ p {
 }
 
 .time {
-    /*color: #e6e6e6;*/
     color: #666;
     user-select: none;
     font-size: 11px;
@@ -651,3 +650,4 @@ input:focus:-webkit-autofill{
 .select_headportrait:hover {
     filter: blur(2px);
 }
+
