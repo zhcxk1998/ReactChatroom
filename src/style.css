@@ -13,7 +13,7 @@ body {
     animation: fadein 1s ease-in-out 1;
 }
 
-.login_form {
+.login-form {
     width: 40%;
     border-radius: 12px;
     padding: 30px 40px 40px 40px;
@@ -23,14 +23,14 @@ body {
     opacity: 0.9;
 }
 
-.login_input {
+.login-input {
     width: 100%;
     margin: auto;
     border-radius: 12px;
     height: 40px;
 }
 
-.login_button {
+.login-button {
     width: 100%;
     height: 40px;
     margin-top: 20px;
@@ -47,7 +47,7 @@ body {
     height: 100%;
 }
 
-.chat_blur {
+.chat-blur {
     width: 930px;
     height: 530px;
     background-size: 100% 100%;
@@ -58,7 +58,7 @@ body {
     border-radius: 12px;
 }
 
-.chat_background {
+.chat-background {
     width: 920px;
     height: 510px;
     /*opacity: 0.8;*/
@@ -84,7 +84,7 @@ body {
     height: 60px;
 }
 
-.room-name p {
+.room-name span {
     margin-left: 20px;
     font-size: 18px;
     font-weight: bold;
@@ -101,7 +101,7 @@ body {
     background-color: transparent;
 }
 
-.chat_header {
+.chat-header {
     height: 60px;
     background-color: rgba(250, 250, 250, 0.6);
     border-bottom: rgba(222, 222, 222, 0.8) 1px solid;
@@ -156,36 +156,40 @@ body {
     flex: 1;
 }
 
-p {
-    margin-bottom: 5px;
-}
-
 .time {
     color: #666;
     user-select: none;
     font-size: 11px;
+    margin: 5px 0;
 }
 
-.time span {
+.time span:first-child {
     font-size: 13px;
 }
 
 .message-content {
     color: #666;
     padding: 5px 10px;
-    margin: 0;
     box-shadow: 3px 6px 20px rgba(0, 0, 0, 0.1);
     word-break: break-word;
     border-radius: 10px;
-    display: inline-block;
     background-color: rgba(255, 255, 255, 0.8);
-    /*word-wrap: normal;*/
     max-width: 320px;
 }
 
-.image_message {
+.image-box{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.image-message {
     max-width: 300px;
     max-height: 300px;
+}
+
+.image-upload{
+    margin: 0 10px;
 }
 
 .me {
@@ -194,12 +198,18 @@ p {
     align-items: flex-end;
 }
 
+.me .time {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row-reverse;
+}
+
 .me .message-content {
     background: rgba(84, 195, 255, 0.8);
     color: white;
 }
 
-.function_icon {
+.function-icon {
     width: 32px;
     height: 32px;
     background: url("http://cdn.algbb.fun/icon/function.png") no-repeat center;
@@ -211,12 +221,12 @@ p {
     transition: all 0.25s ease-in-out;
 }
 
-.function_icon:hover {
+.function-icon:hover {
     opacity: 1;
     transition: all 0.25s ease-in-out;
 }
 
-.emoji_icon {
+.emoji-icon {
     width: 32px;
     height: 32px;
     background: url("http://cdn.algbb.fun/icon/emoji.png") no-repeat center;
@@ -227,7 +237,7 @@ p {
     transition: all 0.25s ease-in-out;
 }
 
-.emoji_icon:hover {
+.emoji-icon:hover {
     opacity: 1;
     transition: all 0.25s ease-in-out;
 }
@@ -237,31 +247,31 @@ p {
     height: 200px;
 }
 
-.emoji_content {
+.emoji-content {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin-top: -15px;
 }
 
-.emoji_item {
+.emoji-item {
     width: 40px;
     height: 40px;
     padding: 5px;
 }
 
-.emoji_item:hover {
+.emoji-item:hover {
     background-color: #ebebeb;
     transition: all 0.5s;
 }
 
-.emoji_item > div {
+.emoji-item > div {
     width: 30px;
     height: 30px;
     background-size: 100% 100%;
 }
 
-.input_box {
+.input-box {
     width: 360px;
     opacity: 0.6;
 }
@@ -270,12 +280,13 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px #fbfbfb inset;
     -webkit-text-fill-color: #333;
 }
-input:focus:-webkit-autofill{
+
+input:focus:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px #fbfbfb inset;
     -webkit-text-fill-color: #333;
 }
 
-.send_button {
+.send-button {
     width: 32px;
     height: 32px;
     background: url("http://cdn.algbb.fun/icon/send.png") no-repeat center;
@@ -287,12 +298,12 @@ input:focus:-webkit-autofill{
     transition: all 0.25s ease-in-out;
 }
 
-.send_button:hover {
+.send-button:hover {
     opacity: 1;
     transition: all 0.25s ease-in-out;
 }
 
-.chat_footer {
+.chat-footer {
     height: 60px;
     display: flex;
     justify-content: space-around;
@@ -317,7 +328,7 @@ input:focus:-webkit-autofill{
     display: block;
 }
 
-.user_list {
+.user-list {
     background-color: #fffaff;
     width: 250px;
     height: 510px;
@@ -333,14 +344,14 @@ input:focus:-webkit-autofill{
     user-select: none;
 }
 
-.user_list p {
+.user-list p {
     margin: 20px 0 10px 14px;
     font-size: 14px;
     font-weight: bold;
     height: 20px;
 }
 
-.user_list_header {
+.user-list-header {
     border-bottom: rgba(189, 189, 189, 0.8) 1px solid;
     height: 60px;
     display: flex;
@@ -350,14 +361,14 @@ input:focus:-webkit-autofill{
     font-weight: bold;
 }
 
-.user_list_header p {
+.user-list-header p {
     margin: 20px 0;
     font-size: 16px;
     font-weight: bold;
     height: 20px;
 }
 
-.user_list_onlineuser {
+.user-list-onlineuser {
     height: 280px;
     display: flex;
     flex-direction: row;
@@ -367,27 +378,27 @@ input:focus:-webkit-autofill{
     overflow-y: auto;
 }
 
-.user_list_onlineuser::-webkit-scrollbar {
+.user-list-onlineuser::-webkit-scrollbar {
     width: 5px;
     height: 1px;
 }
 
-.user_list_onlineuser::-webkit-scrollbar-thumb {
+.user-list-onlineuser::-webkit-scrollbar-thumb {
     border-radius: 12px;
     -webkit-box-shadow: inset 0 0 10px #d1d1d1;
     background: #aaa;
 }
 
-.user_list_onlineuser::-webkit-scrollbar-thumb:active {
+.user-list-onlineuser::-webkit-scrollbar-thumb:active {
     background: #1890ff;
 }
 
-.user_list_onlineuser::-webkit-scrollbar-track {
+.user-list-onlineuser::-webkit-scrollbar-track {
     border-radius: 12px;
     background: #f1f1f1;
 }
 
-.user_list_onlineuser_item {
+.user-list-onlineuser-item {
     width: 20%;
     height: 60px;
     margin: 6px;
@@ -396,14 +407,14 @@ input:focus:-webkit-autofill{
     align-items: center;
 }
 
-.user_list_onlineuser_avater {
+.user-list-onlineuser-avater {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     background-size: 100% 100%;
 }
 
-.user_list_onlineuser_username {
+.user-list-onlineuser-username {
     width: 50px;
     text-align: center;
     /*word-break: break-all;*/
@@ -413,34 +424,34 @@ input:focus:-webkit-autofill{
     font-size: 12px;
 }
 
-.user_list_function {
+.user-list-function {
     width: 90%;
     margin: 10px 14px;
     background-color: #fa4b2a;
     border: #fa4b2a 1px solid;
 }
 
-.user_list_function:hover {
+.user-list-function:hover {
     background-color: red;
     border: red;
 }
 
-.user_list_function:visited {
+.user-list-function:visited {
     background-color: red;
     border: red;
 }
 
-.user_list_function:active {
+.user-list-function:active {
     background-color: red;
     border: red;
 }
 
-.user_list_function:focus {
+.user-list-function:focus {
     background-color: #fa4b2a;
     border: #fa4b2a;
 }
 
-.sider_avater {
+.sider-avater {
     width: 70px;
     display: flex;
     justify-content: center;
@@ -463,13 +474,13 @@ input:focus:-webkit-autofill{
     filter: blur(1px);
 }
 
-.sider_icon {
+.sider-icon {
     width: 70px;
     height: 320px;
     margin-top: 50px;
 }
 
-.sider_icon_item {
+.sider-icon-item {
     width: 25px;
     height: 25px;
     margin: 25px auto;
@@ -479,11 +490,11 @@ input:focus:-webkit-autofill{
     align-items: center;
 }
 
-.sider_icon .first_item {
+.sider-icon .first-item {
     margin: 0 auto;
 }
 
-.sider_icon_item button {
+.sider-icon-item button {
     background-color: transparent;
     border: none;
     color: #f1f1f1;
@@ -492,17 +503,17 @@ input:focus:-webkit-autofill{
     line-height: 25px;
 }
 
-.sider_icon_item button:hover {
+.sider-icon-item button:hover {
     background-color: transparent;
     color: white;
     opacity: 1;
 }
 
-.sider_icon_item button:focus {
+.sider-icon-item button:focus {
     background-color: transparent;
 }
 
-.sider_tools {
+.sider-tools {
     height: 510px;
     background-color: rgba(24, 144, 255, 0.6);
     /*opacity: 0.8;*/
@@ -512,7 +523,7 @@ input:focus:-webkit-autofill{
     float: left;
 }
 
-.sider_content {
+.sider-content {
     height: 510px;
     background-color: rgba(84, 195, 255, 0.6);
     /*opacity: 0.8;*/
@@ -521,7 +532,7 @@ input:focus:-webkit-autofill{
     user-select: none;
 }
 
-.sider_search {
+.sider-search {
     width: 280px;
     height: 60px;
     display: flex;
@@ -529,27 +540,27 @@ input:focus:-webkit-autofill{
     align-items: center;
 }
 
-.search_box {
+.search-box {
     width: 250px;
 }
 
-.search_input {
+.search-input {
     width: 80%;
 }
 
-.search_input input {
+.search-input input {
     border-radius: 14px;
     border: #f1f1f1 1px solid;
 }
 
-.search_button {
+.search-button {
     float: right;
     border: #f1f1f1 1px solid;
     font-size: 20px;
     font-weight: bold;
 }
 
-.sider_items {
+.sider-items {
     width: 280px;
     height: 90px;
     background-color: rgba(31, 170, 255, 0.6);
@@ -558,7 +569,7 @@ input:focus:-webkit-autofill{
     align-items: center;
 }
 
-.sider_item {
+.sider-item {
     width: 250px;
     height: 60px;
     display: flex;
@@ -566,7 +577,7 @@ input:focus:-webkit-autofill{
 
 }
 
-.sider_item_avater {
+.sider-item-avater {
     width: 50px;
     height: 50px;
     background: url("http://cdn.algbb.fun/avater/fat.jpg");
@@ -574,17 +585,17 @@ input:focus:-webkit-autofill{
     border-radius: 50%;
 }
 
-.sider_item_content {
+.sider-item-content {
     width: 180px;
     height: 50px;
     margin-left: 15px;
 }
 
-.sider_item_content_nametime {
+.sider-item-content-nametime {
     height: 16px;
 }
 
-.sider_item_content_nametime .name {
+.sider-item-content-nametime .name {
     font-size: 14px;
     margin: 2px 0;
     font-weight: bold;
@@ -592,20 +603,20 @@ input:focus:-webkit-autofill{
     float: left;
 }
 
-.sider_item_content_nametime .time {
+.sider-item-content-nametime .time {
     font-size: 12px;
     margin: 3px 0;
     color: #f1f1f1;
     float: right;
 }
 
-.pre_content {
+.pre-content {
     height: 20px;
     margin-top: 12px;
     width: 160px;
 }
 
-.pre_content .content {
+.pre-content .content {
     height: 20px;
     width: 160px;
     font-size: 12px;
@@ -616,29 +627,33 @@ input:focus:-webkit-autofill{
     white-space: nowrap;
 }
 
-.chat_avater {
-    display: block;
+.chatLog {
+    display: flex;
+    margin: 5px 0;
+}
+
+.self {
+    flex-direction: row-reverse;
+}
+
+.chat-avater {
+    display: flex;
     width: 50px;
     height: 50px;
-    float: left;
     margin-top: 18px;
     background-size: 100% 100%;
     border-radius: 50%;
 }
 
-.myavater {
-    float: right;
-}
-
-.change_headportrait {
+.change-headportrait {
     display: none;
 }
 
-.change_headportrait:hover {
+.change-headportrait:hover {
     text-decoration: none;
 }
 
-.select_headportrait {
+.select-headportrait {
     display: block;
     width: 100px;
     height: 100px;
@@ -647,7 +662,7 @@ input:focus:-webkit-autofill{
     outline: none;
 }
 
-.select_headportrait:hover {
+.select-headportrait:hover {
     filter: blur(2px);
 }
 

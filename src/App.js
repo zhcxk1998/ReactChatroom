@@ -36,28 +36,28 @@ class HorizontalLoginForm extends React.Component {
 
 
     componentWillMount() {
-        if (localStorage.getItem('username') !== null) {
-            this.setState({isLogin: true, username: localStorage.getItem('username')})
-        }
+
     }
 
     componentDidMount() {
         // To disabled submit button at the beginning.
         this.props.form.validateFields();
+        if (localStorage.getItem('username') !== null) {
+            this.setState({isLogin: true, username: localStorage.getItem('username')})
+        }
     }
 
     generateUid = () => {
         return new Date().getTime() + "" + Math.floor(Math.random() * 9 + 1);
     }
 
-    link_to_chat = () => {
-        this.setState({isLogin: true});
-    }
     loginsuccess = () => {
         message.success("Login Success!")
         localStorage.setItem('username', this.state.username);
         localStorage.setItem('isLogin', 'true');
-        setTimeout(this.link_to_chat, 1500)
+        setTimeout(() => {
+            this.setState({isLogin: true})
+        }, 1500)
     }
     wrongpassword = () => {
         message.error("Wrong Password!");
@@ -158,7 +158,7 @@ class HorizontalLoginForm extends React.Component {
         }
         else {
             renderdom = (<div className='main-background'>
-                    <div className='login_form'>
+                    <div className='login-form'>
                         <Tabs defaultActiveKey="Login" tabBarStyle={{textAlign: 'center'}}>
                             <TabPane tab={<span><Icon type="login"/>Login</span>} key="Login">
                                 <Form hideRequiredMark={true} onSubmit={this.loginSubmit}>
@@ -174,7 +174,7 @@ class HorizontalLoginForm extends React.Component {
                                                 message: 'Please input your username!'
                                             }],
                                         })(
-                                            <Input className='login_input'
+                                            <Input className='login-input'
                                                    prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
                                                    placeholder="Username"/>
                                         )}
@@ -191,14 +191,14 @@ class HorizontalLoginForm extends React.Component {
                                                 message: 'Please input your Password!'
                                             }],
                                         })(
-                                            <Input className='login_input'
+                                            <Input className='login-input'
                                                    prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
                                                    type="password"
                                                    placeholder="Password"/>
                                         )}
                                     </FormItem>
                                     <FormItem>
-                                        <Button className='login_button' type="primary" htmlType="submit"
+                                        <Button className='login-button' type="primary" htmlType="submit"
                                                 loading={this.state.isLoding}>
                                             L O G I N
                                         </Button>
@@ -206,7 +206,7 @@ class HorizontalLoginForm extends React.Component {
                                 </Form>
                             </TabPane>
                             <TabPane tab={<span><Icon type="user-add"/>Regist</span>} key="Regist">
-                                <Form hideRequiredMark='true' onSubmit={this.registSubmit}>
+                                <Form hideRequiredMark={true} onSubmit={this.registSubmit}>
                                     <FormItem
                                         label='Username'
                                         validateStatus={userNameError ? 'error' : ''}
@@ -219,7 +219,7 @@ class HorizontalLoginForm extends React.Component {
                                                 message: 'Please input your username!'
                                             }],
                                         })(
-                                            <Input className='login_input'
+                                            <Input className='login-input'
                                                    prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
                                                    placeholder="Username"/>
                                         )}
@@ -236,14 +236,14 @@ class HorizontalLoginForm extends React.Component {
                                                 message: 'Please input your Password!'
                                             }],
                                         })(
-                                            <Input className='login_input'
+                                            <Input className='login-input'
                                                    prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
                                                    type="password"
                                                    placeholder="Password"/>
                                         )}
                                     </FormItem>
                                     <FormItem>
-                                        <Button className='login_button' type="primary" htmlType="submit">
+                                        <Button className='login-button' type="primary" htmlType="submit">
                                             R E G I S T
                                         </Button>
                                     </FormItem>
@@ -272,4 +272,4 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App/>, document.getElementById('root'));

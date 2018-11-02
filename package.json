@@ -12,6 +12,7 @@
     "lodash-webpack-plugin": "^0.11.5",
     "mysql": "^2.16.0",
     "qiniu": "^7.2.1",
+    "qiniu-js": "^2.5.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-keeper": "^2.1.8",

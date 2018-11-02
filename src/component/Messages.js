@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import {Progress} from 'antd';
 
 export default class Messages extends Component {
     constructor(props) {
@@ -14,12 +14,13 @@ export default class Messages extends Component {
         const user = this.state.username,
             headportrait = this.props.headportrait,
             messages = this.props.messages,
+            percent = this.props.percent,
             oneMessage = this.props.messages.map(function (message, index) {
-                let keyId = (new Date().getTime() + Math.floor(Math.random() * 999) + Math.random() * 10).toString();
+                const keyId = (new Date().getTime() + Math.floor(Math.random() * 999) + Math.random() * 10).toString();
                 return (
                     <Message key={keyId} msgType={message.type} msgUser={message.username} action={message.action}
                              isMe={(message.username === user)} time={message.time} headportrait={headportrait}
-                             messages={messages}/>
+                             messages={messages} percent={percent}/>
                 )
             });
         return (<div id='messages' className="messages" ref="messages">{oneMessage}</div>)
@@ -30,6 +31,7 @@ class Message extends Component {
     render() {
         let action = this.props.action;
         const user = this.props.msgUser,
+            percent = this.props.percent,
             headportrait = this.props.headportrait,
             emoji = action.match(/#\(\d{2}\)/g);
         if (emoji != null) {
@@ -42,66 +44,39 @@ class Message extends Component {
         }
 
         if (headportrait.length !== 0) {
-            const user_avater = headportrait.filter(function (e) {
+            const userAvater = headportrait.filter(function (e) {
                 return e.username === user;
             });
-            const avater = user_avater.length != 0 ? user_avater[0].img : 'http://cdn.algbb.fun/emoji/32.png';
-            if (this.props.isMe) {
-                if (this.props.msgType === 'img') {
-                    return (
-                        <div className="chatLog" style={{display: 'flex'}}>
-                            <div style={{backgroundColor: 'transparent'}}
-                                 className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
-                                <p className="time">{this.props.time} <span>{this.props.msgUser}</span></p>
-                                <div style={{backgroundColor: 'transparent'}} className="message-content"><img
-                                    className='image_message' src={action}/></div>
-                            </div>
-                            <div id="chat_avater" className='chat_avater my_avater'
-                                 style={{backgroundImage: "url('" + avater + "')"}}></div>
-                        </div>
-                    )
-                }
-                else {
-                    return (
-                        <div className="chatLog" style={{display: 'flex'}}>
-                            <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
-                                <p className="time">{this.props.time} <span>{this.props.msgUser}</span></p>
-                                <div className="message-content">{action}</div>
-                            </div>
-                            <div id="chat_avater" className='chat_avater my_avater'
-                                 style={{backgroundImage: "url('" + avater + "')"}}></div>
-                        </div>
-                    )
-                }
-            }
-            else {
-                if (this.props.msgType === 'img') {
-                    return (
-                        <div className="chatLog" style={{display: 'flex'}}>
-                            <div id="chat_avater" className='chat_avater my_avater'
-                                 style={{backgroundImage: "url('" + avater + "')"}}></div>
-                            <div style={{backgroundColor: 'transparent'}}
-                                 className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
-                                <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
-                                <div style={{backgroundColor: 'transparent'}} className="message-content"><img
-                                    className='image_message' src={action}/></div>
+            const avater = userAvater.length !== 0 ? userAvater[0].img : 'http://cdn.algbb.fun/emoji/32.png';
+            const imgMessages = (
+                <div className={(this.props.isMe) ? "chatLog self" : "chatLog"}>
+                    <div id="chat-avater" className='chat-avater'
+                         style={{backgroundImage: "url('" + avater + "')"}}></div>
+                    <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
+                        <div className="time">
+                            <span>&nbsp;{this.props.msgUser}</span><span>&nbsp;{this.props.time}</span></div>
+                        <div className={(this.props.isMe) ? 'image-box self' : 'image-box'}>
+                            <div style={{backgroundColor: 'transparent'}} className="message-content"><img
+                                className='image-message' src={action}/></div>
+                            <div className={'image-upload'} style={{display:'none'}}>
+                                <Progress type={'circle'} percent={percent} width={40}/>
                             </div>
                         </div>
-                    )
-                }
-                else {
-                    return (
-                        <div className="chatLog" style={{display: 'flex'}}>
-                            <div id="chat_avater" style={{backgroundImage: "url('" + avater + "')"}}
-                                 className={(this.props.isMe) ? 'myavater chat_avater' : 'other chat_avater'}></div>
-                            <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
-                                <p className="time"><span>{this.props.msgUser}</span> {this.props.time}</p>
-                                <div className="message-content">{action}</div>
-                            </div>
-                        </div>
-                    )
-                }
-            }
+                    </div>
+                </div>
+            )
+            const textMessages = (
+                <div className={(this.props.isMe) ? "chatLog self" : "chatLog"}>
+                    <div id="chat-avater" style={{backgroundImage: "url('" + avater + "')"}}
+                         className='chat-avater'></div>
+                    <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
+                        <div className="time">
+                            <span>&nbsp;{this.props.msgUser}</span><span>&nbsp;{this.props.time}</span></div>
+                        <div className="message-content">{action}</div>
+                    </div>
+                </div>
+            )
+            return (this.props.msgType === 'img') ? imgMessages : textMessages;
         }
         return (<div>
         </div>)

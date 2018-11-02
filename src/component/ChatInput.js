@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {Input, Menu, Dropdown, Button, Tabs} from 'antd';
+import {Input, Menu, Dropdown, Button, Tabs, Progress} from 'antd';
 import 'antd/dist/antd.css';
+
+const qiniu = require('qiniu-js');
 
 const TabPane = Tabs.TabPane;
 
@@ -11,8 +13,19 @@ export default class ChatInput extends Component {
             socket: this.props.socket,
             message: '',
             myId: this.props.myId,
-            myName: this.props.myName
+            myName: this.props.myName,
+            updateMsg: this.props.updateMsg,
+            uploadProgress: this.props.uploadProgress,
+            percent: this.props.percent
         }
+    }
+
+    generateTime = () => {
+        let hour = new Date().getHours(),
+            minute = new Date().getMinutes();
+        hour = (hour == 0) ? '00' : hour;
+        minute = (minute < 10) ? '0' + minute : minute;
+        return hour + ':' + minute;
     }
 
     // Monitor inputBox change
@@ -21,9 +34,9 @@ export default class ChatInput extends Component {
     }
 
     addemoji = (name) => {
-        const div = document.getElementById('input_box');
+        const div = document.getElementById('input-box');
         this.setState({message: div.value + ' #(' + name + ') '});
-        document.getElementById('input_box').focus();
+        document.getElementById('input-box').focus();
     }
 
     handleClick = (e) => {
@@ -41,19 +54,51 @@ export default class ChatInput extends Component {
                     if (res.ok) {
                         res.json()
                             .then(data => {
-                                const pic = r.result.split(',')[1],
-                                    token = data,
-                                    url = "http://upload-z2.qiniu.com/putb64/-1",
-                                    xhr = new XMLHttpRequest();
-                                xhr.onreadystatechange = function () {
-                                    if (xhr.readyState === 4) {
-                                        that.sendImage("http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key);
+                                const token = data;
+                                // Get the blob
+                                let arr = r.result.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                                    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+                                while (n--) {
+                                    u8arr[n] = bstr.charCodeAt(n);
+                                }
+                                const file = new Blob([u8arr], {type: mime}),
+                                    key = `ImageMessages/${that.state.myName}_${Date.now()}`,
+                                    observable = qiniu.upload(file, key, token, {
+                                        useCdnDomain: true,
+                                        region: qiniu.region.z2
+                                    }, {}),
+                                    obj = {
+                                        uid: that.state.myId,
+                                        username: that.state.myName,
+                                        message: r.result,
+                                        type: 'img'
                                     }
-                                };
-                                xhr.open("POST", url, true);
-                                xhr.setRequestHeader("Content-Type", "application/octet-stream");
-                                xhr.setRequestHeader("Authorization", "UpToken " + token);
-                                xhr.send(pic);
+                                // Add chatLog
+                                that.state.updateMsg(obj);
+                                observable.subscribe({
+                                    next(info) {
+                                        // Show the progress bar
+                                        that.state.uploadProgress(Math.floor(info.total.percent))
+                                        const upload = document.getElementsByClassName('image-upload'),
+                                            div = document.getElementsByClassName('image-message');
+                                        upload[upload.length - 1].style.display = 'block';
+                                        div[div.length - 1].style.filter = 'blur(3px)';
+                                    },
+                                    error(err) {
+                                        console.log(err)
+                                    },
+                                    complete: (info) => {
+                                        // Add chatLog in the database
+                                        that.sendImage(`http://cdn.algbb.fun/${key}`)
+                                        const upload = document.getElementsByClassName('image-upload'),
+                                            div = document.getElementsByClassName('image-message');
+                                        // Hide progress bar
+                                        upload[upload.length - 1].style.display = 'none';
+                                        div[div.length - 1].style.filter = '';
+                                        // Change img src
+                                        div[div.length - 1].src = `http://cdn.algbb.fun/${key}`;
+                                    }
+                                })
                             }).then(() => {
                             document.getElementById('selectImage').value = null;
                         })
@@ -106,10 +151,10 @@ export default class ChatInput extends Component {
                 <div className='emoji'>
                     <Tabs defaultActivekey={'1'}>
                         <TabPane tab="贴吧表情" key="1">
-                            <div className='emoji_content'>
+                            <div className='emoji-content'>
                                 {Array.from({length: 33}, (item, index) => index + 1).map((item) => {
                                     let name = item.toString().length > 1 ? item.toString() : '0' + item.toString()
-                                    return <div className='emoji_item' onClick={() => this.addemoji(name)}>
+                                    return <div className='emoji-item' onClick={() => this.addemoji(name)}>
                                         <div
                                             style={{backgroundImage: 'url("' + `http://cdn.algbb.fun/emoji/${name}.png` + '")'}}></div>
                                     </div>
@@ -123,31 +168,32 @@ export default class ChatInput extends Component {
         const menu = (
             <Menu style={{marginBottom: 20}}>
                 <Menu.Item>
-                    <Button type={'default'} icon={'picture'} onClick={this.selectImage}>发送图片</Button>
+                    <Button icon={'picture'} onClick={this.selectImage}>发送图片</Button>
                 </Menu.Item>
                 <Menu.Item>
-                    <Button type={'default'} icon={'smile-o'}>发表情包</Button>
+                    <Button icon={'smile-o'}>发表情包</Button>
                 </Menu.Item>
                 <Menu.Item>
-                    <Button type={'default'} icon={'heart-o'}>发送爱心</Button>
+                    <Button icon={'heart-o'}>发送爱心</Button>
                 </Menu.Item>
             </Menu>
         )
 
         return (
-            <div className='chat_footer'>
+            <div className='chat-footer'>
                 <Dropdown overlay={emoji} placement="topLeft" trigger={['click']}>
-                    <button className='emoji_icon'></button>
+                    <button className='emoji-icon'></button>
                 </Dropdown>
                 <Dropdown overlay={menu} placement="topCenter" trigger={['click']}>
-                    <button className='function_icon'></button>
+                    <button className='function-icon'></button>
                 </Dropdown>
                 <input style={{display: 'none'}} id={'selectImage'} type={'file'} accept={'image/*'}
                        onChange={this.chooseImage}/>
-                <Input id='input_box' className='input_box' onPressEnter={this.handleClick.bind(this)}
+                <Input id='input-box' autoComplete='off' className='input-box'
+                       onPressEnter={this.handleClick.bind(this)}
                        value={this.state.message}
                        onChange={this.handleChange.bind(this)} placeholder={'代码打完了？BUG修好了？作业写完了？还不快点去......'}/>
-                <button className='send_button' onClick={this.handleClick.bind(this)}></button>
+                <button className='send-button' onClick={this.handleClick.bind(this)}></button>
             </div>
         )
     }

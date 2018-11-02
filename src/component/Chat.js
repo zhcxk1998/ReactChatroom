@@ -19,9 +19,7 @@ class Chat extends React.Component {
     // 登陆
     componentDidMount() {
         this.state.socket.emit('login', {uid: this.state.uid, username: this.state.username})
-
     }
-
 
     render() {
         return (<div><ChatRoom uid={this.state.uid} username={this.state.username} socket={this.state.socket}/></div>)

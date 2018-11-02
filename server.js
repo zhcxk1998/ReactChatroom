@@ -141,7 +141,7 @@ app.post('/headportrait', function (req, result) {
     return result.send([{"img": str}]);
 });
 
-app.post('/update_headportrait', function (req, result) {
+app.post('/update-headportrait', function (req, result) {
     let str = req.body.img;
     str = str.replace(/ /g, '+');
     connection.query('UPDATE userinfo SET img="' + str + '" WHERE username="' + req.body.username + '"')
