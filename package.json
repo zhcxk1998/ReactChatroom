@@ -11,6 +11,7 @@
     "jquery": "^3.3.1",
     "lodash-webpack-plugin": "^0.11.5",
     "mysql": "^2.16.0",
+    "node-fetch": "^2.2.0",
     "qiniu": "^7.2.1",
     "qiniu-js": "^2.5.1",
     "react": "^16.4.1",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "babel-plugin-import": "^1.8.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",

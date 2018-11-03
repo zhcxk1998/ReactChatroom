@@ -191,6 +191,9 @@ body {
 .image-upload{
     margin: 0 10px;
 }
+.avater-upload{
+    margin: 0 10px;
+}
 
 .me {
     flex-direction: column;

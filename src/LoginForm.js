@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import {Form, Icon, Input, Button, Modal, Radio, Tabs, notification, message} from 'antd';
-import Chat from './component/Chat';
+import Chat from './module/Chat';
 import './style.css';
 
-
+const postData=require('./utils/postData');
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
 const openNotificationWithIcon = (type) => {
@@ -20,7 +20,7 @@ function hasErrors(fieldsError) {
 }
 
 
-class HorizontalLoginForm extends React.Component {
+class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -57,7 +57,7 @@ class HorizontalLoginForm extends React.Component {
         localStorage.setItem('isLogin', 'true');
         setTimeout(() => {
             this.setState({isLogin: true})
-        }, 1500)
+        }, 1000)
     }
     wrongpassword = () => {
         message.error("Wrong Password!");
@@ -78,16 +78,8 @@ class HorizontalLoginForm extends React.Component {
                     username = data[0].username,
                     password = data[0].password;
                 this.setState({username: username})
-                fetch('http://112.74.57.211:4000/login', {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    body: "username=" + username + "&password=" + password,
-                })
-                    .then(result => result.json())
-                    .then(result => {
+                postData.Login(username,password)
+                    .then((result) => {
                         if (result[0].data === 'loginsuccess') {
                             this.loginsuccess()
                         }
@@ -118,16 +110,8 @@ class HorizontalLoginForm extends React.Component {
                 const data = [values],
                     username = data[0].username,
                     password = data[0].password;
-                fetch('http://112.74.57.211:4000/regist', {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    body: "username=" + username + "&password=" + password,
-                })
-                    .then(result => result.json())
-                    .then(result => {
+                postData.Regist(username,password)
+                    .then((result) => {
                         if (result[0].data === 'registsuccess') {
                             this.setState({username: username})
                             message.success('Regist Success!')
@@ -136,8 +120,9 @@ class HorizontalLoginForm extends React.Component {
                                 that.loginsuccess();
                             }, 1000)
                         }
-                        else
-                            message.warning('User Has Existed!')
+                        else {
+                            message.warning('User Has Existed!');
+                        }
                     })
                     .catch(err => {
                         console.log(err)
@@ -262,14 +247,14 @@ class HorizontalLoginForm extends React.Component {
     }
 }
 
-HorizontalLoginForm = Form.create()(HorizontalLoginForm);
+LoginForm = Form.create()(LoginForm);
 
-class App extends React.Component {
-    render() {
-        return (
-            <HorizontalLoginForm/>
-        )
-    }
-}
+// class LoginForm extends React.Component {
+//     render() {
+//         return (
+//             <HorizontalLoginForm/>
+//         )
+//     }
+// }
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<LoginForm/>, document.getElementById('root'));

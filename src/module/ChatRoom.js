@@ -1,8 +1,18 @@
 import React, {Component} from 'react';
 import Messages from './Messages';
 import ChatInput from './ChatInput';
-import {Layout, Input, Icon, Button, Drawer, Modal, message, Divider, Tooltip, List} from 'antd';
 
+const qiniu = require('qiniu-js');
+const getData = require('../utils/getData');
+const postData = require('../utils/postData');
+const siderIcon = require('../component/siderIcon');
+const generateTime =require('../utils/generateTime');
+
+import {Layout, Input, Icon, Button, Drawer, Modal, message, Divider, Tooltip, List, Progress} from 'antd';
+
+
+const qq = siderIcon.qq,
+    wechat = siderIcon.wechat;
 const {Header, Footer, Sider, Content} = Layout;
 
 export default class ChatRoom extends Component {
@@ -33,42 +43,29 @@ export default class ChatRoom extends Component {
         this.ready();
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         // Get the chatLog
-        fetch('http://112.74.57.211:4000/chatLog')
-            .then(res => {
-                if (res.ok) {
-                    res.json()
-                        .then(data => {
-                            this.setState({
-                                messages: data.slice(data.length - 15, data.length),
-                                chatLog: data,
-                                scrollPoint: data.length - 15,
-                                latestMessage: data[data.length - 1].type !== 'img' ? data[data.length - 1].username + "：" + data[data.length - 1].action : data[data.length - 1].username + "：" + '[image]',
-                                latestTime: data[data.length - 1].time,
-                            })
-                        })
-                }
+        getData('http://112.74.57.211:4000/chatLog').then((data) => {
+            this.setState({
+                messages: data.slice(data.length - 15, data.length),
+                chatLog: data,
+                scrollPoint: data.length - 15,
+                latestMessage: data[data.length - 1].type !== 'img' ? data[data.length - 1].username + "：" + data[data.length - 1].action : data[data.length - 1].username + "：" + '[image]',
+                latestTime: data[data.length - 1].time,
             })
-        // Get the user avater
-        fetch('http://112.74.57.211:4000/avater')
-            .then(res => {
-                if (res.ok) {
-                    res.json()
-                        .then(data => {
-                            const user = this.state.username;
-                            let headportrait = data;
-                            this.setState({headportrait: data})
-                            if (this.state.headportrait.length !== 0) {
-                                let userAvater = headportrait.filter(function (e) {
-                                    return e.username === user;
-                                });
-                                const avater = userAvater.length !== 0 ? userAvater[0].img : 'http://cdn.algbb.fun/emoji/32.png';
-                                document.getElementById('headportrait').style.backgroundImage = "url('" + avater + "')";
-                            }
-                        })
-                }
-            })
+        })
+        getData('http://112.74.57.211:4000/avater').then((data) => {
+            const user = this.state.username;
+            let headportrait = data;
+            this.setState({headportrait: data})
+            if (this.state.headportrait.length !== 0) {
+                let userAvater = headportrait.filter(function (e) {
+                    return e.username === user;
+                });
+                const avater = userAvater.length !== 0 ? userAvater[0].img : 'http://cdn.algbb.fun/emoji/32.png';
+                document.getElementById('headportrait').src = avater;
+            }
+        })
         // Load more chatLog
         const that = this;
         document.getElementById('messages').addEventListener('scroll', function () {
@@ -103,7 +100,7 @@ export default class ChatRoom extends Component {
     showModal = () => {
         this.setState({
             headportraitVisible: true,
-            headportraitUrl: document.getElementById('headportrait').style.backgroundImage
+            headportraitUrl: document.getElementById('headportrait').src
         });
     }
 
@@ -143,13 +140,13 @@ export default class ChatRoom extends Component {
             type: obj.type,
             username: obj.username,
             action: obj.message,
-            time: this.generateTime()
+            time: generateTime()
         };
         messages = messages.concat(newMsg);
         this.setState({
             messages: messages,
             latestMessage: obj.type !== 'img' ? obj.username + "：" + obj.message : obj.username + "：[image]",
-            latestTime: this.generateTime()
+            latestTime: generateTime()
         })
         const div = document.getElementById('messages');
         let loop = setInterval(() => {
@@ -160,14 +157,6 @@ export default class ChatRoom extends Component {
                 clearInterval(loop)
             }
         }, 50)
-    }
-
-    generateTime = () => {
-        let hour = new Date().getHours(),
-            minute = new Date().getMinutes();
-        hour = (hour == 0) ? '00' : hour;
-        minute = (minute < 10) ? '0' + minute : minute;
-        return hour + ':' + minute;
     }
 
     handleLogout = () => {
@@ -207,53 +196,63 @@ export default class ChatRoom extends Component {
         const username = this.state.username,
             file = document.getElementById('change-headportrait').files[0],
             r = new FileReader(),
+            that = this,
             headportrait = this.state.headportrait;
         r.onload = function () {
-            fetch('http://112.74.57.211:4000/upload')
-                .then(res => {
-                    if (res.ok) {
-                        res.json()
-                            .then(data => {
-                                let pic = r.result.split(',')[1],
-                                    token = data,
-                                    url = "http://upload-z2.qiniu.com/putb64/-1",
-                                    xhr = new XMLHttpRequest();
-                                xhr.onreadystatechange = function () {
-                                    if (xhr.readyState === 4) {
-                                        const url = `url(http://cdn.algbb.fun/${JSON.parse(xhr.responseText).key})`;
-                                        let list = document.getElementsByClassName('my-avater');
-                                        document.getElementById('headportrait').style.backgroundImage = url;
-                                        document.getElementById('select-headportrait').style.backgroundImage = url;
-                                        for (let item of list) {
-                                            item.style.backgroundImage = url;
-                                        }
-                                        headportrait.filter((item) => item.username === username).map((item) => {
-                                            item.img = `http://cdn.algbb.fun/${JSON.parse(xhr.responseText).key}`;
-                                        })
-                                        message.success('Change successfully!')
-                                        fetch('http://112.74.57.211:4000/update-headportrait', {
-                                            method: 'POST',
-                                            mode: 'cors',
-                                            headers: {
-                                                "Content-Type": "application/x-www-form-urlencoded"
-                                            },
-                                            body: "img=" + "http://cdn.algbb.fun/" + JSON.parse(xhr.responseText).key + "&username=" + username,
-                                        })
-                                            .then(result => result.json())
-                                            .then(result => {
-
-                                            })
-                                    }
-                                };
-                                xhr.open("POST", url, true);
-                                xhr.setRequestHeader("Content-Type", "application/octet-stream");
-                                xhr.setRequestHeader("Authorization", "UpToken " + token);
-                                xhr.send(pic);
-                            }).then(() => {
-                            document.getElementById('selectImage').value = null;
+            getData('http://112.74.57.211:4000/upload').then((data) => {
+                // Get the blob
+                let arr = r.result.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+                while (n--) {
+                    u8arr[n] = bstr.charCodeAt(n);
+                }
+                const token = data,
+                    file = new Blob([u8arr], {type: mime}),
+                    key = `ImageMessages/${that.state.myName}_${Date.now()}`,
+                    observable = qiniu.upload(file, key, token, {
+                        useCdnDomain: true,
+                        region: qiniu.region.z2
+                    }, {}),
+                    obj = {
+                        uid: that.state.myId,
+                        username: that.state.myName,
+                        message: r.result,
+                        type: 'img'
+                    }
+                const img = document.getElementById('select-headportrait');
+                img.src = r.result;
+                observable.subscribe({
+                    next(info) {
+                        that.uploadProgress(Math.floor(info.total.percent))
+                        const upload = document.getElementById('avater-upload');
+                        upload.style.display = 'block';
+                        img.style.filter = 'blur(3px)';
+                    },
+                    error(err) {
+                        console.log(err)
+                    },
+                    complete: (info) => {
+                        message.success('Change successfully!')
+                        postData.changeAvater(key, username).then(() => {
+                            const upload = document.getElementById('avater-upload'),
+                                div = document.getElementById('select-headportrait'),
+                                url = `http://cdn.algbb.fun/${key}`;
+                            upload.style.display = 'none';
+                            div.style.filter = '';
+                            document.getElementById('headportrait').src = url;
+                            document.getElementById('select-headportrait').src = url;
+                            const myAvater = document.getElementsByClassName('my-avater');
+                            for (let item of myAvater)
+                                item.style.backgroundImage = `url(http://cdn.algbb.fun/${key})`
+                            headportrait.filter((item) => item.username === username).map((item) => {
+                                item.img = `http://cdn.algbb.fun/${key}`;
+                            })
                         })
                     }
                 })
+            }).then(() => {
+                document.getElementById('selectImage').value = null;
+            })
         }
         r.readAsDataURL(file);
     }
@@ -263,27 +262,11 @@ export default class ChatRoom extends Component {
             newly = document.getElementById('new-password').value;
         if (used !== '' && newly !== '') {
             var password = document.getElementById('used-password').value
-            fetch('http://112.74.57.211:4000/login', {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: "username=" + this.state.username + "&password=" + password,
-            })
-                .then(result => result.json())
-                .then(result => {
+            postData.Login(this.state.username, password)
+                .then((result) => {
                     if (result[0].data === 'loginsuccess') {
-                        fetch('http://112.74.57.211:4000/change', {
-                            method: 'POST',
-                            mode: 'cors',
-                            headers: {
-                                "Content-Type": "application/x-www-form-urlencoded"
-                            },
-                            body: "username=" + this.state.username + "&password=" + newly,
-                        })
-                            .then(result => result.json())
-                            .then(result => {
+                        postData.changePassword(this.state.username, newly)
+                            .then((result) => {
                                 if (result[0].data === 'ok') {
                                     message.success('Change successfully!')
                                     this.setState({headportraitVisible: false})
@@ -339,18 +322,7 @@ export default class ChatRoom extends Component {
     render() {
         const userinfo = this.state.userInfo.split(','),
             headportrait = this.state.headportrait,
-            qq = <div
-                style={{display: 'flex', flexDirection: 'column ', alignItems: 'center', justifyContent: 'center'}}><img
-                width={100} height={100}
-                src={'http://cdn.algbb.fun/icon/qq.png'}></img>
-                <p style={{textAlign: 'center', fontSize: 12}}>QQ号：464203147</p>
-            </div>,
-            wechat = <div
-                style={{display: 'flex', flexDirection: 'column ', alignItems: 'center', justifyContent: 'center'}}>
-                <img width={100} height={100}
-                     src={'http://cdn.algbb.fun/icon/wechat.jpg'}></img>
-                <p style={{textAlign: 'center', fontSize: 12}}>微信号：zhcxk1998</p>
-            </div>
+            percent = this.state.percent;
         return (
             <div id='main-background' className="main-background">
                 <div className='chat-blur'></div>
@@ -363,8 +335,8 @@ export default class ChatRoom extends Component {
                         }}>
                             <div className='sider-tools'>
                                 <div className='sider-avater'>
-                                    <button id='headportrait' className='headportrait'
-                                            onClick={this.showModal}></button>
+                                    <img id='headportrait' className='headportrait'
+                                         onClick={this.showModal}></img>
                                     <Modal
                                         title="个人信息"
                                         visible={this.state.headportraitVisible}
@@ -372,10 +344,16 @@ export default class ChatRoom extends Component {
                                         footer={null}
                                     >
                                         <Divider orientation={'left'}>修改头像</Divider>
-                                        <button id='select-headportrait'
-                                                style={{backgroundImage: this.state.headportraitUrl}}
-                                                className='select-headportrait'
-                                                onClick={this.selectAvater}></button>
+                                        <div className='image-box'>
+                                            <img id='select-headportrait'
+                                                 src={this.state.headportraitUrl}
+                                                 className='select-headportrait'
+                                                 onClick={this.selectAvater}></img>
+                                            <div id={'avater-upload'} className={'avater-upload'}
+                                                 style={{display: 'none'}}>
+                                                <Progress type={'circle'} percent={percent} width={40}/>
+                                            </div>
+                                        </div>
                                         <input id={'change-headportrait'} accept={'image/*'}
                                                className='change-headportrait'
                                                type={'file'} onChange={this.changeAvater}/>
@@ -457,12 +435,12 @@ export default class ChatRoom extends Component {
                                 <div className='user-list-header'><p>群组信息</p></div>
                                 <p>在线成员 {this.state.onlineCount}</p>
                                 <div className='user-list-onlineuser'>
-                                    {userinfo.map(function (user) {
+                                    {userinfo.map(function (user,index) {
                                         var userAvater = headportrait.filter(function (item) {
                                             return item.username === user;
                                         })
                                         var avater = userAvater.length != 0 ? userAvater[0].img : 'http://cdn.algbb.fun/emoji/32.png';
-                                        return <div className='user-list-onlineuser-item'>
+                                        return <div key={index} className='user-list-onlineuser-item'>
                                             <div className='user-list-onlineuser-avater'
                                                  style={{backgroundImage: 'url("' + avater + '")'}}></div>
                                             <span className='user-list-onlineuser-username'>{user}</span>

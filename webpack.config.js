@@ -8,7 +8,7 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        bundle: './src/App.js',
+        bundle: './src/LoginForm.js',
         vendor: ['antd'],
     }, //相对路径
     output: {
@@ -80,6 +80,16 @@ module.exports = {
                 loader: 'babel-loader', //使用的加载器名称
                 query: { //babel的配置参数，可以写在.babelrc文件里也可以写在这里
                     presets: ['env', 'react', 'stage-1'],
+                    plugins: [[
+                        "transform-runtime",
+                        {
+                            "helpers": false,
+                            "polyfill": false,
+                            "regenerator": true,
+                            "moduleName": "babel-runtime"
+                        }
+                    ]]
+
                 }
             },
         ]

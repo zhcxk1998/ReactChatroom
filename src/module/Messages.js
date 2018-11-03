@@ -50,7 +50,7 @@ class Message extends Component {
             const avater = userAvater.length !== 0 ? userAvater[0].img : 'http://cdn.algbb.fun/emoji/32.png';
             const imgMessages = (
                 <div className={(this.props.isMe) ? "chatLog self" : "chatLog"}>
-                    <div id="chat-avater" className='chat-avater'
+                    <div id="chat-avater" className={(this.props.isMe)?'chat-avater my-avater':'chat-avater'}
                          style={{backgroundImage: "url('" + avater + "')"}}></div>
                     <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
                         <div className="time">
@@ -68,7 +68,7 @@ class Message extends Component {
             const textMessages = (
                 <div className={(this.props.isMe) ? "chatLog self" : "chatLog"}>
                     <div id="chat-avater" style={{backgroundImage: "url('" + avater + "')"}}
-                         className='chat-avater'></div>
+                         className={(this.props.isMe)?'chat-avater my-avater':'chat-avater'}></div>
                     <div className={(this.props.isMe) ? 'me one-message' : 'other one-message'}>
                         <div className="time">
                             <span>&nbsp;{this.props.msgUser}</span><span>&nbsp;{this.props.time}</span></div>
