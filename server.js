@@ -73,6 +73,15 @@ io.on('connection', function (socket) {
         });
     })
 
+    socket.on('changeAvater', function () {
+        console.log('changeAvater')
+        connection.query('select * from userinfo', function (err, res) {
+            res = JSON.stringify(res);
+            res = JSON.parse(res);
+            io.emit('changeAvater', res);
+        })
+    })
+
 });
 
 

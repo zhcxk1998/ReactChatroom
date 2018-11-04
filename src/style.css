@@ -466,7 +466,6 @@ input:focus:-webkit-autofill {
     display: block;
     width: 60px;
     height: 60px;
-    background: url("http://cdn.algbb.fun/avater/avater.gif");
     background-size: 100% 100%;
     border-radius: 50%;
     border: none;

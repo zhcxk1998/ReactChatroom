@@ -27,7 +27,7 @@ class LoginForm extends React.Component {
             data: [],
             isLogin: false,
             isLoding: false,
-            username: '',
+            myName: '',
             // uid:''
         }
         this.loginsuccess = this.loginsuccess.bind(this);
@@ -43,7 +43,7 @@ class LoginForm extends React.Component {
         // To disabled submit button at the beginning.
         this.props.form.validateFields();
         if (localStorage.getItem('username') !== null) {
-            this.setState({isLogin: true, username: localStorage.getItem('username')})
+            this.setState({isLogin: true, myName: localStorage.getItem('username')})
         }
     }
 
@@ -53,7 +53,7 @@ class LoginForm extends React.Component {
 
     loginsuccess = () => {
         message.success("Login Success!")
-        localStorage.setItem('username', this.state.username);
+        localStorage.setItem('username', this.state.myName);
         localStorage.setItem('isLogin', 'true');
         setTimeout(() => {
             this.setState({isLogin: true})
@@ -77,7 +77,7 @@ class LoginForm extends React.Component {
                 const data = [values],
                     username = data[0].username,
                     password = data[0].password;
-                this.setState({username: username})
+                this.setState({myName: username})
                 postData.Login(username,password)
                     .then((result) => {
                         if (result[0].data === 'loginsuccess') {
@@ -113,7 +113,7 @@ class LoginForm extends React.Component {
                 postData.Regist(username,password)
                     .then((result) => {
                         if (result[0].data === 'registsuccess') {
-                            this.setState({username: username})
+                            this.setState({myName: username})
                             message.success('Regist Success!')
                             setTimeout(function () {
                                 // window.location.reload(true)
@@ -139,7 +139,7 @@ class LoginForm extends React.Component {
         const userNameError = isFieldTouched('username') && getFieldError('username');
         const passwordError = isFieldTouched('password') && getFieldError('password');
         if (this.state.isLogin) {
-            renderdom = <Chat username={this.state.username} uid={this.generateUid()}/>
+            renderdom = <Chat myName={this.state.myName} uid={this.generateUid()}/>
         }
         else {
             renderdom = (<div className='main-background'>

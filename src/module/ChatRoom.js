@@ -6,7 +6,7 @@ const qiniu = require('qiniu-js');
 const getData = require('../utils/getData');
 const postData = require('../utils/postData');
 const siderIcon = require('../component/siderIcon');
-const generateTime =require('../utils/generateTime');
+const generateTime = require('../utils/generateTime');
 
 import {Layout, Input, Icon, Button, Drawer, Modal, message, Divider, Tooltip, List, Progress} from 'antd';
 
@@ -21,9 +21,8 @@ export default class ChatRoom extends Component {
         const socket = this.props.socket;
         this.state = {
             myId: this.props.uid,
-            myName: this.props.username,
+            myName: this.props.myName,
             uid: this.props.uid,
-            username: this.props.username,
             socket: socket,
             messages: [],
             onlineUsers: {},
@@ -39,6 +38,7 @@ export default class ChatRoom extends Component {
             lastIndex: 15,
             percent: 0,
             isUploading: false,
+            myAvater: '',
         };
         this.ready();
     }
@@ -55,16 +55,14 @@ export default class ChatRoom extends Component {
             })
         })
         getData('http://112.74.57.211:4000/avater').then((data) => {
-            const user = this.state.username;
-            let headportrait = data;
-            this.setState({headportrait: data})
-            if (this.state.headportrait.length !== 0) {
-                let userAvater = headportrait.filter(function (e) {
-                    return e.username === user;
-                });
-                const avater = userAvater.length !== 0 ? userAvater[0].img : 'http://cdn.algbb.fun/emoji/32.png';
-                document.getElementById('headportrait').src = avater;
-            }
+            const myName = this.state.myName;
+            const myAvater = data.filter(item => {
+                return item.username === myName;
+            })[0].img;
+            this.setState({
+                headportrait: data,
+                myAvater: myAvater
+            })
         })
         // Load more chatLog
         const that = this;
@@ -150,7 +148,7 @@ export default class ChatRoom extends Component {
         })
         const div = document.getElementById('messages');
         let loop = setInterval(() => {
-            if (obj.username === this.state.username) {
+            if (obj.username === this.state.myName) {
                 div.scrollTop = div.scrollHeight
             }
             if (div.scrollHeight - Math.round(div.scrollTop) == div.clientHeight) {
@@ -171,7 +169,7 @@ export default class ChatRoom extends Component {
             this.updateSysMsg(o, 'login');
             const div = document.getElementById('messages');
             let loop = setInterval(() => {
-                if (o.user.username === this.state.username) {
+                if (o.user.username === this.state.myName) {
                     div.scrollTop = div.scrollHeight
                 }
                 if (div.scrollHeight - Math.round(div.scrollTop) == div.clientHeight) {
@@ -183,8 +181,11 @@ export default class ChatRoom extends Component {
             this.updateSysMsg(o, 'logout');
         })
         socket.on('message', (obj) => {
-            if (!(obj.type === 'img' && obj.username === this.state.username))
+            if (!(obj.type === 'img' && obj.username === this.state.myName))
                 this.updateMsg(obj);
+        })
+        socket.on('changeAvater', (data) => {
+            this.setState({headportrait:data})
         })
     }
 
@@ -193,11 +194,10 @@ export default class ChatRoom extends Component {
     }
 
     changeAvater = () => {
-        const username = this.state.username,
+        const myName = this.state.myName,
             file = document.getElementById('change-headportrait').files[0],
             r = new FileReader(),
-            that = this,
-            headportrait = this.state.headportrait;
+            that = this;
         r.onload = function () {
             getData('http://112.74.57.211:4000/upload').then((data) => {
                 // Get the blob
@@ -233,21 +233,19 @@ export default class ChatRoom extends Component {
                     },
                     complete: (info) => {
                         message.success('Change successfully!')
-                        postData.changeAvater(key, username).then(() => {
+                        postData.changeAvater(key, myName).then(() => {
                             const upload = document.getElementById('avater-upload'),
-                                div = document.getElementById('select-headportrait'),
-                                url = `http://cdn.algbb.fun/${key}`;
+                                div = document.getElementById('select-headportrait');
                             upload.style.display = 'none';
                             div.style.filter = '';
-                            document.getElementById('headportrait').src = url;
-                            document.getElementById('select-headportrait').src = url;
-                            const myAvater = document.getElementsByClassName('my-avater');
-                            for (let item of myAvater)
-                                item.style.backgroundImage = `url(http://cdn.algbb.fun/${key})`
-                            headportrait.filter((item) => item.username === username).map((item) => {
-                                item.img = `http://cdn.algbb.fun/${key}`;
+                        })
+                        getData('http://112.74.57.211:4000/avater').then(data => {
+                            that.setState({
+                                headportrait: data,
+                                myAvater: `http://cdn.algbb.fun/${key}`,
                             })
                         })
+                        that.state.socket.emit('changeAvater');
                     }
                 })
             }).then(() => {
@@ -262,10 +260,10 @@ export default class ChatRoom extends Component {
             newly = document.getElementById('new-password').value;
         if (used !== '' && newly !== '') {
             var password = document.getElementById('used-password').value
-            postData.Login(this.state.username, password)
+            postData.Login(this.state.myName, password)
                 .then((result) => {
                     if (result[0].data === 'loginsuccess') {
-                        postData.changePassword(this.state.username, newly)
+                        postData.changePassword(this.state.myName, newly)
                             .then((result) => {
                                 if (result[0].data === 'ok') {
                                     message.success('Change successfully!')
@@ -320,7 +318,7 @@ export default class ChatRoom extends Component {
     }
 
     render() {
-        const userinfo = this.state.userInfo.split(','),
+        const userInfo = this.state.userInfo.split(','),
             headportrait = this.state.headportrait,
             percent = this.state.percent;
         return (
@@ -336,7 +334,7 @@ export default class ChatRoom extends Component {
                             <div className='sider-tools'>
                                 <div className='sider-avater'>
                                     <img id='headportrait' className='headportrait'
-                                         onClick={this.showModal}></img>
+                                         onClick={this.showModal} src={this.state.myAvater}></img>
                                     <Modal
                                         title="个人信息"
                                         visible={this.state.headportraitVisible}
@@ -435,8 +433,8 @@ export default class ChatRoom extends Component {
                                 <div className='user-list-header'><p>群组信息</p></div>
                                 <p>在线成员 {this.state.onlineCount}</p>
                                 <div className='user-list-onlineuser'>
-                                    {userinfo.map(function (user,index) {
-                                        var userAvater = headportrait.filter(function (item) {
+                                    {userInfo.map((user, index) => {
+                                        var userAvater = headportrait.filter(item => {
                                             return item.username === user;
                                         })
                                         var avater = userAvater.length != 0 ? userAvater[0].img : 'http://cdn.algbb.fun/emoji/32.png';
@@ -462,7 +460,7 @@ export default class ChatRoom extends Component {
                             <Content>
                                 <div id='chatArea' className='chatArea' ref="chatArea">
                                     <Messages messages={this.state.messages} myId={this.state.myId}
-                                              username={this.state.username} percent={this.state.percent}
+                                              myName={this.state.myName} percent={this.state.percent}
                                               headportrait={this.state.headportrait}/>
                                 </div>
                             </Content>

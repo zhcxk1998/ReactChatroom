@@ -7,7 +7,7 @@ class Chat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: this.props.username,
+            myName: this.props.myName,
             uid: this.props.uid,
             socket: io('http://112.74.57.211:4000',{
                 transports:['websocket','polling']
@@ -18,11 +18,11 @@ class Chat extends React.Component {
 
     // 登陆
     componentDidMount() {
-        this.state.socket.emit('login', {uid: this.state.uid, username: this.state.username})
+        this.state.socket.emit('login', {uid: this.state.uid, username: this.state.myName})
     }
 
     render() {
-        return (<div><ChatRoom uid={this.state.uid} username={this.state.username} socket={this.state.socket}/></div>)
+        return (<div><ChatRoom uid={this.state.uid} myName={this.state.myName} socket={this.state.socket}/></div>)
     }
 }
 

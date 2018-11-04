@@ -5,13 +5,13 @@ export default class Messages extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: this.props.username,
+            myName: this.props.myName,
             headportrait: this.props.headportrait,
         };
     }
 
     render() {
-        const user = this.state.username,
+        const user = this.state.myName,
             headportrait = this.props.headportrait,
             messages = this.props.messages,
             percent = this.props.percent,
