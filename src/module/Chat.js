@@ -9,7 +9,7 @@ class Chat extends React.Component {
         this.state = {
             myName: this.props.myName,
             uid: this.props.uid,
-            socket: io('http://112.74.57.211:4000',{
+            socket: io('https://chat.algbb.fun',{
                 transports:['websocket','polling']
             }),
             message: []

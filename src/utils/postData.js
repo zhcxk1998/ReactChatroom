@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 module.exports = {
     changeAvater: async function changeAvater(key, username) {
-        let postAvater = await fetch('http://112.74.57.211:4000/update-headportrait', {
+        let postAvater = await fetch('https://chat.algbb.fun/update-headportrait', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -14,7 +14,7 @@ module.exports = {
         return res;
     },
     changePassword: async function changePassword(username, password) {
-        let postPassword = await fetch('http://112.74.57.211:4000/change', {
+        let postPassword = await fetch('https://chat.algbb.fun/change', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -26,7 +26,7 @@ module.exports = {
         return res;
     },
     Login: async function Login(username, password) {
-        let postLogin = await fetch('http://112.74.57.211:4000/login', {
+        let postLogin = await fetch('https://chat.algbb.fun/login', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -38,7 +38,7 @@ module.exports = {
         return res;
     },
     Regist: async function Regist(username, password) {
-        let postRegist = await fetch('http://112.74.57.211:4000/login', {
+        let postRegist = await fetch('https://chat.algbb.fun/regist', {
             method: 'POST',
             mode: 'cors',
             headers: {
