@@ -1,16 +1,18 @@
-# BB小天使聊天室~
+# BB小天使聊天室:sunny:~
 
 ## 介绍
 BB小天使聊天室是一个主要面向校园闲置物品交易
-、学生互帮互助、吹水吐槽等功能的聊天室
+、学生互帮互助、吹水吐槽等功能的聊天室:pig:
 
-在线地址：[https://algbb.fun/](https://algbb.fun/)
+在线地址：[https://chat.algbb.fun/](https://chat.algbb.fun/)
 
 ## 技术选型
 
-前端：react
+前端：React + Antd
 
-后端：node.js + mysql + socket.io + 七牛云存储
+后端：Node.js + Mysql
+
+其他：七牛云存储 + socket.io
 
 ## 功能
 > 已完成
