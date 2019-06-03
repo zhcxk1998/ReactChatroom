@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Input, Dropdown, Button} from 'antd';
+import React, { Component } from 'react';
+import { Input, Dropdown, Button } from 'antd';
 import 'antd/dist/antd.css';
 
 const qiniu = require('qiniu-js');
@@ -23,12 +23,20 @@ export default class ChatInput extends Component {
 
   // Monitor inputBox change
   handleChange = (e) => {
-    this.setState({message: e.target.value});
+    this.setState({ message: e.target.value });
   }
 
   addemoji = (name) => {
+    document.getElementById('input-box').focus();
     const div = document.getElementById('input-box');
-    this.setState({message: div.value + ' #(' + name + ') '});
+    const { selectionStart } = document.getElementById('input-box');
+    const { message } = this.state;
+    if (!!document.getSelection().toString()) {
+      this.setState({ message: message.replace(document.getSelection().toString(), ' #(' + name + ') ') })
+    }
+    else {
+      this.setState({ message: message.slice(0, selectionStart) + ' #(' + name + ') ' + message.slice(selectionStart) });
+    }
     document.getElementById('input-box').focus();
   }
 
@@ -57,7 +65,7 @@ export default class ChatInput extends Component {
             u8arr[n] = bstr.charCodeAt(n);
           }
 
-          const file = new Blob([u8arr], {type: mime}),
+          const file = new Blob([u8arr], { type: mime }),
             key = `ImageMessages/${that.state.myName}_${Date.now()}_width_${width}_height_${height}_`,
             observable = qiniu.upload(file, key, token, {
               useCdnDomain: true,
@@ -136,7 +144,7 @@ export default class ChatInput extends Component {
         type: 'chat'
       };
       socket.emit('message', obj);
-      this.setState({message: ''});
+      this.setState({ message: '' });
     }
     return false
   }
@@ -152,12 +160,12 @@ export default class ChatInput extends Component {
         <Dropdown overlay={menu} placement="topCenter" trigger={['click']}>
           <button className='function-icon'></button>
         </Dropdown>
-        <input style={{display: 'none'}} id={'selectImage'} type={'file'} accept={'image/*'}
-               onChange={this.chooseImage}/>
+        <input style={{ display: 'none' }} id={'selectImage'} type={'file'} accept={'image/*'}
+          onChange={this.chooseImage} />
         <Input id='input-box' autoComplete='off' disableautocomplete='true' className='input-box'
-               onPressEnter={this.handleClick.bind(this)}
-               value={this.state.message}
-               onChange={this.handleChange.bind(this)} placeholder={'代码打完了？BUG修好了？作业写完了？还不快点去......'}/>
+          onPressEnter={this.handleClick.bind(this)}
+          value={this.state.message}
+          onChange={this.handleChange.bind(this)} placeholder={'代码打完了？BUG修好了？作业写完了？还不快点去......'} />
         <button className='send-button' onClick={this.handleClick.bind(this)}></button>
       </div>
     )
