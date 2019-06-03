@@ -26,7 +26,7 @@ const emoji = (onClick) => (
             {Array.from({length: 33}, (item, index) => index + 1).map((item, index) => {
               let name = item.toString().length > 1 ? item.toString() : '0' + item.toString();
               return <div key={index} className='emoji-item' onClick={() => onClick(name)}>
-                <div style={{backgroundImage: 'url("' + `http://cdn.algbb.fun/emoji/${name}.png` + '")'}}/>
+                <div style={{backgroundImage: 'url("' + `https://cdn.algbb.fun/emoji/${name}.png` + '")'}}/>
               </div>
             })}
           </div>

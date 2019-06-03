@@ -1,19 +1,19 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Messages from './Messages';
 import ChatInput from './ChatInput';
 
 const qiniu = require('qiniu-js');
 const getData = require('../utils/getData');
 const postData = require('../utils/postData');
-const siderIcon = require('../component/siderIcon');
 const generateTime = require('../utils/generateTime');
+const siderIcon = require('../component/siderIcon');
 
-import {Layout, Input, Icon, Button, Drawer, Modal, message, Divider, Tooltip, List, Progress} from 'antd';
+import { Layout, Input, Icon, Button, Drawer, Modal, message, Divider, Tooltip, List, Progress } from 'antd';
 
 
 const qq = siderIcon.qq,
   wechat = siderIcon.wechat;
-const {Header, Footer, Sider, Content} = Layout;
+const { Header, Footer, Sider, Content } = Layout;
 
 export default class ChatRoom extends Component {
   constructor(props) {
@@ -37,33 +37,52 @@ export default class ChatRoom extends Component {
       scrollPoint: 0,
       percent: 0,
       isUploading: false,
-      myAvater: '',
+      myAvater: 'https://cdn.algbb.fun/ImageMessages/BB_1559534317494_width_250_height_250_',
       isLoading: true,
     };
     this.ready();
   }
 
-  async componentDidMount() {
-    // Get the chatLog
-    getData('https://chat.algbb.fun/chatLog').then((data) => {
-      this.setState({
-        messages: data.slice(data.length - 15, data.length),
-        chatLog: data,
-        scrollPoint: data.length - 15,
-        latestMessage: data[data.length - 1].type !== 'img' ? data[data.length - 1].username + "：" + data[data.length - 1].action : data[data.length - 1].username + "：" + '[image]',
-        latestTime: data[data.length - 1].time
+  fetchChatLog() {
+    return new Promise(async (resolve, reject) => {
+      getData('https://chat.algbb.fun/chatLog').then((data) => {
+        this.setState({
+          messages: data.slice(data.length - 15, data.length),
+          chatLog: data,
+          scrollPoint: data.length - 15,
+          latestMessage: data[data.length - 1].type !== 'img' ? data[data.length - 1].username + "：" + data[data.length - 1].action : data[data.length - 1].username + "：" + '[image]',
+          latestTime: data[data.length - 1].time
+        })
+      }).then(() => {
+        resolve()
       })
     })
-    getData('https://chat.algbb.fun/avater').then((data) => {
-      const myName = this.state.myName;
-      const myAvater = data.filter(item => {
-        return item.username === myName;
-      })[0].img;
-      this.setState({
-        headportrait: data,
-        myAvater: myAvater
+  }
+
+  fetchAvater() {
+    return new Promise(async (resolve, reject) => {
+      getData('https://chat.algbb.fun/avater').then((data) => {
+        const myName = this.state.myName;
+        const myAvater = data.filter(item => {
+          return item.username === myName;
+        })[0].img;
+        this.setState({
+          headportrait: data,
+          myAvater: myAvater
+        })
+      }).then(() => {
+        resolve()
       })
     })
+  }
+
+  componentDidMount() {
+    Promise.all([this.fetchChatLog(), this.fetchAvater()]).then(() => {
+      this.setState({ isLoading: false })
+      let content = document.getElementsByClassName('chatLog');
+      content[content.length - 1].scrollIntoView()
+    })
+
     // Load more chatLog
     const that = this;
     document.getElementById('messages').addEventListener('scroll', function () {
@@ -119,7 +138,7 @@ export default class ChatRoom extends Component {
         separator = ',';
       }
     }
-    this.setState({userInfo: userInfo})
+    this.setState({ userInfo: userInfo })
   }
 
   updateSysMsg = (o, action) => {
@@ -146,15 +165,11 @@ export default class ChatRoom extends Component {
       latestMessage: obj.type !== 'img' ? obj.username + "：" + obj.message : obj.username + "：[image]",
       latestTime: generateTime()
     })
+
     const div = document.getElementById('messages');
-    let loop = setInterval(() => {
-      if (obj.username === this.state.myName) {
-        div.scrollTop = div.scrollHeight
-      }
-      if (div.scrollHeight - Math.round(div.scrollTop) == div.clientHeight) {
-        clearInterval(loop)
-      }
-    }, 50)
+    if (obj.username === this.state.myName) {
+      div.scrollTop = div.scrollHeight;
+    }
   }
 
   handleLogout = () => {
@@ -167,21 +182,6 @@ export default class ChatRoom extends Component {
     const socket = this.state.socket;
     socket.on('login', (o) => {
       this.updateSysMsg(o, 'login');
-      const div = document.getElementById('messages');
-      if (div.scrollTop === div.scrollHeight) {
-        this.setState({isLoading: false})
-      }
-      div.scrollTop = div.scrollHeight;
-
-
-      // let loop = setInterval(() => {
-      //   if (o.user.username === this.state.myName) {
-      //     div.scrollTop = div.scrollHeight
-      //   }
-      //   if (div.scrollHeight - Math.round(div.scrollTop) == div.clientHeight) {
-      //     clearInterval(loop)
-      //   }
-      // }, 50)
     })
     socket.on('logout', (o) => {
       this.updateSysMsg(o, 'logout');
@@ -191,7 +191,7 @@ export default class ChatRoom extends Component {
         this.updateMsg(obj);
     })
     socket.on('changeAvater', (data) => {
-      this.setState({headportrait: data})
+      this.setState({ headportrait: data })
     })
   }
 
@@ -213,7 +213,7 @@ export default class ChatRoom extends Component {
           u8arr[n] = bstr.charCodeAt(n);
         }
         const token = data,
-          file = new Blob([u8arr], {type: mime}),
+          file = new Blob([u8arr], { type: mime }),
           key = `ImageMessages/${that.state.myName}_${Date.now()}`,
           observable = qiniu.upload(file, key, token, {
             useCdnDomain: true,
@@ -248,7 +248,7 @@ export default class ChatRoom extends Component {
             getData('https://chat.algbb.fun/avater').then(data => {
               that.setState({
                 headportrait: data,
-                myAvater: `http://cdn.algbb.fun/${key}`,
+                myAvater: `https://cdn.algbb.fun/${key}`,
               })
             })
             that.state.socket.emit('changeAvater');
@@ -273,7 +273,7 @@ export default class ChatRoom extends Component {
               .then((result) => {
                 if (result[0].data === 'ok') {
                   message.success('Change successfully!')
-                  this.setState({headportraitVisible: false})
+                  this.setState({ headportraitVisible: false })
                   localStorage.removeItem('username')
                   document.getElementById('used-password').value = '';
                   document.getElementById('new-password').value = '';
@@ -318,19 +318,20 @@ export default class ChatRoom extends Component {
   }
 
   uploadProgress = (percent) => {
-    this.setState({percent: percent})
+    this.setState({ percent: percent })
   }
 
   render() {
+    const div = document.getElementById('messages');
     const userInfo = this.state.userInfo.split(',');
     // headportrait = this.state.headportrait,
     // percent = this.state.percent;
-    const {isLoading, headportrait, percent} = this.state;
+    const { isLoading, headportrait, percent } = this.state;
     return (
       <div id='main-background' className="main-background">
         <div className='chat-blur'></div>
-        <div className="chat-background" style={{display: !isLoading ? 'block' : 'none'}}>
-          <Layout style={{borderRadius: 12}}>
+        <div className="chat-background">
+          <Layout style={{ borderRadius: 12 }}>
             <Sider width={350} theme='light' style={{
               backgroundColor: 'transparent',
               borderTopLeftRadius: 12,
@@ -339,7 +340,7 @@ export default class ChatRoom extends Component {
               <div className='sider-tools'>
                 <div className='sider-avater'>
                   <img id='headportrait' className='headportrait'
-                       onClick={this.showModal} src={this.state.myAvater}></img>
+                    onClick={this.showModal} src={this.state.myAvater}></img>
                   <Modal
                     title="个人信息"
                     visible={this.state.headportraitVisible}
@@ -349,54 +350,54 @@ export default class ChatRoom extends Component {
                     <Divider orientation={'left'}>修改头像</Divider>
                     <div className='image-box'>
                       <img id='select-headportrait'
-                           src={this.state.headportraitUrl}
-                           className='select-headportrait'
-                           onClick={this.selectAvater}></img>
+                        src={this.state.headportraitUrl}
+                        className='select-headportrait'
+                        onClick={this.selectAvater}></img>
                       <div id={'avater-upload'} className={'avater-upload'}
-                           style={{display: 'none'}}>
-                        <Progress type={'circle'} percent={percent} width={40}/>
+                        style={{ display: 'none' }}>
+                        <Progress type={'circle'} percent={percent} width={40} />
                       </div>
                     </div>
                     <input id={'change-headportrait'} accept={'image/*'}
-                           className='change-headportrait'
-                           type={'file'} onChange={this.changeAvater}/>
+                      className='change-headportrait'
+                      type={'file'} onChange={this.changeAvater} />
                     <Divider orientation={'right'}>修改密码</Divider>
-                    <Input type={'password'} id={'used-password'} placeholder={'旧密码'}/>
-                    <Input type={'password'} id={'new-password'} style={{marginTop: 20}}
-                           placeholder={'新密码'}/>
-                    <Button style={{width: '100%', marginTop: 20}} type={'primary'}
-                            onClick={this.changePassword}>确认修改</Button>
+                    <Input type={'password'} id={'used-password'} placeholder={'旧密码'} />
+                    <Input type={'password'} id={'new-password'} style={{ marginTop: 20 }}
+                      placeholder={'新密码'} />
+                    <Button style={{ width: '100%', marginTop: 20 }} type={'primary'}
+                      onClick={this.changePassword}>确认修改</Button>
                   </Modal>
                 </div>
                 <div className='sider-icon'>
                   <div className='sider-icon-item first-item'>
                     <Button shape={'circle'} type={'primary'} icon={'github'}
-                            onClick={() => open('https://github.com/zhcxk1998/ReactChatroom')}/>
+                      onClick={() => open('https://github.com/zhcxk1998/ReactChatroom')} />
                   </div>
                   <div className='sider-icon-item'>
                     <Tooltip placement={'right'} title={qq} autoAdjustOverflow>
-                      <Button shape={'circle'} type={'primary'} icon={'qq'}/></Tooltip>
+                      <Button shape={'circle'} type={'primary'} icon={'qq'} /></Tooltip>
                   </div>
                   <div className='sider-icon-item'>
                     <Tooltip placement={'right'} title={wechat} autoAdjustOverflow><Button
                       shape={'circle'}
                       type={'primary'}
-                      icon={'wechat'}/></Tooltip>
+                      icon={'wechat'} /></Tooltip>
 
                   </div>
                   <div className='sider-icon-item'>
                     <Button shape={'circle'} type={'primary'} icon={'message'} onClick={() => {
                       message.warning('The Blog is not open yet.')
-                    }}/>
+                    }} />
                   </div>
                   <div className='sider-icon-item'>
                     <Button shape={'circle'} type={'primary'} icon={'setting'} onClick={() => {
                       message.warning('The Setting is not open yet.')
-                    }}/>
+                    }} />
                   </div>
                   <div className='sider-icon-item'>
                     <Button shape={'circle'} type={'primary'} icon={'poweroff'}
-                            onClick={this.handleLogout}/>
+                      onClick={this.handleLogout} />
                   </div>
                 </div>
               </div>
@@ -404,11 +405,11 @@ export default class ChatRoom extends Component {
                 <div className='sider-search'>
                   <div className='search-box'>
                     <Input className='search-input' placeholder={'搜索用户/群组'}
-                           prefix={<Icon type={'search'}/>}/>
+                      prefix={<Icon type={'search'} />} />
                     <Button className='search-button' shape={'circle'} icon={'plus'}
-                            onClick={() => {
-                              message.warning('不要点人家了啦~好害羞惹')
-                            }}/>
+                      onClick={() => {
+                        message.warning('不要点人家了啦~好害羞惹')
+                      }} />
                   </div>
                 </div>
                 <div className='sider-items'>
@@ -428,13 +429,13 @@ export default class ChatRoom extends Component {
               </div>
             </Sider>
             <Layout className={'layout'}
-                    style={{
-                      backgroundColor: 'transparent',
-                      borderBottomRightRadius: 12,
-                      borderTopRightRadius: 12,
-                      position: 'relative'
-                    }}>
-              <div style={{display: 'none'}} id={'user-list'} className='user-list'>
+              style={{
+                backgroundColor: 'transparent',
+                borderBottomRightRadius: 12,
+                borderTopRightRadius: 12,
+                position: 'relative'
+              }}>
+              <div style={{ display: 'none' }} id={'user-list'} className='user-list'>
                 <div className='user-list-header'><p>群组信息</p></div>
                 <p>在线成员 {this.state.onlineCount}</p>
                 <div className='user-list-onlineuser'>
@@ -442,38 +443,38 @@ export default class ChatRoom extends Component {
                     var userAvater = headportrait.filter(item => {
                       return item.username === user;
                     })
-                    var avater = userAvater.length != 0 ? userAvater[0].img : 'http://cdn.algbb.fun/emoji/32.png';
+                    var avater = userAvater.length != 0 ? userAvater[0].img : 'https://cdn.algbb.fun/emoji/32.png';
                     return <div key={index} className='user-list-onlineuser-item'>
                       <div className='user-list-onlineuser-avater'
-                           style={{backgroundImage: 'url("' + avater + '")'}}></div>
+                        style={{ backgroundImage: 'url("' + avater + '")' }}></div>
                       <span className='user-list-onlineuser-username'>{user}</span>
                     </div>
                   })}
                 </div>
                 <p>功能 </p>
                 <Button className={'user-list-function'} id={'user-list-function'} type={'primary'}
-                        onClick={() => {
-                          message.error('退什么退！！啊！？？')
-                        }}>退出群聊</Button>
+                  onClick={() => {
+                    message.error('退什么退！！啊！？？')
+                  }}>退出群聊</Button>
               </div>
-              <Header className='chat-header' style={{backgroundColor: 'rgba(255, 255, 255, 0.65)'}}>
+              <Header className='chat-header' style={{ backgroundColor: 'rgba(255, 255, 255, 0.65)' }}>
                 <div className="room-name">
                   <span>肥宅の圣地</span>
-                  <Button type={'primary'} icon={'menu-fold'} id={'show-user'}/>
+                  <Button type={'primary'} icon={'menu-fold'} id={'show-user'} />
                 </div>
               </Header>
               <Content>
                 <div id='chatArea' className='chatArea' ref="chatArea">
-                  <Messages messages={this.state.messages} myId={this.state.myId}
-                            myName={this.state.myName} percent={this.state.percent}
-                            headportrait={this.state.headportrait}/>
+                  <Messages style={{ display: !isLoading ? 'block' : 'none' }} messages={this.state.messages} myId={this.state.myId}
+                    myName={this.state.myName} percent={this.state.percent}
+                    headportrait={this.state.headportrait} />
                 </div>
               </Content>
-              <Footer style={{backgroundColor: 'rgba(255, 255, 255, 0.65)'}} className='footer'>
+              <Footer style={{ backgroundColor: 'rgba(255, 255, 255, 0.65)' }} className='footer'>
                 <ChatInput myId={this.state.myId} myName={this.state.myName}
-                           socket={this.state.socket} updateMsg={this.updateMsg}
-                           uploadProgress={this.uploadProgress}
-                           percent={this.state.percent}/>
+                  socket={this.state.socket} updateMsg={this.updateMsg}
+                  uploadProgress={this.uploadProgress}
+                  percent={this.state.percent} />
               </Footer>
             </Layout>
           </Layout>

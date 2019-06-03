@@ -47,7 +47,7 @@ class Message extends Component {
     if (emoji != null) {
       emoji.map(function (item) {
         if (item.match(/\d{2}/)[0] >= 1 && item.match(/\d{2}/)[0] <= 33) {
-          action = action.replace(item, '<img src="' + `http://cdn.algbb.fun/emoji/${item.slice(2, 4)}.png` + '" width=30 height=30/>')
+          action = action.replace(item, '<img src="' + `https://cdn.algbb.fun/emoji/${item.slice(2, 4)}.png` + '" width=30 height=30/>')
         }
       })
       action = <div dangerouslySetInnerHTML={{__html: action}}></div>
@@ -57,7 +57,7 @@ class Message extends Component {
       const userAvater = headportrait.filter(function (e) {
         return e.username === user;
       });
-      const avater = userAvater.length !== 0 ? userAvater[0].img : 'http://cdn.algbb.fun/emoji/32.png';
+      const avater = userAvater.length !== 0 ? userAvater[0].img : 'https://cdn.algbb.fun/emoji/32.png';
       const imgMessages = (
         <div className={(this.props.isMe) ? "chatLog self" : "chatLog"}>
           <div id="chat-avater" className={(this.props.isMe) ? 'chat-avater my-avater' : 'chat-avater'}

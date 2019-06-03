@@ -85,14 +85,14 @@ export default class ChatInput extends Component {
             },
             complete: (info) => {
               // Add chatLog in the database
-              that.sendImage(`http://cdn.algbb.fun/${key}`)
+              that.sendImage(`https://cdn.algbb.fun/${key}`)
               const upload = document.getElementsByClassName('image-upload'),
                 div = document.getElementsByClassName('image-message');
               // Hide progress bar
               upload[upload.length - 1].style.display = 'none';
               div[div.length - 1].style.filter = '';
               // Change img src
-              div[div.length - 1].src = `http://cdn.algbb.fun/${key}`;
+              div[div.length - 1].src = `https://cdn.algbb.fun/${key}`;
             }
           })
         }).then(() => {
@@ -154,7 +154,7 @@ export default class ChatInput extends Component {
         </Dropdown>
         <input style={{display: 'none'}} id={'selectImage'} type={'file'} accept={'image/*'}
                onChange={this.chooseImage}/>
-        <Input id='input-box' autoComplete='off' type='text' disableautocomplete='true' className='input-box'
+        <Input id='input-box' autoComplete='off' disableautocomplete='true' className='input-box'
                onPressEnter={this.handleClick.bind(this)}
                value={this.state.message}
                onChange={this.handleChange.bind(this)} placeholder={'代码打完了？BUG修好了？作业写完了？还不快点去......'}/>
