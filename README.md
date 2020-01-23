@@ -4,7 +4,7 @@
 BB小天使聊天室是一个主要面向校园闲置物品交易
 、学生互帮互助、吹水吐槽等功能的聊天室:pig:
 
-在线地址：[https://chat.algbb.fun/](https://chat.algbb.fun/)
+在线地址：[https://chat.algbb.fun/](https://chat.algbb.fun/) （已过期）
 
 ## 技术选型
 
@@ -20,6 +20,7 @@ BB小天使聊天室是一个主要面向校园闲置物品交易
 2. 发送文本、图片消息
 3. 发送emoji表情
 4. 显示在线用户
+5. 修改头像
 
 > 待完成
 1. 实现私聊
@@ -29,9 +30,8 @@ BB小天使聊天室是一个主要面向校园闲置物品交易
 
 ## 运行截图
 
-![](http://cdn.algbb.fun/show1.png)
-![](http://cdn.algbb.fun/show2.png)
-![](http://cdn.algbb.fun/show4.png)
+![](http://cdn.algbb.cn/screenshots/chatroom/微信图片_20200123083710.jpg)
+
 
 ## 安装运行
 
